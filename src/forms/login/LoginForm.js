@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Icon, Input, Button, Card, Row, Col, message } from "antd";
+import { firebaseLogin } from "../../services/firebase";
 import Logo from "../../components/LogoWhite";
 
 const key = "updatable";
@@ -34,6 +35,7 @@ const LoginForm = () => {
       return;
     }
     setError(false);
+    firebaseLogin(email, password);
     message.loading({ content: "Iniciando sesión...", key });
     setTimeout(() => {
       message.success({
@@ -62,7 +64,6 @@ const LoginForm = () => {
           name="email"
           onChange={onChange}
           value={email}
-          error={error}
         />
         <Input
           prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -72,7 +73,6 @@ const LoginForm = () => {
           name="password"
           onChange={onChange}
           value={password}
-          error={error}
         />
         <Button
           type="primary"

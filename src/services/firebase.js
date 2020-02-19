@@ -1,5 +1,5 @@
 import firebase from "firebase/app";
-import "react/auth";
+import "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnDMrIoOXrbyuEVePpqHVk52iecUh8IrE",
@@ -13,3 +13,15 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+export const firebaseRegister = (email, password) => {
+  firebase.auth().createUserWithEmailAndPassword(email, password);
+};
+
+export const firebaseLogin = (email, password) => {
+  firebase.auth().signInWithEmailAndPassword(email, password);
+};
+
+export const firebaseLogout = () => {
+  firebase.auth().signOut();
+};
