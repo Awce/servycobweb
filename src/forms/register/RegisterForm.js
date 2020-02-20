@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Icon, Input, Button, message } from "antd";
+import { Form, Icon, Input, Button, message, notification } from "antd";
 
 const key = "updatable";
 
@@ -43,6 +43,25 @@ const RegisterForm = () => {
       return;
     }
     setError(false);
+    message.loading({ content: "Registrando usuario...", key });
+    setTimeout(() => {
+      message.success({
+        content: "Genial.",
+        key,
+        duration: 2
+      });
+    }, 1000);
+  };
+
+  const openNotification = () => {
+    notification.open({
+      message: "Notification Title",
+      description:
+        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+      onClick: () => {
+        console.log("Notification Clicked!");
+      }
+    });
   };
 
   return (
@@ -86,6 +105,7 @@ const RegisterForm = () => {
         className="login-form-button"
         size="large"
         block
+        onClick={openNotification}
       >
         Registrar usuario
       </Button>
