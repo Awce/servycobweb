@@ -25,15 +25,15 @@ const customersRef = firestore.collection("customers");
 // const ladysRefs = firebase.collection("ladys");
 
 export const firebaseRegister = (email, password) => {
-  firebase.auth().createUserWithEmailAndPassword(email, password);
+  return firebase.auth().createUserWithEmailAndPassword(email, password);
 };
 
 export const firebaseLogin = (email, password) => {
-  firebase.auth().signInWithEmailAndPassword(email, password);
+  return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
 export const firebaseLogout = () => {
-  firebase.auth().signOut();
+  return firebase.auth().signOut();
 };
 
 export function getUsers() {

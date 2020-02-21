@@ -1,5 +1,5 @@
 import React from "react";
-import SummaryLayout from "../../layouts/application/SummaryLayout";
+import SummaryLayout from "../../layouts/summary/SummaryLayout";
 
 const SummaryPage = () => {
   return <SummaryLayout />;

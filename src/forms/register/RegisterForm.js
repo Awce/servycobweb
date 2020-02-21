@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Form, Icon, Input, Button, message, notification } from "antd";
+import { firebaseRegister } from "../../services/firebase";
 
 const key = "updatable";
 
@@ -22,9 +24,10 @@ const RegisterForm = () => {
 
   const { name, lastname, email, password } = user;
 
+  let history = useHistory();
+
   const userRegister = e => {
     e.preventDefault();
-    console.log("registrando");
     if (
       name.trim() === "" ||
       lastname.trim() === "" ||
@@ -43,8 +46,10 @@ const RegisterForm = () => {
       return;
     }
     setError(false);
+    firebaseRegister(email, password);
     message.loading({ content: "Registrando usuario...", key });
     setTimeout(() => {
+      history.push("/register");
       message.success({
         content: "Genial.",
         key,

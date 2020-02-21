@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Form, Icon, Input, Button, Card, Row, Col, message } from "antd";
 import { firebaseLogin } from "../../services/firebase";
 import Logo from "../../components/LogoWhite";
@@ -12,6 +13,8 @@ const LoginForm = () => {
   });
 
   const [error, setError] = useState(false);
+
+  let history = useHistory();
 
   const onChange = e => {
     setUser({
@@ -38,6 +41,7 @@ const LoginForm = () => {
     firebaseLogin(email, password);
     message.loading({ content: "Iniciando sesión...", key });
     setTimeout(() => {
+      history.push("/summary");
       message.success({
         content: "Bienvenido.",
         key,
