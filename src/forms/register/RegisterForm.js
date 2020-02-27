@@ -49,7 +49,7 @@ const RegisterForm = () => {
     firebaseRegister(email, password);
     message.loading({ content: "Registrando usuario...", key });
     setTimeout(() => {
-      history.push("/register");
+      history.push("/");
       message.success({
         content: "Genial.",
         key,

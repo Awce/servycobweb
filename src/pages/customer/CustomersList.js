@@ -20,7 +20,8 @@ const CustomersList = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ paddingLeft: "10px", marginTop: "10px" }}>
+      <h1>Clientes</h1>
       {customers.map((customer, key) => (
         <div>
           <div key={key}>

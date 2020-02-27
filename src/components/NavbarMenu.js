@@ -1,13 +1,10 @@
 import React from "react";
-import { Menu, Row, Col, Badge, Icon } from "antd";
+import { Row, Col, Badge, Icon } from "antd";
 import UserAvatar from "./user/UserAvatar";
 import LogoCompany from "./LogoCompany";
 
 const NavbarMenu = () => {
   return (
-    // <Menu mode="horizontal">
-
-    // </Menu>
     <Row>
       <Col justify="end" span={18} push={6}>
         <Row gutter={[16, 16]}>
