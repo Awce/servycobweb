@@ -1,11 +1,11 @@
 import React from "react";
-import RegisterDrawerButton from "../../components/register/RegisterDrawerButton";
+import RegisterUserButton from "../../components/register/RegisterUserButton";
 
 const RegisterPage = () => {
   return (
     <div>
       <h1>Soy el layout del registro</h1>
-      <RegisterDrawerButton />
+      <RegisterUserButton />
     </div>
   );
 };

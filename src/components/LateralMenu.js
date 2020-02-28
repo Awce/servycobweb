@@ -14,8 +14,6 @@ const LateralMenu = () => {
     history.push(to);
   };
 
-  console.log(currentLocation);
-
   return (
     <Menu defaultSelectedKeys={["1"]} defaultOpenKeys={["sub1"]} mode="inline">
       <Menu.ItemGroup key="g1" title="PERSONAL">
@@ -23,7 +21,7 @@ const LateralMenu = () => {
           <Icon
             type="home"
             className={`${
-              !currentLocation === "summary" ? "menu-item-active" : ""
+              currentLocation === "summary" ? "menu-item-active" : ""
             }`}
           />
           <span>Información general</span>
@@ -41,7 +39,7 @@ const LateralMenu = () => {
             <Icon
               type="phone"
               className={`${
-                !currentLocation === "calls" ? "menu-item-active" : ""
+                currentLocation === "calls" ? "menu-item-active" : ""
               }`}
             />
             <span>Llamadas</span>
@@ -50,7 +48,7 @@ const LateralMenu = () => {
             <Icon
               type="environment"
               className={`${
-                !currentLocation === "visits" ? "menu-item-active" : ""
+                currentLocation === "visits" ? "menu-item-active" : ""
               }`}
             />
             <span>Visitas</span>
@@ -59,7 +57,7 @@ const LateralMenu = () => {
             <Icon
               type="container"
               className={`${
-                !currentLocation === "pays" ? "menu-item-active" : ""
+                currentLocation === "pays" ? "menu-item-active" : ""
               }`}
             />
             <span>Pagos</span>
@@ -68,7 +66,7 @@ const LateralMenu = () => {
             <Icon
               type="check-circle"
               className={`${
-                !currentLocation === "confirmations" ? "menu-item-active" : ""
+                currentLocation === "confirmations" ? "menu-item-active" : ""
               }`}
             />
             <span>Confirmaciones</span>
@@ -87,7 +85,7 @@ const LateralMenu = () => {
             <Icon
               type="message"
               className={`${
-                !currentLocation === "messages" ? "menu-item-active" : ""
+                currentLocation === "messages" ? "menu-item-active" : ""
               }`}
             />
             <span>Mensajes</span>
@@ -96,7 +94,7 @@ const LateralMenu = () => {
             <Icon
               type="mail"
               className={`${
-                !currentLocation === "mails" ? "menu-item-active" : ""
+                currentLocation === "mails" ? "menu-item-active" : ""
               }`}
             />
             <span>Correos</span>
@@ -109,7 +107,7 @@ const LateralMenu = () => {
           <Icon
             type="contacts"
             className={`${
-              !currentLocation === "customers" ? "menu-item-active" : ""
+              currentLocation === "customers" ? "menu-item-active" : ""
             }`}
           />
           <span>Clientes</span>
@@ -128,7 +126,7 @@ const LateralMenu = () => {
             <Icon
               type="usergroup-add"
               className={`${
-                !currentLocation === "employees" ? "menu-item-active" : ""
+                currentLocation === "employees" ? "menu-item-active" : ""
               }`}
             />
             <span>Empleados</span>
@@ -137,7 +135,7 @@ const LateralMenu = () => {
             <Icon
               type="gift"
               className={`${
-                !currentLocation === "bonuses" ? "menu-item-active" : ""
+                currentLocation === "bonuses" ? "menu-item-active" : ""
               }`}
             />
             <span>Bonos</span>
@@ -147,7 +145,7 @@ const LateralMenu = () => {
           <Icon
             type="pie-chart"
             className={`${
-              !currentLocation === "reports" ? "menu-item-active" : ""
+              currentLocation === "reports" ? "menu-item-active" : ""
             }`}
           />
           <span>Reportes</span>
@@ -159,7 +157,7 @@ const LateralMenu = () => {
           <Icon
             type="read"
             className={`${
-              !currentLocation === "documentations" ? "menu-item-active" : ""
+              currentLocation === "documentations" ? "menu-item-active" : ""
             }`}
           />
           <span>Documentación</span>
@@ -168,7 +166,7 @@ const LateralMenu = () => {
           <Icon
             type="video-camera"
             className={`${
-              !currentLocation === "videos" ? "menu-item-active" : ""
+              currentLocation === "videos" ? "menu-item-active" : ""
             }`}
           />
           <span>Videos</span>
@@ -177,7 +175,7 @@ const LateralMenu = () => {
           <Icon
             type="question"
             className={`${
-              !currentLocation === "questions" ? "menu-item-active" : ""
+              currentLocation === "questions" ? "menu-item-active" : ""
             }`}
           />
           <span>Preguntas</span>

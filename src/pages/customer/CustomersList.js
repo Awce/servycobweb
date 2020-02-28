@@ -1,9 +1,67 @@
 import React, { useState, useEffect } from "react";
+import RegisterCustomerButton from "../../components/register/RegisterCustomerButton";
 import { getCustomers } from "../../services/firebase";
 import { Link } from "react-router-dom";
+import { PageHeader, Table, Badge } from "antd";
 
 const CustomersList = () => {
   const [customers, setCustomers] = useState([]);
+
+  const columns = [
+    {
+      title: "#",
+      dataIndex: "logo",
+      key: "id",
+      align: "center",
+      render: (logo, name) => (
+        <figure>
+          <img src={logo} alt={name} width="100px" />
+        </figure>
+      )
+    },
+    {
+      title: "Cliente",
+      dataIndex: "name",
+      key: "name",
+      align: "center",
+      render: (text, customer) => (
+        <Link to={`/customers/${customer.id}`}>
+          <span>{customer.name}</span>
+        </Link>
+      )
+    },
+    {
+      title: "Desde",
+      dataIndex: "customerform",
+      key: "customerform",
+      align: "center"
+    },
+    {
+      title: "Gestores telefónicos",
+      dataIndex: "managers",
+      key: "managers",
+      align: "center"
+    },
+    {
+      title: "Gestores en campo",
+      dataIndex: "fieldmanagers",
+      key: "fieldmanagers",
+      align: "center"
+    },
+    {
+      title: "Supervisor",
+      dataIndex: "supervisor",
+      key: "supervisor",
+      align: "center"
+    },
+    {
+      title: "Desempeño",
+      dataIndex: "ratings",
+      key: "ratings",
+      align: "center",
+      render: ratings => <Badge status="success" text={ratings} />
+    }
+  ];
 
   useEffect(() => {
     const getCustomersFirebase = () => {
@@ -20,20 +78,22 @@ const CustomersList = () => {
   }, []);
 
   return (
-    <div style={{ paddingLeft: "10px", marginTop: "10px" }}>
-      <h1>Clientes</h1>
-      {customers.map((customer, key) => (
-        <div>
-          <div key={key}>
-            <figure>
-              <img src={customer.logo} alt={customer.name} />
-            </figure>
-            <Link to={`/customers/${customer.id}`}>
-              <p>{customer.name}</p>
-            </Link>
-          </div>
-        </div>
-      ))}
+    <div
+      style={{ paddingLeft: "20px", marginTop: "10px", marginRight: "20px" }}
+    >
+      <PageHeader
+        style={{
+          border: "1px solid rgb(235, 237, 240)"
+        }}
+        title="Clientes"
+        subTitle="Lista"
+        extra={[<RegisterCustomerButton key="1" />]}
+      />
+      <Table
+        columns={columns}
+        dataSource={customers}
+        rowKey={customers => customers.id}
+      />
     </div>
   );
 };

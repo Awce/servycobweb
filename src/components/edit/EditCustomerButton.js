@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Drawer, Button, Icon } from "antd";
-import RegisterForm from "../../forms/register/RegisterForm";
 
-const RegisterDrawerButton = () => {
+const EditCustomerButton = () => {
   const [show, setShow] = useState({
     visible: false
   });
@@ -23,20 +22,20 @@ const RegisterDrawerButton = () => {
 
   return (
     <div>
-      <Button type="primary" size="large" onClick={showDrawer}>
-        <Icon type="user-add" /> Crear nuevo usuario
+      <Button type="primary" onClick={showDrawer}>
+        <Icon type="edit" /> Editar cliente
       </Button>
       <Drawer
-        title="Crear nuevo usuario"
+        title="Editar cliente"
         width={720}
         bodyStyle={{ paddingBottom: 80 }}
         onClose={onClose}
         visible={visible}
       >
-        <RegisterForm />
+        <h1>Editar Cliente</h1>
       </Drawer>
     </div>
   );
 };
 
-export default RegisterDrawerButton;
+export default EditCustomerButton;
