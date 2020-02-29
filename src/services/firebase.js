@@ -19,10 +19,10 @@ const firestore = firebase.firestore();
 
 const usersRef = firestore.collection("users");
 const customersRef = firestore.collection("customers");
+const contactsRef = firestore.collection("contacts");
 // const assignmentsRef = firestore.collection("assignments");
 // const campaignsRef = firestore.collection("campaigns");
 // const paysRef = firebase.collection("pays");
-// const ladysRefs = firebase.collection("ladys");
 
 export const firebaseRegister = (email, password) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -95,6 +95,37 @@ export function getCustomers() {
 
 export function getCustomer(id) {
   return customersRef
+    .doc(id)
+    .get()
+    .then(doc => {
+      return doc.data();
+    })
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+    });
+}
+
+export function getContacts() {
+  return contactsRef
+    .get()
+    .then(snap => {
+      const contacts = [];
+      snap.forEach(value => {
+        contacts.push(value.data());
+      });
+      return contacts;
+    })
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+    });
+}
+
+export function getContact(id) {
+  return contactsRef
     .doc(id)
     .get()
     .then(doc => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, message } from "antd";
+import { Button } from "antd";
 import { useHistory } from "react-router-dom";
 import { firebaseLogout } from "../../services/firebase";
 

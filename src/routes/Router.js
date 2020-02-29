@@ -12,6 +12,7 @@ import NavbarMenu from "../components/NavbarMenu";
 import LateralMenu from "../components/LateralMenu";
 import EmptyPage from "../pages/EmptyPage";
 import AssignmentsList from "../pages/assignments/AssignmentsList";
+import AssignmentDetails from "../pages/assignments/AssignmentDetails";
 
 const { Header, Sider, Content } = Layout;
 
@@ -40,6 +41,11 @@ const PrivateRouter = () => {
               <Route exact path="/customers" component={Customers} />
               <Route exact path="/customers/:Id" component={CustomersDetails} />
               <Route exact path="/calls" component={AssignmentsList} />
+              <Route
+                exact
+                path="/calls/contacts/:Id"
+                component={AssignmentDetails}
+              />
               <Route component={EmptyPage} />
             </Switch>
           </Content>

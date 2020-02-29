@@ -2,13 +2,16 @@ import React from "react";
 import { Row, Col, Badge, Icon } from "antd";
 import UserAvatar from "./user/UserAvatar";
 import LogoCompany from "./LogoCompany";
+import TimeInSession from "./TimeInSession";
 
 const NavbarMenu = () => {
   return (
     <Row>
       <Col justify="end" span={18} push={6}>
         <Row gutter={[16, 16]}>
-          <Col span={6} />
+          <Col span={6}>
+            <TimeInSession />
+          </Col>
           <Col span={6} />
           <Col span={6}>
             <Col span={6}>

@@ -1,5 +1,14 @@
 import React from "react";
-import { List, Card, Row, Col, Calendar } from "antd";
+import {
+  List,
+  Card,
+  Row,
+  Col,
+  Calendar,
+  Empty,
+  PageHeader,
+  Progress
+} from "antd";
 
 const data = [
   {
@@ -25,14 +34,24 @@ const SummaryPage = () => {
     console.log(value, mode);
   };
   return (
-    <div style={{ paddingLeft: "10px", marginTop: "10px" }}>
-      <h1>Bienvenido</h1>
+    <div
+      style={{ paddingLeft: "20px", marginTop: "10px", marginRight: "20px" }}
+    >
+      <PageHeader
+        style={{
+          border: "1px solid rgb(235, 237, 240)"
+        }}
+        title="Bienvenido"
+        subTitle="Inicio"
+      />
       <List
         grid={{ gutter: 16, column: 4 }}
         dataSource={data}
         renderItem={item => (
           <List.Item>
-            <Card>{item.content}</Card>
+            <Card>
+              {item.content} <Progress type="circle" percent={30} width={80} />
+            </Card>
           </List.Item>
         )}
       />
@@ -44,7 +63,7 @@ const SummaryPage = () => {
         </Col>
         <Col span={8}>
           <Card title="Top Visitadores">
-            <h1>ok</h1>
+            <Empty description={<span>No hay datos</span>} />
           </Card>
         </Col>
       </Row>
