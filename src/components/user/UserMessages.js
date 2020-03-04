@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Drawer, Button, Icon } from "antd";
-import RegisterDictationForm from "../../forms/register/RegisterDictationForm";
+import { Badge, Icon, Drawer, Empty } from "antd";
 
-const RegisterDictationButton = () => {
+const UserMessages = () => {
   const [show, setShow] = useState({
     visible: false
   });
@@ -18,24 +17,27 @@ const RegisterDictationButton = () => {
       visible: false
     });
   };
-
   const { visible } = show;
   return (
     <div>
-      <Button type="primary" onClick={showDrawer}>
-        <Icon type="file-add" /> Agregar
-      </Button>
+      <Badge count={2} dot>
+        <Icon
+          style={{ fontSize: "24px" }}
+          type="message"
+          onClick={showDrawer}
+        />
+      </Badge>
       <Drawer
-        title="Crear nueva dictaminación"
-        width={720}
+        title="Mensajes"
+        width={420}
         bodyStyle={{ paddingBottom: 80 }}
         onClose={onClose}
         visible={visible}
       >
-        <RegisterDictationForm />
+        <Empty description={<span>No tienes mensajes</span>} />
       </Drawer>
     </div>
   );
 };
 
-export default RegisterDictationButton;
+export default UserMessages;

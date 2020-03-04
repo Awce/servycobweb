@@ -90,6 +90,7 @@ const CustomersList = () => {
         extra={[<RegisterCustomerButton key="1" />]}
       />
       <Table
+        style={{ marginTop: "3px" }}
         columns={columns}
         dataSource={customers}
         rowKey={customers => customers.id}

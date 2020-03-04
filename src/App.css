@@ -1,3 +1,12 @@
+.avatar-uploader > .ant-upload {
+  width: 128px;
+  height: 128px;
+}
+
+.ant-layout-header {
+  padding: 0 !important;
+}
+
 .bg-image {
   background-image: url("https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/phones-1422976.png?alt=media&token=7d68d719-2882-443d-9b28-80932b1a9b2a") !important;
   background-repeat: no-repeat;
@@ -8,6 +17,10 @@
   margin-top: 5px !important;
   margin-bottom: 10px !important;
   height: 50px !important;
+}
+
+.logo-company {
+  padding-left: 30px;
 }
 
 .logo-customer {

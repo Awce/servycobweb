@@ -1,8 +1,11 @@
 import React from "react";
-import { Row, Col, Badge, Icon } from "antd";
+import { Row, Col } from "antd";
 import UserAvatar from "./user/UserAvatar";
 import LogoCompany from "./LogoCompany";
 import TimeInSession from "./TimeInSession";
+import UserNotifications from "./user/UserNotifications";
+import UserEmails from "./user/UserEmails";
+import UserMessages from "./user/UserMessages";
 
 const NavbarMenu = () => {
   return (
@@ -15,19 +18,13 @@ const NavbarMenu = () => {
           <Col span={6} />
           <Col span={6}>
             <Col span={6}>
-              <Badge count={2} dot>
-                <Icon style={{ fontSize: "24px" }} type="message" />
-              </Badge>
+              <UserMessages />
             </Col>
             <Col span={6}>
-              <Badge count={2} dot>
-                <Icon style={{ fontSize: "24px" }} type="mail" />
-              </Badge>
+              <UserEmails />
             </Col>
             <Col span={6}>
-              <Badge count={2} dot>
-                <Icon style={{ fontSize: "24px" }} type="notification" />
-              </Badge>
+              <UserNotifications />
             </Col>
           </Col>
           <Col span={6}>
@@ -35,7 +32,7 @@ const NavbarMenu = () => {
           </Col>
         </Row>
       </Col>
-      <Col justify="center" span={6} pull={18}>
+      <Col className="logo-company" justify="center" span={6} pull={18}>
         <LogoCompany />
       </Col>
     </Row>

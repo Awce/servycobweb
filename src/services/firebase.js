@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnDMrIoOXrbyuEVePpqHVk52iecUh8IrE",
@@ -20,12 +21,24 @@ const firestore = firebase.firestore();
 const usersRef = firestore.collection("users");
 const customersRef = firestore.collection("customers");
 const contactsRef = firestore.collection("contacts");
-// const assignmentsRef = firestore.collection("assignments");
-// const campaignsRef = firestore.collection("campaigns");
-// const paysRef = firebase.collection("pays");
 
-export const firebaseRegister = (email, password) => {
-  return firebase.auth().createUserWithEmailAndPassword(email, password);
+const usersAvatar = firebase.storage().ref("avatars");
+
+export const firebaseRegister = (imageUrl, name, lastname, email, password) => {
+  return firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      const id = firebase.auth().currentUser.uid;
+      return usersRef
+        .doc(id)
+        .set({ id, imageUrl, name, lastname, email, password });
+    })
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+    });
 };
 
 export const firebaseLogin = (email, password) => {
@@ -74,6 +87,37 @@ export function createUser(item) {
     item["id"] = id;
   }
   return usersRef.doc(id).set(item);
+}
+
+export function uploadUserImage(file) {
+  return usersAvatar
+    .child(file.name)
+    .put(file)
+    .then(res => {
+      res.ref.getDownloadURL();
+    })
+    .then(link => link)
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+    });
+}
+
+export function saveUserImage(item) {
+  let id = usersRef.doc().id;
+  item.id = id;
+  return usersRef.doc.id.set(item);
+}
+
+export function getUserImages() {
+  return usersRef.get().then(snap => {
+    let images = [];
+    snap.docs.forEach(el => {
+      images.push(el.data);
+    });
+    return images;
+  });
 }
 
 export function getCustomers() {

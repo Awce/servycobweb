@@ -12,20 +12,20 @@ import {
 
 const data = [
   {
-    title: "Title 1",
-    content: "Prueba 1"
+    title: "Hoy",
+    content: "10"
   },
   {
-    title: "Title 2",
-    content: "Prueba 2"
+    title: "Confirmadas",
+    content: "8"
   },
   {
-    title: "Title 3",
-    content: "Prueba 3"
+    title: "Realizadas",
+    content: "3"
   },
   {
-    title: "Title 4",
-    content: "Prueba 4"
+    title: "Recuperados",
+    content: "$15,000"
   }
 ];
 
@@ -41,16 +41,25 @@ const SummaryPage = () => {
         style={{
           border: "1px solid rgb(235, 237, 240)"
         }}
-        title="Bienvenido"
+        title="Bienvenido, Raul Hernandez"
         subTitle="Inicio"
       />
       <List
         grid={{ gutter: 16, column: 4 }}
         dataSource={data}
+        style={{ marginTop: "3px" }}
         renderItem={item => (
           <List.Item>
             <Card>
-              {item.content} <Progress type="circle" percent={30} width={80} />
+              <Row gutter={16}>
+                <Col span={14}>
+                  <h6>{item.title}</h6>
+                  <h1>{item.content}</h1>
+                </Col>
+                <Col span={10}>
+                  <Progress type="circle" percent={30} width={80} />
+                </Col>
+              </Row>
             </Card>
           </List.Item>
         )}

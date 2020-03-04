@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import UserAvatarForm from "./UserAvatarForm";
 import { useHistory } from "react-router-dom";
 import { Form, Icon, Input, Button, message, notification } from "antd";
 import { firebaseRegister } from "../../services/firebase";
@@ -10,7 +11,8 @@ const RegisterForm = () => {
     name: "",
     lastname: "",
     email: "",
-    password: ""
+    password: "",
+    imageUrl: ""
   });
 
   const [error, setError] = useState(false);
@@ -21,8 +23,6 @@ const RegisterForm = () => {
       [e.target.name]: e.target.value
     });
   };
-
-  const { name, lastname, email, password } = user;
 
   let history = useHistory();
 
@@ -46,31 +46,40 @@ const RegisterForm = () => {
       return;
     }
     setError(false);
-    firebaseRegister(email, password);
-    message.loading({ content: "Registrando usuario...", key });
-    setTimeout(() => {
-      history.push("/");
-      message.success({
-        content: "Genial.",
-        key,
-        duration: 2
+    firebaseRegister(imageUrl, name, lastname, email, password)
+      .then(() => {
+        message.loading({ content: "Registrando usuario...", key });
+        setTimeout(() => {
+          history.push("/summary");
+          message.success({
+            content: "Genial.",
+            key,
+            duration: 2
+          });
+        }, 1000);
+      })
+      .catch(error => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(`${errorCode}: ${errorMessage}`);
       });
-    }, 1000);
   };
 
   const openNotification = () => {
     notification.open({
-      message: "Notification Title",
-      description:
-        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+      message: "Registro exitoso",
+      description: `Se ha enviado un correo a ${email}, para verificar su registro.`,
       onClick: () => {
         console.log("Notification Clicked!");
       }
     });
   };
 
+  const { imageUrl, name, lastname, email, password } = user;
+
   return (
     <Form onSubmit={userRegister}>
+      <UserAvatarForm value={imageUrl} name="imageUrl" onChange={onChange} />
       <Input
         prefix={<Icon type="smile" style={{ color: "rgba(0,0,0,.25)" }} />}
         placeholder="Nombre(s)"
@@ -114,6 +123,10 @@ const RegisterForm = () => {
       >
         Registrar usuario
       </Button>
+      <p>
+        Al crear una cuenta estás aceptando los Términos de Servicio y
+        Privacidad.
+      </p>
     </Form>
   );
 };

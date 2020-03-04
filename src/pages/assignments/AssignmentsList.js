@@ -79,6 +79,7 @@ const AssignmentsList = () => {
       <Table
         columns={columns}
         dataSource={contacts}
+        style={{ marginTop: "3px" }}
         rowKey={contacts => contacts.id}
       />
     </div>
