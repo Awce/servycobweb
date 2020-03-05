@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getUsers } from "../../services/firebase";
 import { Link } from "react-router-dom";
-import { PageHeader, Table, Avatar, Icon } from "antd";
+import { PageHeader, Table, Avatar } from "antd";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);

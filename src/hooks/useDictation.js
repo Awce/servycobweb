@@ -363,7 +363,7 @@ const useDictation = () => {
 
   const SelectDictation = () => (
     <Form>
-      <Form.Item label="Dictamen :">
+      <Form.Item label="Dictamen / SubDictamen / Motivo :">
         <Cascader
           size="large"
           options={DictationsOptions}
