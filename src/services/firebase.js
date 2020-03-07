@@ -49,6 +49,16 @@ export const firebaseLogout = () => {
   return firebase.auth().signOut();
 };
 
+export const firebaseCurrentUser = () => {
+  return firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser != null) {
+      console.log("No hay usuario");
+    } else {
+      console.log(firebaseUser);
+    }
+  });
+};
+
 export function getUsers() {
   return usersRef
     .get()

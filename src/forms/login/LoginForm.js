@@ -9,7 +9,8 @@ const key = "updatable";
 const LoginForm = () => {
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
+    loggedIn: false
   });
 
   const [error, setError] = useState(false);
@@ -63,7 +64,7 @@ const LoginForm = () => {
       <Form className="login-form" onSubmit={userLogin}>
         <Input
           prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
-          placeholder="Correo"
+          placeholder="Ingresa tu correo"
           className="input-form"
           name="email"
           onChange={onChange}
@@ -72,7 +73,7 @@ const LoginForm = () => {
         <Input
           prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           type="password"
-          placeholder="Contraseña"
+          placeholder="Ingresa tu contraseña"
           className="input-form"
           name="password"
           onChange={onChange}

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 
-let UserContext = React.createContext();
+let UserContext = createContext();
+
 let { Provider, Consumer } = UserContext;
 
 const UserProvider = ({ children }) => {

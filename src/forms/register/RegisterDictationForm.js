@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
+import useForm from "../../hooks/useForm";
 import {
   Cascader,
   Form,
   Button,
   Input,
+  InputNumber,
   Col,
   Row,
   DatePicker
-  //notification
 } from "antd";
-//import { Link } from "react-router-dom";
 
 const { TextArea } = Input;
 const InputGroup = Input.Group;
+
+const initialValues = {
+  dictation: "",
+  date: "",
+  amount: "",
+  serial: "",
+  note: ""
+};
 
 export const DictationsOptions = [
   {
@@ -345,20 +353,7 @@ export const DictationsOptions = [
 ];
 
 const RegisterDictationForm = () => {
-  const [dictation, setDictation] = useState([]);
-
-  const [infopay, setInfopay] = useState({
-    amount: "",
-    serial: "",
-    note: ""
-  });
-
-  const onChangePay = e => {
-    setInfopay({
-      ...infopay,
-      [e.target.name]: e.target.value
-    });
-  };
+  const form = useForm({ initialValues });
 
   function handleAreaClick(e, label, option) {
     e.stopPropagation();
@@ -385,18 +380,6 @@ const RegisterDictationForm = () => {
       return <span key={option.value}>{label} / </span>;
     });
 
-  // const openNotification = () => {
-  //   notification.open({
-  //     message: "Registro exitoso",
-  //     description: `Genial.`,
-  //     onClick: () => {
-  //       console.log("Notification Clicked!");
-  //     }
-  //   });
-  // };
-
-  const { amount, serial, note } = infopay;
-
   return (
     <Form>
       <Form.Item label="Dictamen / Subdictamen / Motivo">
@@ -406,9 +389,7 @@ const RegisterDictationForm = () => {
           placeholder="Selecciona el árbol de dictamen"
           displayRender={displayRender}
           allowClear
-          // onChange={onChange}
-          // value={dictationdata}
-          // name="dictationdata"
+          {...form.getSelect("dictation")}
         />
       </Form.Item>
       <Form.Item label="Fecha, Monto de pago y Folio de recibo">
@@ -418,24 +399,17 @@ const RegisterDictationForm = () => {
               <DatePicker
                 style={{ width: "100%" }}
                 placeholder="Selecciona la fecha"
-                // name="date"
-                // value={date}
-                //onChange={onChange}
               />
             </Col>
             <Col span={8}>
-              <Input
-                type="number"
+              <InputNumber
                 size="large"
                 style={{ width: "100%" }}
                 placeholder="Ingresa el Monto"
-                // formatter={value =>
-                //   `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                // }
-                // parser={value => value.replace(/\$\s?|(,*)/g, "")}
-                value={amount}
-                name="amount"
-                onChange={onChangePay}
+                formatter={value =>
+                  `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                parser={value => value.replace(/\$\s?|(,*)/g, "")}
               />
             </Col>
             <Col span={8}>
@@ -443,9 +417,7 @@ const RegisterDictationForm = () => {
                 type="text"
                 size="large"
                 placeholder="Folio"
-                name="serial"
-                value={serial}
-                onChange={onChangePay}
+                {...form.getInput("serial")}
               />
             </Col>
           </Row>
@@ -456,9 +428,7 @@ const RegisterDictationForm = () => {
           type="text"
           rows={4}
           placeholder="Agrega un comentario"
-          name="note"
-          value={note}
-          onChange={onChangePay}
+          {...form.getInput("note")}
         />
       </Form.Item>
       <Button
@@ -467,7 +437,6 @@ const RegisterDictationForm = () => {
         className="login-form-button"
         size="large"
         block
-        // onClick={openNotification}
       >
         Dictaminar
       </Button>

@@ -63,9 +63,9 @@ const AppRouter = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/admin" component={Home} />
         <PrivateRouter />
         <Route component={NotFound} />
       </Switch>
