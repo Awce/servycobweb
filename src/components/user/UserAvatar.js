@@ -1,15 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, Badge, Popover, Button } from "antd";
-import { useHistory } from "react-router-dom";
-import { firebaseLogout } from "../../services/firebase";
+import { UserContext } from "../../context/UserContext";
 
 const UserAvatar = () => {
-  let history = useHistory();
-  const logOut = () => {
-    firebaseLogout().then(() => {
-      history.push("/login");
-    });
-  };
+  const { user, login, logout } = useContext(UserContext);
 
   const content = (
     <div
@@ -20,12 +14,17 @@ const UserAvatar = () => {
         size={80}
         alt="Raúl Hernández"
       />
-      <span>
-        <h1>Raúl Hernández</h1>
-      </span>
-      <Button size="large" onClick={logOut} block>
-        Cerrar sesión
-      </Button>
+      <span>{user && <h1>{user.name}</h1>}</span>
+
+      {user ? (
+        <Button size="large" onClick={logout} block>
+          Cerrar sesión
+        </Button>
+      ) : (
+        <Button size="large" onClick={login} block>
+          Iniciar sesión
+        </Button>
+      )}
     </div>
   );
 
@@ -38,7 +37,7 @@ const UserAvatar = () => {
           alt="Raúl Hernández"
         />
       </Badge>
-      <span> Raúl Hernández</span>
+      {user && <span> {user.name}</span>}
     </Popover>
   );
 };
