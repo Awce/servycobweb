@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import RegisterUserButton from "../../components/register/RegisterUserButton";
 import { getUsers } from "../../services/firebase";
 import { Link } from "react-router-dom";
 import { PageHeader, Table, Avatar } from "antd";
@@ -57,6 +58,7 @@ const UsersList = () => {
         }}
         title="Empleados"
         subTitle="Lista"
+        extra={[<RegisterUserButton key="1" />]}
       />
       <Table
         columns={columns}

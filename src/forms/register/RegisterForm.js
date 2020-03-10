@@ -50,7 +50,7 @@ const RegisterForm = () => {
       .then(() => {
         message.loading({ content: "Registrando usuario...", key });
         setTimeout(() => {
-          history.push("/summary");
+          history.push("/");
           message.success({
             content: "Genial.",
             key,

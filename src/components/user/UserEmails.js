@@ -20,7 +20,7 @@ const UserEmails = () => {
   const { visible } = show;
   return (
     <div>
-      <Badge count={2} dot>
+      <Badge count={0} dot>
         <Icon style={{ fontSize: "24px" }} type="mail" onClick={showDrawer} />
       </Badge>
       <Drawer

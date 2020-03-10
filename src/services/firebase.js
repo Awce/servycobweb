@@ -42,19 +42,26 @@ export const firebaseRegister = (imageUrl, name, lastname, email, password) => {
 };
 
 export const firebaseLogin = (email, password) => {
-  return firebase.auth().signInWithEmailAndPassword(email, password);
+  return firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(res => {
+      localStorage.setItem("user", JSON.stringify(res.user));
+      return res.user;
+    });
 };
 
 export const firebaseLogout = () => {
+  localStorage.removeItem("user");
   return firebase.auth().signOut();
 };
 
 export const firebaseCurrentUser = () => {
-  return firebase.auth().onAuthStateChanged(firebaseUser => {
-    if (firebaseUser != null) {
-      console.log("No hay usuario");
+  return firebase.auth().onAuthStateChanged(user => {
+    if (user !== null) {
+      console.log(user);
     } else {
-      console.log(firebaseUser);
+      console.log("No hay usuario");
     }
   });
 };

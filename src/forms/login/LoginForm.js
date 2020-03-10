@@ -9,8 +9,7 @@ const key = "updatable";
 const LoginForm = () => {
   const [user, setUser] = useState({
     email: "",
-    password: "",
-    loggedIn: false
+    password: ""
   });
 
   const [error, setError] = useState(false);
@@ -39,17 +38,32 @@ const LoginForm = () => {
       return;
     }
     setError(false);
-    firebaseLogin(email, password);
-    message.loading({ content: "Iniciando sesión...", key });
-    setTimeout(() => {
-      history.push("/summary");
-      message.success({
-        content: "Bienvenido.",
-        key,
-        duration: 2
+    firebaseLogin(email, password)
+      .then(() => {
+        message.loading({ content: "Iniciando sesión...", key });
+        setTimeout(() => {
+          history.push("/summary");
+          message.success({
+            content: `Bienvenido, ${email}`,
+            key,
+            duration: 2
+          });
+        }, 1000);
+      })
+      .catch(error => {
+        console.log(error.code, error.message);
+        message.error({
+          content:
+            "La contraseña no es válida o el usuario no tiene una cuenta.",
+          key,
+          duration: 2
+        });
       });
-    }, 1000);
   };
+
+  // useEffect(() => {
+  //   login();
+  // }, []);
 
   const { email, password } = user;
 

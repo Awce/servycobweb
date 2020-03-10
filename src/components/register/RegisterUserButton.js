@@ -23,7 +23,7 @@ const RegisterUserButton = () => {
 
   return (
     <div>
-      <Button type="primary" size="large" onClick={showDrawer}>
+      <Button type="primary" onClick={showDrawer}>
         <Icon type="user-add" /> Crear nuevo usuario
       </Button>
       <Drawer

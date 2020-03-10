@@ -8,7 +8,7 @@ const UserButtonLogout = () => {
 
   const userLogout = () => {
     firebaseLogout().then(() => {
-      history.push("/");
+      history.goBack();
     });
   };
   return (

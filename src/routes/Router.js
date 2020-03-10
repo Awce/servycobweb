@@ -1,5 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import { Layout } from "antd";
 import Home from "../pages/home/HomePage";
 import Login from "../pages/login/LoginPage";
@@ -60,6 +66,7 @@ const PrivateRouter = () => {
 };
 
 const AppRouter = () => {
+  const { user } = useContext(UserContext);
   return (
     <Router>
       <Switch>
