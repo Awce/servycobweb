@@ -389,7 +389,6 @@ const RegisterDictationForm = () => {
           placeholder="Selecciona el árbol de dictamen"
           displayRender={displayRender}
           allowClear
-          {...form.getSelect("dictation")}
         />
       </Form.Item>
       <Form.Item label="Fecha, Monto de pago y Folio de recibo">

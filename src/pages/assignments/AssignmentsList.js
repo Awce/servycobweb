@@ -95,6 +95,7 @@ const AssignmentsList = () => {
         dataSource={contacts}
         style={{ marginTop: "3px" }}
         rowKey={contacts => contacts.id}
+        pagination={{ pageSize: 25 }}
       />
     </div>
   );

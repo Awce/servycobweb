@@ -37,7 +37,7 @@ const LoginForm = () => {
       }, 1000);
       return;
     }
-    setError(false);
+    setError(!error);
     firebaseLogin(email, password)
       .then(() => {
         message.loading({ content: "Iniciando sesión...", key });
@@ -61,10 +61,6 @@ const LoginForm = () => {
       });
   };
 
-  // useEffect(() => {
-  //   login();
-  // }, []);
-
   const { email, password } = user;
 
   return (
@@ -84,7 +80,7 @@ const LoginForm = () => {
           onChange={onChange}
           value={email}
         />
-        <Input
+        <Input.Password
           prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           type="password"
           placeholder="Ingresa tu contraseña"

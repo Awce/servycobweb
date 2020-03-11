@@ -65,6 +65,7 @@ const UsersList = () => {
         dataSource={users}
         rowKey={users => users.id}
         style={{ marginTop: "3px" }}
+        pagination={{ pageSize: 25 }}
       />
     </div>
   );

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Form, Icon, Input, Button, message, notification } from "antd";
+import { Form, Input, Button, message } from "antd";
+import { createCustomer } from "../../services/firebase";
+
+const key = "updatable";
 
 const RegisterCustomerForm = () => {
   const [newCustomer, setNewCustomer] = useState({
@@ -27,17 +30,41 @@ const RegisterCustomerForm = () => {
 
   const customerRegister = e => {
     e.preventDefault();
-    console.log("test");
-  };
-
-  const openNotification = () => {
-    notification.open({
-      message: "Registro exitoso",
-      description: `Esta listo para crear Campañas.`,
-      onClick: () => {
-        console.log("Notification Clicked!");
-      }
-    });
+    if (
+      name.trim() === "" ||
+      bussinessname.trim() === "" ||
+      phone.trim() === "" ||
+      address.trim() === "" ||
+      email.trim() === ""
+    ) {
+      setError(true);
+      message.loading({ content: "Registrando cliente...", key });
+      setTimeout(() => {
+        message.error({
+          content: "Los campos son obliagatorios y no pueden ir vacios.",
+          key,
+          duration: 2
+        });
+      }, 1000);
+      return;
+    }
+    setError(!error);
+    createCustomer(newCustomer)
+      .then(() => {
+        message.loading({ content: "Registrando cliente...", key });
+        setTimeout(() => {
+          message.success({
+            content: "Genial.",
+            key,
+            duration: 2
+          });
+        }, 1000);
+      })
+      .catch(error => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(`${errorCode}: ${errorMessage}`);
+      });
   };
 
   const {
@@ -117,7 +144,6 @@ const RegisterCustomerForm = () => {
         className="login-form-button"
         size="large"
         block
-        onClick={openNotification}
       >
         Registrar cliente
       </Button>

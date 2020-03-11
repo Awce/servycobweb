@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import UserAvatarForm from "./UserAvatarForm";
-import { useHistory } from "react-router-dom";
 import { Form, Icon, Input, Button, message, notification } from "antd";
 import { firebaseRegister } from "../../services/firebase";
 
@@ -17,6 +16,10 @@ const RegisterForm = () => {
 
   const [error, setError] = useState(false);
 
+  const [show, setShow] = useState({
+    visible: false
+  });
+
   const onChange = e => {
     setUser({
       ...user,
@@ -24,7 +27,20 @@ const RegisterForm = () => {
     });
   };
 
-  let history = useHistory();
+  const onClose = () => {
+    setShow({
+      visible: false
+    });
+    setUser({
+      name: "",
+      lastname: "",
+      email: "",
+      password: "",
+      imageUrl: ""
+    });
+  };
+
+  const { visible } = show;
 
   const userRegister = e => {
     e.preventDefault();
@@ -48,9 +64,9 @@ const RegisterForm = () => {
     setError(!error);
     firebaseRegister(imageUrl, name, lastname, email, password)
       .then(() => {
+        onClose();
         message.loading({ content: "Registrando usuario...", key });
         setTimeout(() => {
-          history.push("/");
           message.success({
             content: "Genial.",
             key,
@@ -104,7 +120,7 @@ const RegisterForm = () => {
         onChange={onChange}
         value={email}
       />
-      <Input
+      <Input.Password
         prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
         type="password"
         placeholder="Contraseña"
@@ -113,20 +129,31 @@ const RegisterForm = () => {
         onChange={onChange}
         value={password}
       />
-      <Button
-        type="primary"
-        htmlType="submit"
-        className="login-form-button"
-        size="large"
-        block
-        onClick={openNotification}
+      <div
+        style={{
+          position: "absolute",
+          right: 0,
+          bottom: 0,
+          width: "100%",
+          borderTop: "1px solid #e9e9e9",
+          padding: "10px 16px",
+          background: "#fff",
+          textAlign: "right"
+        }}
       >
-        Registrar usuario
-      </Button>
-      <p>
-        Al crear una cuenta estás aceptando los Términos de Servicio y
-        Privacidad.
-      </p>
+        <Button onClick={onClose} size="large" style={{ marginRight: 8 }}>
+          Cancelar
+        </Button>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          size="large"
+          onClick={openNotification}
+        >
+          Registrar usuario
+        </Button>
+      </div>
     </Form>
   );
 };

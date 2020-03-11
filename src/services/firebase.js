@@ -154,6 +154,15 @@ export function getCustomers() {
     });
 }
 
+export function createCustomer(item) {
+  let id = item.id;
+  if (!id) {
+    id = customersRef.doc().id;
+    item["id"] = id;
+  }
+  return customersRef.doc(id).set(item);
+}
+
 export function getCustomer(id) {
   return customersRef
     .doc(id)
