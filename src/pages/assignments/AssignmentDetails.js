@@ -19,6 +19,7 @@ const { TabPane } = Tabs;
 const AssignmentDetails = props => {
   const [contact, setContact] = useState({});
   const [count, setCount] = useState(0);
+  const [callStatus, setCallStatus] = useState(false);
 
   const history = useHistory();
 
@@ -49,10 +50,12 @@ const AssignmentDetails = props => {
 
   const numberCounts = () => {
     setCount(count + 1);
+    setCallStatus(true);
   };
 
   const stopCall = () => {
     setCount(count);
+    setCallStatus(false);
   };
 
   return (
@@ -114,6 +117,7 @@ const AssignmentDetails = props => {
                   border: "1px solid rgb(235, 237, 240)"
                 }}
                 title="Llamada"
+                subTitle={callStatus ? "Iniciada" : "En espera"}
                 extra={
                   count === 0 ? (
                     <Button type="primary" key={1} onClick={numberCounts}>
@@ -127,8 +131,8 @@ const AssignmentDetails = props => {
                 }
               />
               <Card>
-                <p>Llamar al:</p>
-                <h1>{cellphone}</h1>
+                <p>{callStatus ? "Llamando al:" : "Llamar al:"}</p>
+                <h1>{cellphone} </h1>
                 <p> {count} intentos</p>
               </Card>
               <PageHeader

@@ -100,15 +100,16 @@ const CustomerDetail = props => {
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="FACTURACION Y COBRANZA" key="2">
+        <TabPane tab="CAMPAÑAS" key="2">
           <Empty description={<span>No hay datos</span>} />
         </TabPane>
-        <TabPane tab="GRUPOS DE TRABAJO" key="3">
+        <TabPane tab="FACTURACION Y COBRANZA" key="3">
           <Empty description={<span>No hay datos</span>} />
         </TabPane>
-        <TabPane tab="CAMPAÑAS" key="4">
+        <TabPane tab="GRUPOS DE TRABAJO" key="4">
           <Empty description={<span>No hay datos</span>} />
         </TabPane>
+
         <TabPane tab="BLOQUES DE EVALUACION" key="5">
           <Empty description={<span>No hay datos</span>} />
         </TabPane>

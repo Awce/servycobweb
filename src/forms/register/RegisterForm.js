@@ -45,7 +45,7 @@ const RegisterForm = () => {
       }, 1000);
       return;
     }
-    setError(false);
+    setError(!error);
     firebaseRegister(imageUrl, name, lastname, email, password)
       .then(() => {
         message.loading({ content: "Registrando usuario...", key });
@@ -98,7 +98,7 @@ const RegisterForm = () => {
       />
       <Input
         prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
-        placeholder="Correo"
+        placeholder="Correo electrónico"
         className="input-form"
         name="email"
         onChange={onChange}

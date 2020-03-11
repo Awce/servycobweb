@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { getContacts } from "../../services/firebase";
 import { Link } from "react-router-dom";
-import { PageHeader, Table } from "antd";
+import { PageHeader, Table, Input } from "antd";
+
+const { Search } = Input;
 
 const AssignmentsList = () => {
   const [contacts, setContacts] = useState([]);
@@ -51,6 +53,10 @@ const AssignmentsList = () => {
     }
   ];
 
+  const searchValue = value => {
+    console.log(value);
+  };
+
   useEffect(() => {
     const getContactsFirebase = () => {
       getContacts()
@@ -75,6 +81,14 @@ const AssignmentsList = () => {
         }}
         title="Asignaciones"
         subTitle="Call Center"
+        extra={[
+          <Search
+            onSearch={searchValue}
+            key={1}
+            style={{ width: 200 }}
+            placeholder="Buscar..."
+          />
+        ]}
       />
       <Table
         columns={columns}
