@@ -48,6 +48,7 @@ const UsersList = () => {
     };
     getUsersFirebase();
   }, []);
+
   return (
     <div
       style={{ paddingLeft: "20px", marginTop: "10px", marginRight: "20px" }}

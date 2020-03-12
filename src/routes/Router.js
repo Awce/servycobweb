@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Layout } from "antd";
 import Home from "../pages/home/HomePage";
 import Login from "../pages/login/LoginPage";
@@ -19,8 +14,9 @@ import LateralMenu from "../components/LateralMenu";
 import EmptyPage from "../pages/EmptyPage";
 import AssignmentsList from "../pages/assignments/AssignmentsList";
 import AssignmentDetails from "../pages/assignments/AssignmentDetails";
-import Users from "../pages/user/UsersList";
+import UsersList from "../pages/user/UsersList";
 import UserDetails from "../pages/user/UserDetails";
+import PaysList from "../pages/pays/PaysList";
 
 const { Header, Sider, Content } = Layout;
 
@@ -54,8 +50,9 @@ const PrivateRouter = () => {
                 path="/calls/contacts/:Id"
                 component={AssignmentDetails}
               />
-              <Route exact path="/employees" component={Users} />
+              <Route exact path="/employees" component={UsersList} />
               <Route exact path="/employees/:Id" component={UserDetails} />
+              <Route exact path="/pays" component={PaysList} />
               <Route component={EmptyPage} />
             </Switch>
           </Content>

@@ -21,6 +21,7 @@ const firestore = firebase.firestore();
 const usersRef = firestore.collection("users");
 const customersRef = firestore.collection("customers");
 const contactsRef = firestore.collection("contacts");
+const paysRef = firestore.collection("pays");
 
 const usersAvatar = firebase.storage().ref("avatars");
 
@@ -200,6 +201,23 @@ export function getContact(id) {
     .get()
     .then(doc => {
       return doc.data();
+    })
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+    });
+}
+
+export function getPays() {
+  return paysRef
+    .get()
+    .then(snap => {
+      const pays = [];
+      snap.forEach(value => {
+        pays.push(value.data());
+      });
+      return pays;
     })
     .catch(error => {
       let errorCode = error.code;
