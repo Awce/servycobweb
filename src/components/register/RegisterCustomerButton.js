@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CustomerLogoForm from "../../forms/register/CustomerLogoForm";
 import { Drawer, Button, Icon, Form, Input, message } from "antd";
 import { createCustomer } from "../../services/firebase";
 
@@ -27,7 +28,8 @@ const RegisterCustomerButton = () => {
       cellphone: "",
       address: "",
       email: "",
-      web: ""
+      web: "",
+      imageUrl: ""
     });
   };
 
@@ -41,7 +43,8 @@ const RegisterCustomerButton = () => {
     cellphone: "",
     address: "",
     email: "",
-    web: ""
+    web: "",
+    imageUrl: ""
   });
 
   const [error, setError] = useState(false);
@@ -101,7 +104,8 @@ const RegisterCustomerButton = () => {
     cellphone,
     address,
     email,
-    web
+    web,
+    imageUrl
   } = newCustomer;
 
   return (
@@ -117,6 +121,11 @@ const RegisterCustomerButton = () => {
         visible={visible}
       >
         <Form onSubmit={customerRegister}>
+          <CustomerLogoForm
+            value={imageUrl}
+            name="imageUrl"
+            onChange={onChange}
+          />
           <Input
             placeholder="Empresa"
             className="input-form"
