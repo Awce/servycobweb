@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RegisterCustomerButton from "../../components/register/RegisterCustomerButton";
-import { getCustomers, getCustomer } from "../../services/firebase";
+import { getCustomers } from "../../services/firebase";
 import { Link } from "react-router-dom";
 import { PageHeader, Table, Badge, Input } from "antd";
 

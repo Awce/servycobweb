@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { getCustomer } from "../../services/firebase";
 import EditCustomerButton from "../../components/edit/EditCustomerButton";
+import CampaignsLists from "../campaigns/CampaignsLists";
 
 const { TabPane } = Tabs;
 const { Meta } = Card;
@@ -101,7 +102,7 @@ const CustomerDetail = props => {
           </Row>
         </TabPane>
         <TabPane tab="CAMPAÑAS" key="2">
-          <Empty description={<span>No hay datos</span>} />
+          <CampaignsLists />
         </TabPane>
         <TabPane tab="FACTURACION Y COBRANZA" key="3">
           <Empty description={<span>No hay datos</span>} />
