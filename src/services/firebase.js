@@ -225,3 +225,12 @@ export function getPays() {
       console.log(`${errorCode}: ${errorMessage}`);
     });
 }
+
+export function createPay(item) {
+  let id = item.id;
+  if (!id) {
+    id = paysRef.doc().id;
+    item["id"] = id;
+  }
+  return paysRef.doc(id).set(item);
+}

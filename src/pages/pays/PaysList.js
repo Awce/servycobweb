@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import RegisterPayButton from "../../components/register/RegisterPayButton";
 import { getPays } from "../../services/firebase";
 import { Link } from "react-router-dom";
 import { PageHeader, Table } from "antd";
@@ -91,7 +92,7 @@ const PaysList = () => {
         }}
         title="Pagos"
         subTitle="Lista"
-        // extra={[<RegisterUserButton key="1" />]}
+        extra={[<RegisterPayButton key="1" />]}
       />
       <Table
         columns={columns}
