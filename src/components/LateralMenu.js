@@ -1,23 +1,25 @@
 import React from "react";
 import { Menu, Icon } from "antd";
-import { useHistory, useLocation, withRouter } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
 const LateralMenu = () => {
   const history = useHistory();
-  let location = useLocation();
+  let { location } = history;
   const locationSplit = location.pathname.split("/");
-  const currentLocation = locationSplit[2];
+  const currentLocation = locationSplit.pop();
 
   const link = to => {
     history.push(to);
   };
 
+  console.log(currentLocation);
+
   return (
-    <Menu defaultSelectedKeys={["1"]} defaultOpenKeys={["sub1"]} mode="inline">
+    <Menu defaultSelectedKeys={currentLocation} defaultOpenKeys={["sub1"]} mode="inline">
       <Menu.ItemGroup key="g1" title="PERSONAL">
-        <Menu.Item key={1} onClick={() => link("/summary")}>
+        <Menu.Item key="summary" onClick={() => link("/summary")}>
           <Icon
             type="home"
             className={`${
@@ -35,7 +37,7 @@ const LateralMenu = () => {
             </span>
           }
         >
-          <Menu.Item key={2} onClick={() => link("/calls")}>
+          <Menu.Item key="calls" onClick={() => link("/calls")}>
             <Icon
               type="phone"
               className={`${
@@ -44,7 +46,7 @@ const LateralMenu = () => {
             />
             <span>Llamadas</span>
           </Menu.Item>
-          <Menu.Item key={3} onClick={() => link("/visits")}>
+          <Menu.Item key="visits" onClick={() => link("/visits")}>
             <Icon
               type="environment"
               className={`${
@@ -53,7 +55,7 @@ const LateralMenu = () => {
             />
             <span>Visitas</span>
           </Menu.Item>
-          <Menu.Item key={4} onClick={() => link("/pays")}>
+          <Menu.Item key="pays" onClick={() => link("/pays")}>
             <Icon
               type="container"
               className={`${
@@ -62,7 +64,7 @@ const LateralMenu = () => {
             />
             <span>Pagos</span>
           </Menu.Item>
-          <Menu.Item key={5} onClick={() => link("/confirmations")}>
+          <Menu.Item key="confirmations" onClick={() => link("/confirmations")}>
             <Icon
               type="check-circle"
               className={`${
@@ -81,7 +83,7 @@ const LateralMenu = () => {
             </span>
           }
         >
-          <Menu.Item key={6} onClick={() => link("/messages")}>
+          <Menu.Item key="messages" onClick={() => link("/messages")}>
             <Icon
               type="message"
               className={`${
@@ -90,7 +92,7 @@ const LateralMenu = () => {
             />
             <span>Mensajes</span>
           </Menu.Item>
-          <Menu.Item key={7} onClick={() => link("/mails")}>
+          <Menu.Item key="mails" onClick={() => link("/mails")}>
             <Icon
               type="mail"
               className={`${
@@ -103,7 +105,7 @@ const LateralMenu = () => {
       </Menu.ItemGroup>
 
       <Menu.ItemGroup key="g2" title="ADMINISTRACION">
-        <Menu.Item key={8} onClick={() => link("/customers")}>
+        <Menu.Item key="customers" onClick={() => link("/customers")}>
           <Icon
             type="contacts"
             className={`${
@@ -122,7 +124,7 @@ const LateralMenu = () => {
             </span>
           }
         >
-          <Menu.Item key={9} onClick={() => link("/employees")}>
+          <Menu.Item key="employees" onClick={() => link("/employees")}>
             <Icon
               type="usergroup-add"
               className={`${
@@ -131,7 +133,7 @@ const LateralMenu = () => {
             />
             <span>Empleados</span>
           </Menu.Item>
-          <Menu.Item key={10} onClick={() => link("/bonuses")}>
+          <Menu.Item key="bonuses" onClick={() => link("/bonuses")}>
             <Icon
               type="gift"
               className={`${
@@ -141,7 +143,7 @@ const LateralMenu = () => {
             <span>Bonos</span>
           </Menu.Item>
         </SubMenu>
-        <Menu.Item key={11} onClick={() => link("/reports")}>
+        <Menu.Item key="reports" onClick={() => link("/reports")}>
           <Icon
             type="pie-chart"
             className={`${
@@ -153,7 +155,7 @@ const LateralMenu = () => {
       </Menu.ItemGroup>
 
       <Menu.ItemGroup key="g3" title="CAPACITACION">
-        <Menu.Item key={12} onClick={() => link("/documentations")}>
+        <Menu.Item key="documentations" onClick={() => link("/documentations")}>
           <Icon
             type="read"
             className={`${
@@ -162,7 +164,7 @@ const LateralMenu = () => {
           />
           <span>Documentación</span>
         </Menu.Item>
-        <Menu.Item key={13} onClick={() => link("/videos")}>
+        <Menu.Item key="videos" onClick={() => link("/videos")}>
           <Icon
             type="video-camera"
             className={`${
@@ -171,7 +173,7 @@ const LateralMenu = () => {
           />
           <span>Videos</span>
         </Menu.Item>
-        <Menu.Item key={14} onClick={() => link("/questions")}>
+        <Menu.Item key="questions" onClick={() => link("/questions")}>
           <Icon
             type="question"
             className={`${
