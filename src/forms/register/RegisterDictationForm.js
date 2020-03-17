@@ -430,15 +430,30 @@ const RegisterDictationForm = () => {
           {...form.getInput("note")}
         />
       </Form.Item>
-      <Button
-        type="primary"
-        htmlType="submit"
-        className="login-form-button"
-        size="large"
-        block
+      <div
+        style={{
+          position: "absolute",
+          right: 0,
+          bottom: 0,
+          width: "100%",
+          borderTop: "1px solid #e9e9e9",
+          padding: "10px 16px",
+          background: "#fff",
+          textAlign: "right"
+        }}
       >
-        Dictaminar
-      </Button>
+        <Button size="large" style={{ marginRight: 8 }}>
+          Cancelar
+        </Button>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          size="large"
+        >
+          Dictaminar
+        </Button>
+      </div>
     </Form>
   );
 };

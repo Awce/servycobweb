@@ -60,7 +60,7 @@ const RegisterPayButton = () => {
       yearcampaign.trim() === ""
     ) {
       setError(true);
-      message.loading({ content: "Registrando pago...", key });
+      message.loading({ content: "Registrando pagos...", key });
       setTimeout(() => {
         message.error({
           content: "Los campos son obliagatorios y no pueden ir vacios.",
@@ -74,7 +74,7 @@ const RegisterPayButton = () => {
     createPay(newPay)
       .then(() => {
         onClose();
-        message.loading({ content: "Registrando pago...", key });
+        message.loading({ content: "Registrando pagos...", key });
         setTimeout(() => {
           message.success({
             content: "Genial.",
@@ -95,7 +95,7 @@ const RegisterPayButton = () => {
   return (
     <div>
       <Button type="primary" onClick={showDrawer}>
-        <Icon type="file-protect" /> Capturar pago
+        <Icon type="upload" /> Subir pagos
       </Button>
       <Drawer
         title="Capturar pago"

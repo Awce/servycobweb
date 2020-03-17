@@ -6,9 +6,9 @@ import {
   Row,
   Col,
   Calendar,
-  Empty,
   PageHeader,
-  Progress
+  Progress,
+  Avatar
 } from "antd";
 
 const data = [
@@ -30,6 +30,21 @@ const data = [
   }
 ];
 
+const data2 = [
+  {
+    title: "Ant Design Title 1"
+  },
+  {
+    title: "Ant Design Title 2"
+  },
+  {
+    title: "Ant Design Title 3"
+  },
+  {
+    title: "Ant Design Title 4"
+  }
+];
+
 const SummaryPage = () => {
   const { user, login } = useContext(UserContext);
 
@@ -42,7 +57,7 @@ const SummaryPage = () => {
   };
   return (
     <div
-      style={{ paddingLeft: "20px", marginTop: "10px", marginRight: "20px" }}
+      style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
     >
       <PageHeader
         style={{
@@ -78,8 +93,22 @@ const SummaryPage = () => {
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="Top Visitadores">
-            <Empty description={<span>No hay datos</span>} />
+          <Card title="Top Gestores">
+            <List
+              itemLayout="horizontal"
+              dataSource={data2}
+              renderItem={item => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={
+                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                    }
+                    title={<a href="https://ant.design">{item.title}</a>}
+                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                  />
+                </List.Item>
+              )}
+            />
           </Card>
         </Col>
       </Row>

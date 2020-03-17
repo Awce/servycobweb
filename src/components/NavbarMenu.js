@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col } from "antd";
 import UserAvatar from "./user/UserAvatar";
 import LogoCompany from "./LogoCompany";
-import TimeInSession from "./TimeInSession";
 import UserNotifications from "./user/UserNotifications";
 import UserEmails from "./user/UserEmails";
 import UserMessages from "./user/UserMessages";
@@ -12,9 +11,7 @@ const NavbarMenu = () => {
     <Row>
       <Col justify="end" span={18} push={6}>
         <Row gutter={[16, 16]}>
-          <Col span={6}>
-            <TimeInSession />
-          </Col>
+          <Col span={6} />
           <Col span={6} />
           <Col span={6}>
             <Col span={6}>

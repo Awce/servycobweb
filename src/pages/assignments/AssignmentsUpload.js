@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getContacts } from "../../services/firebase";
-import { Link } from "react-router-dom";
-import { PageHeader, Table, Input } from "antd";
+import { PageHeader, Table, Button, Icon, Upload, message } from "antd";
 
-const { Search } = Input;
-
-const AssignmentsList = () => {
+const AssignmentsUpload = () => {
   const [contacts, setContacts] = useState([]);
 
   const columns = [
@@ -13,12 +10,7 @@ const AssignmentsList = () => {
       title: "ID",
       dataIndex: "idcontact",
       key: "idcontact",
-      align: "center",
-      render: (text, contact) => (
-        <Link to={`/calls/contacts/${contact.id}`}>
-          <span>{contact.idcontact}</span>
-        </Link>
-      )
+      align: "center"
     },
     {
       title: "Dama",
@@ -53,10 +45,6 @@ const AssignmentsList = () => {
     }
   ];
 
-  const searchValue = value => {
-    console.log(value);
-  };
-
   useEffect(() => {
     const getContactsFirebase = () => {
       getContacts()
@@ -71,6 +59,24 @@ const AssignmentsList = () => {
     getContactsFirebase();
   }, []);
 
+  const props = {
+    name: "file",
+    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    headers: {
+      authorization: "authorization-text"
+    },
+    onChange(info) {
+      if (info.file.status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === "done") {
+        message.success(`${info.file.name} documento cargado exitosamente`);
+      } else if (info.file.status === "error") {
+        message.error(`${info.file.name} la carga del archivo falló.`);
+      }
+    }
+  };
+
   return (
     <div
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
@@ -79,15 +85,13 @@ const AssignmentsList = () => {
         style={{
           border: "1px solid rgb(235, 237, 240)"
         }}
-        title="Mis Asignaciones"
-        subTitle="Call Center"
+        title="Asignaciones"
         extra={[
-          <Search
-            onSearch={searchValue}
-            key={1}
-            style={{ width: 200 }}
-            placeholder="Buscar..."
-          />
+          <Upload {...props}>
+            <Button type="primary" key="1">
+              <Icon type="upload" /> Cargar base de datos
+            </Button>
+          </Upload>
         ]}
       />
       <Table
@@ -101,4 +105,4 @@ const AssignmentsList = () => {
   );
 };
 
-export default AssignmentsList;
+export default AssignmentsUpload;

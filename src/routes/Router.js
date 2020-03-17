@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Layout } from "antd";
 import Home from "../pages/home/HomePage";
@@ -12,11 +11,13 @@ import NotFound from "../pages/NotFound";
 import NavbarMenu from "../components/NavbarMenu";
 import LateralMenu from "../components/LateralMenu";
 import EmptyPage from "../pages/EmptyPage";
+import AssignmentsUpload from "../pages/assignments/AssignmentsUpload";
 import AssignmentsList from "../pages/assignments/AssignmentsList";
 import AssignmentDetails from "../pages/assignments/AssignmentDetails";
 import UsersList from "../pages/user/UsersList";
 import UserDetails from "../pages/user/UserDetails";
 import PaysList from "../pages/pays/PaysList";
+import DictationsList from "../pages/dictations/DictationsList";
 
 const { Header, Sider, Content } = Layout;
 
@@ -50,9 +51,11 @@ const PrivateRouter = () => {
                 path="/calls/contacts/:Id"
                 component={AssignmentDetails}
               />
+              <Route exact path="/assignments" component={AssignmentsUpload} />
               <Route exact path="/employees" component={UsersList} />
               <Route exact path="/employees/:Id" component={UserDetails} />
               <Route exact path="/pays" component={PaysList} />
+              <Route exact path="/dictations" component={DictationsList} />
               <Route component={EmptyPage} />
             </Switch>
           </Content>
@@ -63,7 +66,6 @@ const PrivateRouter = () => {
 };
 
 const AppRouter = () => {
-  const { user } = useContext(UserContext);
   return (
     <Router>
       <Switch>

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import RegisterCustomerButton from "../../components/register/RegisterCustomerButton";
 import { getCustomers } from "../../services/firebase";
 import { Link } from "react-router-dom";
-import { PageHeader, Table, Badge, Input } from "antd";
-
-const { Search } = Input;
+import { PageHeader, Table, Badge } from "antd";
 
 const CustomersList = () => {
   const [customers, setCustomers] = useState([]);
@@ -65,10 +63,6 @@ const CustomersList = () => {
     }
   ];
 
-  const searchValue = value => {
-    console.log(value);
-  };
-
   useEffect(() => {
     const getCustomersFirebase = () => {
       getCustomers()
@@ -85,7 +79,7 @@ const CustomersList = () => {
 
   return (
     <div
-      style={{ paddingLeft: "20px", marginTop: "10px", marginRight: "20px" }}
+      style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
     >
       <PageHeader
         style={{

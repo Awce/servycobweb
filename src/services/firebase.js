@@ -23,6 +23,7 @@ const customersRef = firestore.collection("customers");
 const contactsRef = firestore.collection("contacts");
 const paysRef = firestore.collection("pays");
 const campaignsRef = firestore.collection("campaigns");
+const dictationsRef = firestore.collection("dictations");
 
 const usersAvatar = firebase.storage().ref("avatars");
 
@@ -260,4 +261,21 @@ export function createCampaign(item) {
     item["id"] = id;
   }
   return campaignsRef.doc(id).set(item);
+}
+
+export function getDictations() {
+  return dictationsRef
+    .get()
+    .then(snap => {
+      const dictations = [];
+      snap.forEach(value => {
+        dictations.push(value.data());
+      });
+      return dictations;
+    })
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+    });
 }

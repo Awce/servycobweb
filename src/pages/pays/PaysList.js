@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import RegisterPayButton from "../../components/register/RegisterPayButton";
 import { getPays } from "../../services/firebase";
 import { Link } from "react-router-dom";
-import { PageHeader, Table } from "antd";
+import { PageHeader, Table, Button, Icon, Upload, message } from "antd";
 
 const PaysList = () => {
   const [pays, setPays] = useState([]);
@@ -26,6 +25,12 @@ const PaysList = () => {
           </span>
         </Link>
       )
+    },
+    {
+      title: "Cliente",
+      dataIndex: "customer",
+      key: "customer",
+      align: "center"
     },
     {
       title: "Año campaña saldo",
@@ -82,17 +87,44 @@ const PaysList = () => {
     getPaysFirebase();
   }, []);
 
+  const props = {
+    name: "file",
+    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    headers: {
+      authorization: "authorization-text"
+    },
+    onChange(info) {
+      if (info.file.status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === "done") {
+        message.success(`${info.file.name} documento cargado exitosamente`);
+      } else if (info.file.status === "error") {
+        message.error(`${info.file.name} la carga del archivo falló.`);
+      }
+    }
+  };
+
   return (
     <div
-      style={{ paddingLeft: "20px", marginTop: "10px", marginRight: "20px" }}
+      style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
     >
       <PageHeader
         style={{
           border: "1px solid rgb(235, 237, 240)"
         }}
-        title="Pagos"
+        title="Pagos realizados"
         subTitle="Lista"
-        extra={[<RegisterPayButton key="1" />]}
+        extra={[
+          <Button key="2">
+            <Icon type="download" /> Exportar pagos
+          </Button>,
+          <Upload {...props}>
+            <Button type="primary" key="1">
+              <Icon type="upload" /> Importar pagos
+            </Button>
+          </Upload>
+        ]}
       />
       <Table
         columns={columns}

@@ -51,7 +51,7 @@ const CustomerDetail = props => {
 
   return (
     <div
-      style={{ paddingLeft: "20px", marginTop: "10px", marginRight: "20px" }}
+      style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
     >
       <PageHeader
         style={{
