@@ -263,6 +263,15 @@ export function createCampaign(item) {
   return campaignsRef.doc(id).set(item);
 }
 
+export function createDictation(item) {
+  let id = item.id;
+  if (!id) {
+    id = dictationsRef.doc().id;
+    item["id"] = id;
+  }
+  return dictationsRef.doc(id).set(item);
+}
+
 export function getDictations() {
   return dictationsRef
     .get()

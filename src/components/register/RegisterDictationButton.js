@@ -6,13 +6,15 @@ import {
   Cascader,
   Form,
   Input,
-  InputNumber,
   Col,
-  Row
+  Row,
+  message
 } from "antd";
+import { createDictation } from "../../services/firebase";
 
 const { TextArea } = Input;
 const InputGroup = Input.Group;
+const key = "updatable";
 
 export const DictationsOptions = [
   {
@@ -345,6 +347,19 @@ export const DictationsOptions = [
 ];
 
 const RegisterDictationButton = () => {
+  const [dictationsTree, setDictationsTree] = useState([]);
+  const [dictationsValues, setDictationsValues] = useState({
+    amount: "",
+    date: "",
+    serial: "",
+    comment: "",
+    dictation: "",
+    subdictation: "",
+    reason: ""
+  });
+
+  const [error, setError] = useState(false);
+
   const [show, setShow] = useState({
     visible: false
   });
@@ -358,6 +373,12 @@ const RegisterDictationButton = () => {
   const onClose = () => {
     setShow({
       visible: false
+    });
+    setDictationsValues({
+      amount: "",
+      date: "",
+      serial: "",
+      comment: ""
     });
   };
 
@@ -388,6 +409,63 @@ const RegisterDictationButton = () => {
       return <span key={option.value}>{label} / </span>;
     });
 
+  const onChangeDictatons = e => {
+    setDictationsValues({
+      ...dictationsValues,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const onChangeTree = value => {
+    setDictationsTree([...dictationsTree, value]);
+    setDictationsValues({
+      ...dictationsValues,
+      dictation: value[0],
+      subdictation: value[1],
+      reason: value[2]
+    });
+  };
+
+  const dictationRegister = e => {
+    e.preventDefault();
+    if (
+      dictationsValues.dictation.trim() === "" ||
+      dictationsValues.subdictation.trim() === "" ||
+      dictationsValues.reason.trim() === ""
+    ) {
+      setError(true);
+      message.loading({ content: "Dictaminando...", key });
+      setTimeout(() => {
+        message.error({
+          content: "Los campos son obliagatorios y no pueden ir vacios.",
+          key,
+          duration: 2
+        });
+      }, 1000);
+      return;
+    }
+    setError(!error);
+    createDictation(dictationsValues)
+      .then(() => {
+        onClose();
+        message.loading({ content: "Dictaminando...", key });
+        setTimeout(() => {
+          message.success({
+            content: "Genial.",
+            key,
+            duration: 2
+          });
+        }, 1000);
+      })
+      .catch(error => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(`${errorCode}: ${errorMessage}`);
+      });
+  };
+
+  const { amount, date, serial, comment } = dictationsValues;
+
   return (
     <div>
       <Button type="primary" onClick={showDrawer}>
@@ -400,41 +478,67 @@ const RegisterDictationButton = () => {
         onClose={onClose}
         visible={visible}
       >
-        <Form>
+        <Form onSubmit={dictationRegister}>
           <Form.Item label="Dictamen / Subdictamen / Motivo">
             <Cascader
               size="large"
               options={DictationsOptions}
               placeholder="Selecciona el árbol de dictamen"
               displayRender={displayRender}
+              onChange={onChangeTree}
               allowClear
             />
+            <p>{dictationsTree}</p>
           </Form.Item>
           <Form.Item label="Fecha, Monto de pago y Folio de recibo">
             <InputGroup size="large">
               <Row gutter={8}>
                 <Col span={8}>
-                  <Input type="date" style={{ width: "100%" }} />
-                </Col>
-                <Col span={8}>
-                  <InputNumber
-                    size="large"
+                  <Input
+                    type="date"
                     style={{ width: "100%" }}
-                    placeholder="Ingresa el Monto"
-                    formatter={value =>
-                      `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }
-                    parser={value => value.replace(/\$\s?|(,*)/g, "")}
+                    name="date"
+                    value={date}
+                    onChange={onChangeDictatons}
                   />
                 </Col>
                 <Col span={8}>
-                  <Input type="text" size="large" placeholder="Folio" />
+                  <Input
+                    type="number"
+                    size="large"
+                    style={{ width: "100%" }}
+                    placeholder="Ingresa el Monto"
+                    name="amount"
+                    value={amount}
+                    formatter={amount =>
+                      `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                    onChange={onChangeDictatons}
+                  />
+                </Col>
+                <Col span={8}>
+                  <Input
+                    type="number"
+                    size="large"
+                    placeholder="Folio"
+                    name="serial"
+                    value={serial}
+                    onChange={onChangeDictatons}
+                  />
                 </Col>
               </Row>
             </InputGroup>
           </Form.Item>
           <Form.Item label="Nota de seguimiento">
-            <TextArea type="text" rows={4} placeholder="Agrega un comentario" />
+            <TextArea
+              type="text"
+              rows={4}
+              placeholder="Agrega un comentario"
+              name="comment"
+              value={comment}
+              onChange={onChangeDictatons}
+            />
           </Form.Item>
           <div
             style={{
