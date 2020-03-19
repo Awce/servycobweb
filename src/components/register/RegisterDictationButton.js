@@ -464,7 +464,7 @@ const RegisterDictationButton = () => {
       });
   };
 
-  const { amount, date, serial, comment } = dictationsValues;
+  const { amount, date, serial, comment, reason } = dictationsValues;
 
   return (
     <div>
@@ -488,48 +488,192 @@ const RegisterDictationButton = () => {
               onChange={onChangeTree}
               allowClear
             />
-            <p>{dictationsTree}</p>
           </Form.Item>
-          <Form.Item label="Fecha, Monto de pago y Folio de recibo">
-            <InputGroup size="large">
-              <Row gutter={8}>
-                <Col span={8}>
-                  <Input
-                    type="date"
-                    style={{ width: "100%" }}
-                    name="date"
-                    value={date}
-                    onChange={onChangeDictatons}
-                  />
-                </Col>
-                <Col span={8}>
-                  <Input
-                    type="number"
-                    size="large"
-                    style={{ width: "100%" }}
-                    placeholder="Ingresa el Monto"
-                    name="amount"
-                    value={amount}
-                    formatter={amount =>
-                      `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }
-                    parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
-                    onChange={onChangeDictatons}
-                  />
-                </Col>
-                <Col span={8}>
-                  <Input
-                    type="number"
-                    size="large"
-                    placeholder="Folio"
-                    name="serial"
-                    value={serial}
-                    onChange={onChangeDictatons}
-                  />
-                </Col>
-              </Row>
-            </InputGroup>
-          </Form.Item>
+          {reason === "Promesa de Pago" && (
+            <>
+              <Form.Item label="Fecha y Monto de pago">
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={8}>
+                      <Input
+                        type="date"
+                        style={{ width: "100%" }}
+                        name="date"
+                        value={date}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                    <Col span={8}>
+                      <Input
+                        type="number"
+                        size="large"
+                        style={{ width: "100%" }}
+                        placeholder="Ingresa el Monto"
+                        name="amount"
+                        value={amount}
+                        formatter={amount =>
+                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                  </Row>
+                </InputGroup>
+              </Form.Item>
+            </>
+          )}
+
+          {reason === "Cobrada por GDC o Consejera" && (
+            <>
+              <Form.Item label="Fecha y Monto de pago">
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={8}>
+                      <Input
+                        type="date"
+                        style={{ width: "100%" }}
+                        name="date"
+                        value={date}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                    <Col span={8}>
+                      <Input
+                        type="number"
+                        size="large"
+                        style={{ width: "100%" }}
+                        placeholder="Ingresa el Monto"
+                        name="amount"
+                        value={amount}
+                        formatter={amount =>
+                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                  </Row>
+                </InputGroup>
+              </Form.Item>
+            </>
+          )}
+
+          {reason === "Pago a Porteador" && (
+            <>
+              <Form.Item label="Fecha y Monto de pago">
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={8}>
+                      <Input
+                        type="date"
+                        style={{ width: "100%" }}
+                        name="date"
+                        value={date}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                    <Col span={8}>
+                      <Input
+                        type="number"
+                        size="large"
+                        style={{ width: "100%" }}
+                        placeholder="Ingresa el Monto"
+                        name="amount"
+                        value={amount}
+                        formatter={amount =>
+                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                  </Row>
+                </InputGroup>
+              </Form.Item>
+            </>
+          )}
+
+          {reason === "Ya pago" && (
+            <>
+              <Form.Item label="Fecha y Monto de pago">
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={8}>
+                      <Input
+                        type="date"
+                        style={{ width: "100%" }}
+                        name="date"
+                        value={date}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                    <Col span={8}>
+                      <Input
+                        type="number"
+                        size="large"
+                        style={{ width: "100%" }}
+                        placeholder="Ingresa el Monto"
+                        name="amount"
+                        value={amount}
+                        formatter={amount =>
+                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                  </Row>
+                </InputGroup>
+              </Form.Item>
+            </>
+          )}
+
+          {reason === "Pago a Cobrador" && (
+            <>
+              <Form.Item label="Fecha, Monto de pago y Folio de recibo">
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={8}>
+                      <Input
+                        type="date"
+                        style={{ width: "100%" }}
+                        name="date"
+                        value={date}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                    <Col span={8}>
+                      <Input
+                        type="number"
+                        size="large"
+                        style={{ width: "100%" }}
+                        placeholder="Ingresa el Monto"
+                        name="amount"
+                        value={amount}
+                        formatter={amount =>
+                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                    <Col span={8}>
+                      <Input
+                        type="number"
+                        size="large"
+                        placeholder="Folio"
+                        name="serial"
+                        value={serial}
+                        onChange={onChangeDictatons}
+                      />
+                    </Col>
+                  </Row>
+                </InputGroup>
+              </Form.Item>
+            </>
+          )}
+
           <Form.Item label="Nota de seguimiento">
             <TextArea
               type="text"

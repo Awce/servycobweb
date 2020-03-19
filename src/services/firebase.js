@@ -26,6 +26,7 @@ const campaignsRef = firestore.collection("campaigns");
 const dictationsRef = firestore.collection("dictations");
 
 const usersAvatar = firebase.storage().ref("avatars");
+const contactsFolder = firebase.storage().ref("contacts");
 
 export const firebaseRegister = (imageUrl, name, lastname, email, password) => {
   return firebase
@@ -173,6 +174,21 @@ export function getCustomer(id) {
     .then(doc => {
       return doc.data();
     })
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+    });
+}
+
+export function saveContactsExcel(file) {
+  return contactsFolder
+    .child(file.name)
+    .put(file)
+    .then(snap => {
+      snap.ref.getDownloadURL();
+    })
+    .then(link => link)
     .catch(error => {
       let errorCode = error.code;
       let errorMessage = error.message;

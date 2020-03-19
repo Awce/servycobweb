@@ -13,6 +13,8 @@ import {
 } from "antd";
 import RegisterDictationButton from "../../components/register/RegisterDictationButton";
 import { getContact } from "../../services/firebase";
+import DictationsContactsList from "../dictations/DictationsContactsList";
+import PaysContactList from "../pays/PaysContactList";
 
 const { TabPane } = Tabs;
 
@@ -149,10 +151,10 @@ const AssignmentDetails = props => {
           </Row>
         </TabPane>
         <TabPane tab="HISTORIAL DE DICTAMINACION" key="2">
-          <Empty description={<span>No hay datos</span>} />
+          <DictationsContactsList />
         </TabPane>
         <TabPane tab="HISTORIAL DE PAGOS" key="3">
-          <Empty description={<span>No hay datos</span>} />
+          <PaysContactList />
         </TabPane>
       </Tabs>
     </div>
