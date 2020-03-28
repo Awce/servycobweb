@@ -1,10 +1,18 @@
 import React from "react";
+import { Statistic } from "antd";
+
+const { Countdown } = Statistic;
+const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
 
 const TimeInSession = () => {
+  const onFinish = () => {
+    console.log("finished!");
+  };
+
   return (
-    <div>
-      <h1>10:00:00</h1>
-    </div>
+    <>
+      <Countdown title="Descanso en:" value={deadline} onFinish={onFinish} />
+    </>
   );
 };
 

@@ -27,6 +27,7 @@ const UserNotifications = () => {
           style={{ fontSize: "24px" }}
           type="notification"
           onClick={showDrawer}
+          theme="twoTone"
         />
       </Badge>
       <Drawer

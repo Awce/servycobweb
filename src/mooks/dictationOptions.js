@@ -1,4 +1,4 @@
-export const DictationsOptions = [
+const DictationsOptions = [
   {
     value: "Telefonico",
     label: "Telefonico",
@@ -327,3 +327,5 @@ export const DictationsOptions = [
     ]
   }
 ];
+
+export default DictationsOptions;

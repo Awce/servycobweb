@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { UserContext } from "../../context/UserContext";
+import React from "react";
 import {
   List,
   Card,
@@ -46,12 +45,6 @@ const data2 = [
 ];
 
 const SummaryPage = () => {
-  const { user, login } = useContext(UserContext);
-
-  useEffect(() => {
-    login();
-  }, []);
-
   const onPanelChange = (value, mode) => {
     console.log(value, mode);
   };
@@ -63,7 +56,7 @@ const SummaryPage = () => {
         style={{
           border: "1px solid rgb(235, 237, 240)"
         }}
-        title={user && `Bienvenido, ${user.email}`}
+        title="Buenvenido, Raul"
         subTitle="Inicio"
       />
       <List

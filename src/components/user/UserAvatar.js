@@ -1,50 +1,67 @@
-import React, { useContext } from "react";
-import { Avatar, Badge, Popover, Button, PageHeader } from "antd";
-import { UserContext } from "../../context/UserContext";
+import React from "react";
+import {
+  Avatar,
+  Badge,
+  Popover,
+  Statistic,
+  Button,
+  Icon,
+  Col,
+  Row
+} from "antd";
 
 const UserAvatar = () => {
-  const { user, login, logout } = useContext(UserContext);
+  const logoutUser = () => {
+    console.log("Cerrando sesion");
+  };
 
   const content = (
-    <div
-      style={{ paddingLeft: "20px", marginTop: "10px", marginRight: "20px" }}
-    >
-      <PageHeader
-        style={{
-          border: "1px solid rgb(235, 237, 240)"
-        }}
-        subTitle="Mi cuenta"
-        extra={
-          user ? (
-            <Button onClick={logout} block>
-              Cerrar sesión
-            </Button>
-          ) : (
-            <Button onClick={login} block>
-              Iniciar sesión
-            </Button>
-          )
-        }
-      />
-      <Avatar
-        src={user && `${user.photoURl}`}
-        size={80}
-        alt={user && `Bienvenido, ${user.email}`}
-      />
-      <span>{user && <span> {user.email}</span>}</span>
-    </div>
+    <>
+      <Row gutter={8}>
+        <Col className="gutter-row" span={12}>
+          <Avatar
+            src="https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/avatars%2Fyo.jpeg?alt=media&token=e44759d8-3a24-4edc-a873-f427bf5fa430"
+            size={80}
+            alt={`Bienvenido, Raúl Hernández`}
+          />
+        </Col>
+        <Col className="gutter-row" span={12}>
+          <h4>Raúl Hernández</h4>
+          <h6>Developer</h6>
+        </Col>
+      </Row>
+      <Row gutter={8}>
+        <Col span={12}>
+          <Statistic title="Gestiones" value={3} suffix="/ 10" />
+        </Col>
+        <Col span={12}>
+          <Statistic
+            title="Bonos"
+            value={128}
+            prefix={<Icon type="gift" theme="twoTone" twoToneColor="#eb2f96" />}
+          />
+        </Col>
+      </Row>
+      <Row span={12}>
+        <Col>
+          <Button onClick={logoutUser} block>
+            Cerrar sesion
+          </Button>
+        </Col>
+      </Row>
+    </>
   );
 
   return (
     <Popover content={content}>
       <Badge count={0}>
         <Avatar
-          src={user && `${user.photoURl}`}
+          src="https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/avatars%2Fyo.jpeg?alt=media&token=e44759d8-3a24-4edc-a873-f427bf5fa430"
           size="large"
-          alt={user && `Bienvenido, ${user.email}`}
+          alt={`Bienvenido, Raúl Hernández`}
         />
       </Badge>
-      {user && <span> {user.email}</span>}
+      <span> Raúl Hernández</span>
     </Popover>
   );
 };

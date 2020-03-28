@@ -21,7 +21,12 @@ const UserEmails = () => {
   return (
     <div>
       <Badge count={0} dot>
-        <Icon style={{ fontSize: "24px" }} type="mail" onClick={showDrawer} />
+        <Icon
+          style={{ fontSize: "24px" }}
+          type="mail"
+          onClick={showDrawer}
+          theme="twoTone"
+        />
       </Badge>
       <Drawer
         title="Correos"

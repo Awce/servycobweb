@@ -25,6 +25,7 @@ const UserMessages = () => {
           style={{ fontSize: "24px" }}
           type="message"
           onClick={showDrawer}
+          theme="twoTone"
         />
       </Badge>
       <Drawer
