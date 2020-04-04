@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import RegisterCustomerButton from "../../components/register/RegisterCustomerButton";
 import { getCustomers } from "../../services/firebase";
-import { Link } from "react-router-dom";
-import { PageHeader, Table, Badge } from "antd";
+import { Link, useHistory } from "react-router-dom";
+import { PageHeader, Table, Badge, Avatar, Button, Icon } from "antd";
 
 const CustomersList = () => {
   const [customers, setCustomers] = useState([]);
+  const history = useHistory();
 
   const columns = [
     {
@@ -13,11 +13,14 @@ const CustomersList = () => {
       dataIndex: "logo",
       key: "id",
       align: "center",
-      render: (logo, name) => (
-        <figure>
-          <img src={logo} alt={name} width="100px" />
-        </figure>
-      )
+      render: (logo, name) =>
+        logo ? (
+          <figure>
+            <img src={logo} alt={name} width="100px" />
+          </figure>
+        ) : (
+          <Avatar shape="square" size="large" icon="user" />
+        ),
     },
     {
       title: "Cliente",
@@ -25,52 +28,57 @@ const CustomersList = () => {
       key: "name",
       align: "center",
       render: (text, customer) => (
-        <Link to={`/customers/${customer.id}`}>
+        <Link to={`/clientes/${customer.id}`}>
           <span>{customer.name}</span>
         </Link>
-      )
+      ),
     },
     {
       title: "Desde",
       dataIndex: "customerform",
       key: "customerform",
-      align: "center"
+      align: "center",
     },
     {
       title: "Gestores telefónicos",
       dataIndex: "managers",
       key: "managers",
-      align: "center"
+      align: "center",
     },
     {
       title: "Gestores en campo",
       dataIndex: "fieldmanagers",
       key: "fieldmanagers",
-      align: "center"
+      align: "center",
     },
     {
       title: "Supervisor",
       dataIndex: "supervisor",
       key: "supervisor",
-      align: "center"
+      align: "center",
     },
     {
       title: "Desempeño",
       dataIndex: "ratings",
       key: "ratings",
       align: "center",
-      render: ratings => <Badge status="success" text={ratings} />
-    }
+      render: (ratings) =>
+        ratings ? <Badge status="success" text={ratings} /> : null,
+    },
   ];
+
+  const onRegisterCustomerButton = () => {
+    history.push("/clientes/alta");
+  };
 
   useEffect(() => {
     const getCustomersFirebase = () => {
       getCustomers()
-        .then(res => {
+        .then((res) => {
           console.log(res);
           setCustomers(res);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     };
@@ -83,18 +91,23 @@ const CustomersList = () => {
     >
       <PageHeader
         style={{
-          border: "1px solid rgb(235, 237, 240)"
+          border: "1px solid rgb(235, 237, 240)",
         }}
         title="Clientes"
         subTitle="Lista"
-        extra={[<RegisterCustomerButton key="1" />]}
+        extra={[
+          <Button type="primary" key={1} onClick={onRegisterCustomerButton}>
+            <Icon type="user-add" /> Crear nuevo cliente
+          </Button>,
+        ]}
       />
       <Table
         style={{ marginTop: "3px" }}
         columns={columns}
         dataSource={customers}
-        rowKey={customers => customers.id}
+        rowKey={(customers) => customers.id}
         pagination={{ pageSize: 5 }}
+        scroll={{ y: 440 }}
       />
     </div>
   );

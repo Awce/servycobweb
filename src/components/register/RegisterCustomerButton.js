@@ -7,18 +7,18 @@ const key = "updatable";
 
 const RegisterCustomerButton = () => {
   const [show, setShow] = useState({
-    visible: false
+    visible: false,
   });
 
   const showDrawer = () => {
     setShow({
-      visible: true
+      visible: true,
     });
   };
 
   const onClose = () => {
     setShow({
-      visible: false
+      visible: false,
     });
     setNewCustomer({
       name: "",
@@ -29,7 +29,7 @@ const RegisterCustomerButton = () => {
       address: "",
       email: "",
       web: "",
-      imageUrl: ""
+      imageUrl: "",
     });
   };
 
@@ -44,19 +44,19 @@ const RegisterCustomerButton = () => {
     address: "",
     email: "",
     web: "",
-    imageUrl: ""
+    imageUrl: "",
   });
 
   const [error, setError] = useState(false);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setNewCustomer({
       ...newCustomer,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const customerRegister = e => {
+  const customerRegister = (e) => {
     e.preventDefault();
     if (
       name.trim() === "" ||
@@ -71,7 +71,7 @@ const RegisterCustomerButton = () => {
         message.error({
           content: "Los campos son obliagatorios y no pueden ir vacios.",
           key,
-          duration: 2
+          duration: 2,
         });
       }, 1000);
       return;
@@ -85,11 +85,11 @@ const RegisterCustomerButton = () => {
           message.success({
             content: "Genial.",
             key,
-            duration: 2
+            duration: 2,
           });
         }, 1000);
       })
-      .catch(error => {
+      .catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
@@ -105,7 +105,7 @@ const RegisterCustomerButton = () => {
     address,
     email,
     web,
-    imageUrl
+    imageUrl,
   } = newCustomer;
 
   return (
@@ -193,7 +193,7 @@ const RegisterCustomerButton = () => {
               borderTop: "1px solid #e9e9e9",
               padding: "10px 16px",
               background: "#fff",
-              textAlign: "right"
+              textAlign: "right",
             }}
           >
             <Button onClick={onClose} size="large" style={{ marginRight: 8 }}>

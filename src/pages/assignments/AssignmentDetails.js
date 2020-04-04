@@ -9,7 +9,8 @@ import {
   Row,
   Col,
   Descriptions,
-  Button
+  Button,
+  Timeline
 } from "antd";
 import RegisterDictationButton from "../../components/register/RegisterDictationButton";
 import { getContact } from "../../services/firebase";
@@ -78,7 +79,7 @@ const AssignmentDetails = props => {
           <Row gutter={16}>
             <Col span={16}>
               <Card>
-                <Descriptions title="Dama">
+                <Descriptions title="Dama" layout="vertical">
                   <Descriptions.Item label="Número">
                     {idcontact}
                   </Descriptions.Item>
@@ -93,7 +94,7 @@ const AssignmentDetails = props => {
                   <Descriptions.Item label="Correo">{email}</Descriptions.Item>
                 </Descriptions>
                 <Row gutter={16}>
-                  <Col span={12}>
+                  <Col span={24}>
                     <Card>
                       <Tabs defaultActiveKey="1">
                         <TabPane tab="CONTACTO" key="1">
@@ -103,11 +104,6 @@ const AssignmentDetails = props => {
                           <Empty description={<span>No hay datos</span>} />
                         </TabPane>
                       </Tabs>
-                    </Card>
-                  </Col>
-                  <Col span={12}>
-                    <Card title="Perfilamiento">
-                      <Empty description={<span>No hay datos</span>} />
                     </Card>
                   </Col>
                 </Row>
@@ -145,7 +141,14 @@ const AssignmentDetails = props => {
                 extra={[<RegisterDictationButton key={1} />]}
               />
               <Card>
-                <Empty description={<span>No hay datos</span>} />
+                <Timeline pending="Dictaminando...">
+                  <Timeline.Item color="green">
+                    Visita a Domicilio 2015-09-01
+                  </Timeline.Item>
+                  <Timeline.Item>Pago a Cobrador 2015-09-01</Timeline.Item>
+                  <Timeline.Item>Pago a Cobrador 2015-09-01</Timeline.Item>
+                  <Timeline.Item>Pago a Cobrador 2015-09-01</Timeline.Item>
+                </Timeline>
               </Card>
             </Col>
           </Row>

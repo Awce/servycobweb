@@ -1,6 +1,6 @@
 .avatar-uploader > .ant-upload {
-  width: 128px;
-  height: 128px;
+  width: 203px;
+  height: 203px;
 }
 
 .ant-layout-header {
@@ -8,7 +8,7 @@
 }
 
 .bg-image {
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/phones-1422976.png?alt=media&token=7d68d719-2882-443d-9b28-80932b1a9b2a") !important;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/phones-1422976.png?alt=media&token=0569be1f-bfa2-455b-abf3-4a4a3f194290") !important;
   background-repeat: no-repeat;
   background-size: cover;
 }

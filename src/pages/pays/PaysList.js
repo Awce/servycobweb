@@ -11,7 +11,7 @@ const PaysList = () => {
       title: "Fecha de entrega",
       dataIndex: "delivery_date",
       key: "delivery_date",
-      align: "center"
+      align: "center",
     },
     {
       title: "Número Dama",
@@ -19,68 +19,68 @@ const PaysList = () => {
       key: "number",
       align: "center",
       render: (text, pay) => (
-        <Link to={`/pays/${pay.id}`}>
+        <Link to={`/pagos/${pay.id}`}>
           <span>
             {pay.name} {pay.number}
           </span>
         </Link>
-      )
+      ),
     },
     {
       title: "Cliente",
       dataIndex: "customer",
       key: "customer",
-      align: "center"
+      align: "center",
     },
     {
       title: "Año campaña saldo",
       dataIndex: "yearcampaign",
       key: "yearcampaign",
-      align: "center"
+      align: "center",
     },
     {
       title: "Fecha",
       dataIndex: "date",
       key: "date",
-      align: "center"
+      align: "center",
     },
     {
       title: "Saldo anterior",
       dataIndex: "amount",
       key: "amount",
       align: "center",
-      render: (text, pay) => <span>${pay.amount}.00</span>
+      render: (text, pay) => <span>${pay.amount}.00</span>,
     },
     {
       title: "Pago",
       dataIndex: "pay",
       key: "pay",
       align: "center",
-      render: (text, pay) => <span>${pay.pay}.00</span>
+      render: (text, pay) => <span>${pay.pay}.00</span>,
     },
     {
       title: "Saldo actual",
       dataIndex: "balance",
       key: "balance",
       align: "center",
-      render: (text, pay) => <span>${pay.balance}.00</span>
+      render: (text, pay) => <span>${pay.balance}.00</span>,
     },
     {
       title: "Tipo de pago",
       dataIndex: "type",
       key: "type",
-      align: "center"
-    }
+      align: "center",
+    },
   ];
 
   useEffect(() => {
     const getPaysFirebase = () => {
       getPays()
-        .then(res => {
+        .then((res) => {
           console.log(res);
           setPays(res);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     };
@@ -91,7 +91,7 @@ const PaysList = () => {
     name: "file",
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     headers: {
-      authorization: "authorization-text"
+      authorization: "authorization-text",
     },
     onChange(info) {
       if (info.file.status !== "uploading") {
@@ -102,7 +102,7 @@ const PaysList = () => {
       } else if (info.file.status === "error") {
         message.error(`${info.file.name} la carga del archivo falló.`);
       }
-    }
+    },
   };
 
   return (
@@ -111,25 +111,25 @@ const PaysList = () => {
     >
       <PageHeader
         style={{
-          border: "1px solid rgb(235, 237, 240)"
+          border: "1px solid rgb(235, 237, 240)",
         }}
-        title="Pagos realizados"
+        title="Pagos Realizados"
         subTitle="Lista"
         extra={[
-          <Button key="2">
+          <Button key={2}>
             <Icon type="download" /> Exportar pagos
           </Button>,
           <Upload {...props}>
-            <Button type="primary" key="1">
+            <Button type="primary" key={1}>
               <Icon type="upload" /> Importar pagos
             </Button>
-          </Upload>
+          </Upload>,
         ]}
       />
       <Table
         columns={columns}
         dataSource={pays}
-        rowKey={pays => pays.id}
+        rowKey={(pays) => pays.id}
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
       />

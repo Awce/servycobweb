@@ -5,16 +5,13 @@ import LogoCompany from "./LogoCompany";
 import UserNotifications from "./user/UserNotifications";
 import UserEmails from "./user/UserEmails";
 import UserMessages from "./user/UserMessages";
-import TimeInSession from "./TimeInSession";
 
 const NavbarMenu = () => {
   return (
     <Row>
       <Col justify="end" span={18} push={6}>
         <Row gutter={[16, 16]}>
-          <Col span={6}>
-            <TimeInSession />
-          </Col>
+          <Col span={6} />
           <Col span={6} />
           <Col span={6}>
             <Col span={6}>

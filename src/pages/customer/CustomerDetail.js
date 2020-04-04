@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Tabs,
-  Card,
-  Icon,
-  PageHeader,
-  Empty,
-  Row,
-  Col,
-  Descriptions
-} from "antd";
+import { Tabs, Card, Icon, PageHeader, Row, Col, Descriptions } from "antd";
 import { getCustomer } from "../../services/firebase";
 import EditCustomerButton from "../../components/edit/EditCustomerButton";
 import CampaignsLists from "../campaigns/CampaignsLists";
@@ -17,17 +8,17 @@ import CampaignsLists from "../campaigns/CampaignsLists";
 const { TabPane } = Tabs;
 const { Meta } = Card;
 
-const CustomerDetail = props => {
+const CustomerDetail = (props) => {
   const [customer, setCustomer] = useState({});
 
   const history = useHistory();
 
   useEffect(() => {
     getCustomer(props.match.params.Id)
-      .then(r => {
+      .then((r) => {
         setCustomer(r);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   });
@@ -46,7 +37,7 @@ const CustomerDetail = props => {
     cellphone,
     customerform,
     email,
-    web
+    web,
   } = customer;
 
   return (
@@ -55,7 +46,7 @@ const CustomerDetail = props => {
     >
       <PageHeader
         style={{
-          border: "1px solid rgb(235, 237, 240)"
+          border: "1px solid rgb(235, 237, 240)",
         }}
         title={namebusiness}
         subTitle="Detalles"
@@ -67,9 +58,10 @@ const CustomerDetail = props => {
           <Row gutter={16}>
             <Col span={6}>
               <Card
+                style={{ width: 250 }}
                 cover={
                   <figure>
-                    <img src={logo} alt={name} />
+                    <img src={logo} alt={name} style={{ width: 240 }} />
                   </figure>
                 }
               >
@@ -79,7 +71,7 @@ const CustomerDetail = props => {
             </Col>
             <Col span={18}>
               <Card>
-                <Descriptions title="Perfil">
+                <Descriptions title="Perfil" layout="vertical">
                   <Descriptions.Item label="Razón social">
                     {namebusiness}
                   </Descriptions.Item>
@@ -104,7 +96,7 @@ const CustomerDetail = props => {
         <TabPane tab="CAMPAÑAS" key="2">
           <CampaignsLists />
         </TabPane>
-        <TabPane tab="FACTURACION Y COBRANZA" key="3">
+        {/* <TabPane tab="FACTURACION Y COBRANZA" key="3">
           <Empty description={<span>No hay datos</span>} />
         </TabPane>
         <TabPane tab="GRUPOS DE TRABAJO" key="4">
@@ -116,7 +108,7 @@ const CustomerDetail = props => {
         </TabPane>
         <TabPane tab="BLOQUES DE DICTAMEN" key="6">
           <Empty description={<span>No hay datos</span>} />
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </div>
   );

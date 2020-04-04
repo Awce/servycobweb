@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
-import RegisterUserButton from "../../components/register/RegisterUserButton";
 import { getUsers } from "../../services/firebase";
-import { Link } from "react-router-dom";
-import { PageHeader, Table, Avatar } from "antd";
+import { Link, useHistory } from "react-router-dom";
+import { PageHeader, Button, Table, Avatar, Icon } from "antd";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
+  const history = useHistory();
+
   const columns = [
     {
       title: "Foto",
       dataIndex: "imageUrl",
       key: "imageUrl",
       align: "center",
-      render: imageUrl => <Avatar src={imageUrl} />
+      render: (imageUrl) =>
+        imageUrl ? (
+          <Avatar src={imageUrl} />
+        ) : (
+          <Avatar icon={<Icon type="user" />} />
+        ),
     },
     {
       title: "Nombre",
@@ -20,29 +26,33 @@ const UsersList = () => {
       key: "name",
       align: "center",
       render: (text, user) => (
-        <Link to={`/employees/${user.id}`}>
+        <Link to={`/empleados/${user.id}`}>
           <span>
             {user.name} {user.lastname}
           </span>
         </Link>
-      )
+      ),
     },
     {
       title: "Correo",
       dataIndex: "email",
       key: "email",
-      align: "center"
-    }
+      align: "center",
+    },
   ];
+
+  const onRegisterUserButton = () => {
+    history.push("/empelados/alta");
+  };
 
   useEffect(() => {
     const getUsersFirebase = () => {
       getUsers()
-        .then(res => {
+        .then((res) => {
           console.log(res);
           setUsers(res);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     };
@@ -55,16 +65,20 @@ const UsersList = () => {
     >
       <PageHeader
         style={{
-          border: "1px solid rgb(235, 237, 240)"
+          border: "1px solid rgb(235, 237, 240)",
         }}
         title="Empleados"
         subTitle="Lista"
-        extra={[<RegisterUserButton key="1" />]}
+        extra={[
+          <Button type="primary" key={1} onClick={onRegisterUserButton}>
+            <Icon type="user-add" /> Registrar usuario
+          </Button>,
+        ]}
       />
       <Table
         columns={columns}
         dataSource={users}
-        rowKey={users => users.id}
+        rowKey={(users) => users.id}
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
       />

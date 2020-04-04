@@ -15,7 +15,7 @@ const AssignmentsList = () => {
       key: "idcontact",
       align: "center",
       render: (text, contact) => (
-        <Link to={`/calls/contacts/${contact.id}`}>
+        <Link to={`/gestiones/damas/${contact.id}`}>
           <span>{contact.idcontact}</span>
         </Link>
       )
@@ -49,7 +49,7 @@ const AssignmentsList = () => {
       dataIndex: "balance",
       key: "balance",
       align: "center",
-      render: (text, contact) => <span>${contact.balance}.00</span>
+      render: (text, contact) => <span>${contact.balance}</span>
     }
   ];
 

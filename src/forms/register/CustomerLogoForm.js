@@ -4,19 +4,19 @@ import { Upload, Icon } from "antd";
 
 export default class CustomerLogoForm extends Component {
   state = {
-    loading: false
+    loading: false,
   };
 
-  handleChange = info => {
+  handleChange = (info) => {
     if (info.file.status === "uploading") {
       this.setState({ loading: true });
       return;
     }
     if (info.file.status === "done") {
-      getBase64(info.file.originFileObj, imageUrl =>
+      getBase64(info.file.originFileObj, (imageUrl) =>
         this.setState({
           imageUrl,
-          loading: false
+          loading: false,
         })
       );
     }
