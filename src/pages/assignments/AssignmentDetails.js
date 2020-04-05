@@ -5,21 +5,22 @@ import {
   Card,
   Icon,
   PageHeader,
-  Empty,
   Row,
   Col,
   Descriptions,
   Button,
-  Timeline
+  Statistic,
+  Timeline,
 } from "antd";
 import RegisterDictationButton from "../../components/register/RegisterDictationButton";
 import { getContact } from "../../services/firebase";
 import DictationsContactsList from "../dictations/DictationsContactsList";
 import PaysContactList from "../pays/PaysContactList";
+import DictationsContactsPrevList from "../dictations/DictationsContactsPrevList";
 
 const { TabPane } = Tabs;
 
-const AssignmentDetails = props => {
+const AssignmentDetails = (props) => {
   const [contact, setContact] = useState({});
   const [count, setCount] = useState(0);
   const [callStatus, setCallStatus] = useState(false);
@@ -28,10 +29,10 @@ const AssignmentDetails = props => {
 
   useEffect(() => {
     getContact(props.match.params.Id)
-      .then(r => {
+      .then((r) => {
         setContact(r);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   });
@@ -41,14 +42,29 @@ const AssignmentDetails = props => {
   };
 
   const {
-    name,
-    balance,
-    cellphone,
-    idcontact,
-    type,
-    digit,
-    areanumber,
-    email
+    aniocampania,
+    campaniasvencidas,
+    cargosmoratorios,
+    codigopostal,
+    colonia,
+    diasmora,
+    digitodama,
+    direccion,
+    estado,
+    fechafacturacion,
+    fechafinalvigencia,
+    gastoscobranza,
+    nombre,
+    numdama,
+    numerozonafacturacion,
+    poblacion,
+    referencia,
+    saldocobro,
+    telefonocasa,
+    telefonocelular,
+    tipocartera,
+    tipodecuenta,
+    totalacobrar,
   } = contact;
 
   const numberCounts = () => {
@@ -67,12 +83,14 @@ const AssignmentDetails = props => {
     >
       <PageHeader
         style={{
-          border: "1px solid rgb(235, 237, 240)"
+          border: "1px solid rgb(235, 237, 240)",
         }}
-        title={name}
+        title={nombre}
         subTitle="Detalles"
         onBack={goBack}
-        extra={[<h1> ${balance}.00</h1>]}
+        extra={[
+          <Statistic title="Total a Cobrar" prefix="$" value={totalacobrar} />,
+        ]}
       />
       <Tabs defaultActiveKey="1">
         <TabPane tab="DATOS GENERALES" key="1">
@@ -81,27 +99,91 @@ const AssignmentDetails = props => {
               <Card>
                 <Descriptions title="Dama" layout="vertical">
                   <Descriptions.Item label="Número">
-                    {idcontact}
+                    {numdama}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Dígito">{digit}</Descriptions.Item>
-                  <Descriptions.Item label="Nombre">{name}</Descriptions.Item>
+                  <Descriptions.Item label="Dígito">
+                    {digitodama}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Nombre">{nombre}</Descriptions.Item>
                   <Descriptions.Item label="Tipo de cartera">
-                    {type}
+                    {tipocartera}
                   </Descriptions.Item>
                   <Descriptions.Item label="Zona">
-                    {areanumber}
+                    {numerozonafacturacion}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Correo">{email}</Descriptions.Item>
+                  <Descriptions.Item label="Tipo de cuenta">
+                    {tipodecuenta}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Año campaña">
+                    {aniocampania}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Campañas venciadas">
+                    {campaniasvencidas}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Días de mora">
+                    {diasmora}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Fecha de facturación">
+                    {fechafacturacion}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Fecha de vigencia">
+                    {fechafinalvigencia}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Saldo cobro">
+                    ${saldocobro}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Gastos de cobranza">
+                    ${gastoscobranza}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Cargos moratorios">
+                    ${cargosmoratorios}
+                  </Descriptions.Item>
                 </Descriptions>
                 <Row gutter={16}>
                   <Col span={24}>
                     <Card>
                       <Tabs defaultActiveKey="1">
-                        <TabPane tab="CONTACTO" key="1">
-                          <Empty description={<span>No hay datos</span>} />
+                        <TabPane tab="NUMEROS DE CONTACTO" key="1">
+                          <Row gutter={16}>
+                            <Col span={12}>
+                              <Statistic
+                                title="Telefono casa"
+                                prefix={<Icon type="phone" />}
+                                value={telefonocasa}
+                                groupSeparator="-"
+                              />
+                            </Col>
+                            <Col span={12}>
+                              <Statistic
+                                title="Telefono celular"
+                                prefix={<Icon type="phone" />}
+                                value={telefonocelular}
+                                groupSeparator="-"
+                              />
+                            </Col>
+                          </Row>
                         </TabPane>
                         <TabPane tab="DIRECCIONES" key="2">
-                          <Empty description={<span>No hay datos</span>} />
+                          <Descriptions>
+                            <Descriptions.Item label="Dirección">
+                              {direccion}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Colonia">
+                              {colonia}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Código postal">
+                              {codigopostal}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Estado">
+                              {estado}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Población">
+                              {poblacion}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Referencia">
+                              {referencia}
+                            </Descriptions.Item>
+                          </Descriptions>
                         </TabPane>
                       </Tabs>
                     </Card>
@@ -112,7 +194,7 @@ const AssignmentDetails = props => {
             <Col span={8}>
               <PageHeader
                 style={{
-                  border: "1px solid rgb(235, 237, 240)"
+                  border: "1px solid rgb(235, 237, 240)",
                 }}
                 title="Llamada"
                 subTitle={callStatus ? "Iniciada" : "En espera"}
@@ -130,25 +212,22 @@ const AssignmentDetails = props => {
               />
               <Card>
                 <p>{callStatus ? "Llamando al:" : "Llamar al:"}</p>
-                <h1>{cellphone} </h1>
+                <Statistic
+                  prefix={<Icon type="phone" />}
+                  value={telefonocelular}
+                  groupSeparator="-"
+                />
                 <p> {count} intentos</p>
               </Card>
               <PageHeader
                 style={{
-                  border: "1px solid rgb(235, 237, 240)"
+                  border: "1px solid rgb(235, 237, 240)",
                 }}
                 title="Dictaminación"
                 extra={[<RegisterDictationButton key={1} />]}
               />
               <Card>
-                <Timeline pending="Dictaminando...">
-                  <Timeline.Item color="green">
-                    Visita a Domicilio 2015-09-01
-                  </Timeline.Item>
-                  <Timeline.Item>Pago a Cobrador 2015-09-01</Timeline.Item>
-                  <Timeline.Item>Pago a Cobrador 2015-09-01</Timeline.Item>
-                  <Timeline.Item>Pago a Cobrador 2015-09-01</Timeline.Item>
-                </Timeline>
+                <DictationsContactsPrevList />
               </Card>
             </Col>
           </Row>

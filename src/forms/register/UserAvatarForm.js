@@ -1,22 +1,27 @@
 import React, { Component } from "react";
 import { getBase64, beforeUpload } from "../../services/toBase64";
+import {
+  uploadUserImage,
+  saveUserImage,
+  getUserImages,
+} from "../../services/firebase";
 import { Upload, Icon } from "antd";
 
 export default class UserAvatarForm extends Component {
   state = {
-    loading: false
+    loading: false,
   };
 
-  handleChange = info => {
+  handleChange = (info) => {
     if (info.file.status === "uploading") {
       this.setState({ loading: true });
       return;
     }
     if (info.file.status === "done") {
-      getBase64(info.file.originFileObj, imageUrl =>
+      getBase64(info.file.originFileObj, (imageUrl) =>
         this.setState({
           imageUrl,
-          loading: false
+          loading: false,
         })
       );
     }
@@ -36,7 +41,8 @@ export default class UserAvatarForm extends Component {
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        //action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        action={uploadUserImage}
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
       >
