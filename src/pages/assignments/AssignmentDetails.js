@@ -10,7 +10,6 @@ import {
   Descriptions,
   Button,
   Statistic,
-  Timeline,
 } from "antd";
 import RegisterDictationButton from "../../components/register/RegisterDictationButton";
 import { getContact } from "../../services/firebase";

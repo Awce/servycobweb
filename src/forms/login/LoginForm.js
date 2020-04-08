@@ -9,21 +9,21 @@ const key = "updatable";
 const LoginForm = () => {
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const [error, setError] = useState(false);
 
   let history = useHistory();
 
-  const onChange = e => {
+  const onChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const userLogin = e => {
+  const userLogin = (e) => {
     e.preventDefault();
     if (email.trim() === "" || password.trim() === "") {
       setError(true);
@@ -32,7 +32,7 @@ const LoginForm = () => {
         message.error({
           content: "Los campos son obliagatorios y no pueden ir vacios.",
           key,
-          duration: 2
+          duration: 2,
         });
       }, 1000);
       return;
@@ -42,21 +42,21 @@ const LoginForm = () => {
       .then(() => {
         message.loading({ content: "Iniciando sesión...", key });
         setTimeout(() => {
-          history.push("/summary");
+          history.push("/informacion");
           message.success({
             content: `Bienvenido, ${email}`,
             key,
-            duration: 2
+            duration: 2,
           });
         }, 1000);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.code, error.message);
         message.error({
           content:
             "La contraseña no es válida o el usuario no tiene una cuenta.",
           key,
-          duration: 2
+          duration: 2,
         });
       });
   };

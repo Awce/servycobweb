@@ -12,7 +12,8 @@ import NotFound from "../pages/NotFound";
 import NavbarMenu from "../components/NavbarMenu";
 import LateralMenu from "../components/LateralMenu";
 import EmptyPage from "../pages/EmptyPage";
-import AssignmentsUpload from "../pages/assignments/AssignmentsUpload";
+import AssignmentsResume from "../pages/assignments/AssignmentsResume";
+import AssignmentCreate from "../pages/assignments/AssignmentCreate";
 import AssignmentsList from "../pages/assignments/AssignmentsList";
 import AssignmentDetails from "../pages/assignments/AssignmentDetails";
 import UsersList from "../pages/user/UsersList";
@@ -55,7 +56,12 @@ const PrivateRouter = () => {
                 path="/gestiones/damas/:Id"
                 component={AssignmentDetails}
               />
-              <Route exact path="/asignaciones" component={AssignmentsUpload} />
+              <Route exact path="/asignaciones" component={AssignmentsResume} />
+              <Route
+                exact
+                path="/asignaciones/nueva"
+                component={AssignmentCreate}
+              />
               <Route exact path="/empleados" component={UsersList} />
               <Route exact path="/empelados/alta" component={UserCreate} />
               <Route exact path="/empleados/:Id" component={UserDetails} />

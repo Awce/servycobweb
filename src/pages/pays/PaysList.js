@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import XLSX from "xlsx";
+import { saveAs } from "file-saver";
 import { getPays } from "../../services/firebase";
 import { Link } from "react-router-dom";
 import { PageHeader, Table, Button, Icon, Upload, message } from "antd";
@@ -73,6 +75,27 @@ const PaysList = () => {
     },
   ];
 
+  const writePaysFile = () => {
+    let wb = XLSX.utils.table_to_book(document.getElementById("mytable"), {
+      sheet: "Pagos",
+    });
+    let wbout = XLSX.write(wb, {
+      bookType: "xlsx",
+      type: "binary",
+      bookSST: true,
+    });
+    const s2ab = (s) => {
+      let buf = new ArrayBuffer(s.length);
+      let view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+      return buf;
+    };
+    saveAs(
+      new Blob([s2ab(wbout)], { type: "application/octet-stream" }),
+      "Pagos.xlsx"
+    );
+  };
+
   useEffect(() => {
     const getPaysFirebase = () => {
       getPays()
@@ -116,7 +139,7 @@ const PaysList = () => {
         title="Pagos Realizados"
         subTitle="Lista"
         extra={[
-          <Button key={2}>
+          <Button key={2} onClick={writePaysFile}>
             <Icon type="download" /> Exportar pagos
           </Button>,
           <Upload {...props}>
@@ -127,6 +150,7 @@ const PaysList = () => {
         ]}
       />
       <Table
+        id="mytable"
         columns={columns}
         dataSource={pays}
         rowKey={(pays) => pays.id}

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import XLSX from "xlsx";
+import { saveAs } from "file-saver";
 import { getDictations } from "../../services/firebase";
 import { PageHeader, Table, Button, Icon } from "antd";
 
@@ -44,6 +46,27 @@ const DictationsList = () => {
     },
   ];
 
+  const writeDictationFile = () => {
+    let wb = XLSX.utils.table_to_book(document.getElementById("mytable"), {
+      sheet: "Dictaminación",
+    });
+    let wbout = XLSX.write(wb, {
+      bookType: "xlsx",
+      type: "binary",
+      bookSST: true,
+    });
+    const s2ab = (s) => {
+      let buf = new ArrayBuffer(s.length);
+      let view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+      return buf;
+    };
+    saveAs(
+      new Blob([s2ab(wbout)], { type: "application/octet-stream" }),
+      "Historial de Dictaminación.xlsx"
+    );
+  };
+
   useEffect(() => {
     const getDictationsFirebase = () => {
       getDictations()
@@ -69,12 +92,13 @@ const DictationsList = () => {
         title="Historial de Dictaminación"
         subTitle="Lista"
         extra={[
-          <Button key={1}>
+          <Button key={1} onClick={writeDictationFile}>
             <Icon type="download" /> Exportar dictaminación
           </Button>,
         ]}
       />
       <Table
+        id="mytable"
         columns={columns}
         dataSource={dictations}
         rowKey={(dictations) => dictations.id}
