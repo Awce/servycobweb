@@ -12,10 +12,12 @@ import NotFound from "../pages/NotFound";
 import NavbarMenu from "../components/NavbarMenu";
 import LateralMenu from "../components/LateralMenu";
 import EmptyPage from "../pages/EmptyPage";
-import AssignmentsResume from "../pages/assignments/AssignmentsResume";
-import AssignmentCreate from "../pages/assignments/AssignmentCreate";
 import AssignmentsList from "../pages/assignments/AssignmentsList";
 import AssignmentDetails from "../pages/assignments/AssignmentDetails";
+import AssignmentsResume from "../pages/assignments/AssignmentsResume";
+import AssignmentCreate from "../pages/assignments/AssignmentCreate";
+import AssignmentVerify from "../pages/assignments/AssignmentVerify";
+import AssignmentUpload from "../pages/assignments/AssignmentUpload";
 import UsersList from "../pages/user/UsersList";
 import UserCreate from "../pages/user/UserCreate";
 import UserDetails from "../pages/user/UserDetails";
@@ -61,6 +63,16 @@ const PrivateRouter = () => {
                 exact
                 path="/asignaciones/nueva"
                 component={AssignmentCreate}
+              />
+              <Route
+                exact
+                path="/asignaciones/verificar"
+                component={AssignmentVerify}
+              />
+              <Route
+                exact
+                path="/asignaciones/subir"
+                component={AssignmentUpload}
               />
               <Route exact path="/empleados" component={UsersList} />
               <Route exact path="/empelados/alta" component={UserCreate} />

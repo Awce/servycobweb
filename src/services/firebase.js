@@ -11,7 +11,7 @@ const firebaseConfig = {
   storageBucket: "servycob-app.appspot.com",
   messagingSenderId: "846865397214",
   appId: "1:846865397214:web:27409145980eaef94f994f",
-  measurementId: "G-XYFETCL3RW"
+  measurementId: "G-XYFETCL3RW",
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -27,6 +27,7 @@ const dictationsRef = firestore.collection("dictations");
 
 const usersAvatar = firebase.storage().ref("avatars");
 const contactsFolder = firebase.storage().ref("contacts");
+const assignmentsFolder = firebase.storage().ref("contacts");
 
 export const firebaseRegister = (imageUrl, name, lastname, email, password) => {
   return firebase
@@ -38,7 +39,7 @@ export const firebaseRegister = (imageUrl, name, lastname, email, password) => {
         .doc(id)
         .set({ id, imageUrl, name, lastname, email, password });
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -49,7 +50,7 @@ export const firebaseLogin = (email, password) => {
   return firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(res => {
+    .then((res) => {
       localStorage.setItem("user", JSON.stringify(res.user));
       return res.user;
     });
@@ -61,7 +62,7 @@ export const firebaseLogout = () => {
 };
 
 export const firebaseCurrentUser = () => {
-  return firebase.auth().onAuthStateChanged(user => {
+  return firebase.auth().onAuthStateChanged((user) => {
     if (user !== null) {
       console.log(user);
     } else {
@@ -73,14 +74,14 @@ export const firebaseCurrentUser = () => {
 export function getUsers() {
   return usersRef
     .get()
-    .then(snap => {
+    .then((snap) => {
       const users = [];
-      snap.forEach(value => {
+      snap.forEach((value) => {
         users.push(value.data());
       });
       return users;
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -91,10 +92,10 @@ export function getUser(id) {
   return usersRef
     .doc(id)
     .get()
-    .then(doc => {
+    .then((doc) => {
       return doc.data();
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -114,11 +115,11 @@ export function uploadUserImage(file) {
   return usersAvatar
     .child(file.name)
     .put(file)
-    .then(res => {
+    .then((res) => {
       res.ref.getDownloadURL();
     })
-    .then(link => link)
-    .catch(error => {
+    .then((link) => link)
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -132,9 +133,9 @@ export function saveUserImage(item) {
 }
 
 export function getUserImages() {
-  return usersRef.get().then(snap => {
+  return usersRef.get().then((snap) => {
     let images = [];
-    snap.docs.forEach(el => {
+    snap.docs.forEach((el) => {
       images.push(el.data);
     });
     return images;
@@ -144,14 +145,14 @@ export function getUserImages() {
 export function getCustomers() {
   return customersRef
     .get()
-    .then(snap => {
+    .then((snap) => {
       const customers = [];
-      snap.forEach(value => {
+      snap.forEach((value) => {
         customers.push(value.data());
       });
       return customers;
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -171,25 +172,10 @@ export function getCustomer(id) {
   return customersRef
     .doc(id)
     .get()
-    .then(doc => {
+    .then((doc) => {
       return doc.data();
     })
-    .catch(error => {
-      let errorCode = error.code;
-      let errorMessage = error.message;
-      console.log(`${errorCode}: ${errorMessage}`);
-    });
-}
-
-export function saveContactsExcel(file) {
-  return contactsFolder
-    .child(file.name)
-    .put(file)
-    .then(snap => {
-      snap.ref.getDownloadURL();
-    })
-    .then(link => link)
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -199,14 +185,14 @@ export function saveContactsExcel(file) {
 export function getContacts() {
   return contactsRef
     .get()
-    .then(snap => {
+    .then((snap) => {
       const contacts = [];
-      snap.forEach(value => {
+      snap.forEach((value) => {
         contacts.push(value.data());
       });
       return contacts;
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -217,10 +203,10 @@ export function getContact(id) {
   return contactsRef
     .doc(id)
     .get()
-    .then(doc => {
+    .then((doc) => {
       return doc.data();
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -230,14 +216,14 @@ export function getContact(id) {
 export function getPays() {
   return paysRef
     .get()
-    .then(snap => {
+    .then((snap) => {
       const pays = [];
-      snap.forEach(value => {
+      snap.forEach((value) => {
         pays.push(value.data());
       });
       return pays;
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -256,14 +242,14 @@ export function createPay(item) {
 export function getCampaigns() {
   return campaignsRef
     .get()
-    .then(snap => {
+    .then((snap) => {
       const campaigns = [];
-      snap.forEach(value => {
+      snap.forEach((value) => {
         campaigns.push(value.data());
       });
       return campaigns;
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
@@ -291,16 +277,37 @@ export function createDictation(item) {
 export function getDictations() {
   return dictationsRef
     .get()
-    .then(snap => {
+    .then((snap) => {
       const dictations = [];
-      snap.forEach(value => {
+      snap.forEach((value) => {
         dictations.push(value.data());
       });
       return dictations;
     })
-    .catch(error => {
+    .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
     });
+}
+
+export function uploadAssignments(file) {
+  return assignmentsFolder
+    .child(file.name)
+    .put(file)
+    .then((res) => {
+      res.ref.getDownloadURL();
+    })
+    .then((link) => link)
+    .catch((error) => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+    });
+}
+
+export function saveAssignments(item) {
+  let id = contactsRef.doc().id;
+  item.id = id;
+  return contactsRef.doc.id.set(item);
 }

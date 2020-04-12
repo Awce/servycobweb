@@ -22,7 +22,7 @@ const AssignmentsResume = () => {
       ),
     },
     {
-      title: "Dama",
+      title: "Nombre",
       dataIndex: "nombre",
       key: "nombre",
       align: "center",
