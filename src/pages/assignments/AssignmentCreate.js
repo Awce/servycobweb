@@ -1,34 +1,13 @@
 import React, { useState } from "react";
 import XLSX from "xlsx";
 import { useHistory } from "react-router-dom";
-import { PageHeader, Upload, Button, Icon, message } from "antd";
+import { PageHeader, Button, Icon, message } from "antd";
 import SteperAssignments from "../../components/SteperAssignments";
+import "bulma/css/bulma.css";
 
 const AssignmentCreate = () => {
   const [uploadFile, setUploadFile] = useState({ upload: false });
   const [readFile, setReadFile] = useState({ dataset: "", fileName: "" });
-  const { Dragger } = Upload;
-
-  const props = {
-    name: "file",
-    multiple: true,
-    accept: ".xlsx",
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-        setUploadFile({ upload: true });
-        handleFileLoad(info.file);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-        setUploadFile({ upload: false });
-      }
-    },
-  };
 
   const history = useHistory();
 
@@ -40,44 +19,27 @@ const AssignmentCreate = () => {
     history.goBack();
   };
 
-  const dummyRequest = ({ file, onSuccess }) => {
-    setTimeout(() => {
-      onSuccess("OK");
-    }, 100);
-  };
-
   const handleFileLoad = (e) => {
     console.log("Subiendo");
     let file = e.target.files[0];
     let reader = new FileReader();
+    console.log(reader);
     reader.onload = (e) => {
       let data = new Uint8Array(e.target.result);
       let wb = XLSX.read(data, { type: "array" });
       let ws = wb.Sheets[wb.SheetNames[0]];
       let sheet = XLSX.utils.sheet_to_json(ws, { header: 1 });
       console.log(sheet);
+      message.success(`${file.name} documento cargado exitosamente.`);
+      setUploadFile({ upload: true });
       setReadFile({ dataset: sheet, fileName: file.name });
     };
-    reader.readAsArrayBuffer(file);
+    if (file) {
+      reader.readAsArrayBuffer(file);
+    } else {
+      message.error("documento no cargado.");
+    }
   };
-
-  // const transform = (file) => {
-  //     return new Promise((resolve) => {
-  //       const reader = new FileReader();
-  //       reader.readAsArrayBuffer(file);
-
-  //       reader.onload = () => {
-  //         const data = new Uint8Array(reader.result);
-  //         const wb = XLSX.read(data, { type: "array" });
-  //         const htmlstr = XLSX.write(wb, {
-  //           sheet: "sheet",
-  //           type: "binary",
-  //           bookType: "html",
-  //         });
-  //         console.log(htmlstr);
-  //       };
-  //     });
-  //   },
 
   const { upload } = uploadFile;
   const { fileName } = readFile;
@@ -94,17 +56,30 @@ const AssignmentCreate = () => {
         onBack={goBack}
       />
       <SteperAssignments />
-      <Dragger {...props}>
-        <p className="ant-upload-drag-icon">
-          <Icon type="inbox" />
-        </p>
-        <p className="ant-upload-text">
-          Haga clic o arrastre el archivo a esta área para cargar
-        </p>
-        <p className="ant-upload-hint">
-          Soporte para una carga individual o masiva.
-        </p>
-      </Dragger>
+      <div className="field" style={{ marginTop: "10px" }}>
+        <div className="file is-centered is-large is-boxed has-name">
+          <label className="file-label">
+            <input
+              className="file-input"
+              type="file"
+              name="file"
+              onChange={handleFileLoad}
+              accept=".xlsx"
+            />
+            <span className="file-cta">
+              <span className="file-icon">
+                <i className="fas fa-upload"></i>
+              </span>
+              <span className="file-label">
+                Haga clic o arrastre el archivo a esta área para cargar.
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div>
+        <p>{fileName}</p>
+      </div>
       <div
         style={{
           marginTop: "10px",
@@ -130,8 +105,6 @@ const AssignmentCreate = () => {
           </Button>
         ) : null}
       </div>
-      <input name="file" type="file" onChange={handleFileLoad} />
-      <p>{fileName}</p>
     </div>
   );
 };
