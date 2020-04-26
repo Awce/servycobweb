@@ -26,7 +26,6 @@ const campaignsRef = firestore.collection("campaigns");
 const dictationsRef = firestore.collection("dictations");
 
 const usersAvatar = firebase.storage().ref("avatars");
-const contactsFolder = firebase.storage().ref("contacts");
 const assignmentsFolder = firebase.storage().ref("contacts");
 
 export const firebaseRegister = (imageUrl, name, lastname, email, password) => {
@@ -211,6 +210,15 @@ export function getContact(id) {
       let errorMessage = error.message;
       console.log(`${errorCode}: ${errorMessage}`);
     });
+}
+
+export function createContact(item) {
+  let id = item.id;
+  if (!id) {
+    id = contactsRef.doc().id;
+    item["id"] = id;
+  }
+  return contactsRef.doc(id).set(item);
 }
 
 export function getPays() {

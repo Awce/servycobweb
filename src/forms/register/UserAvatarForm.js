@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { getBase64, beforeUpload } from "../../services/toBase64";
-import {
-  uploadUserImage,
-  saveUserImage,
-  getUserImages,
-} from "../../services/firebase";
+import { uploadUserImage } from "../../services/firebase";
 import { Upload, Icon } from "antd";
 
 export default class UserAvatarForm extends Component {

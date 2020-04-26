@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import UserAvatarForm from "./UserAvatarForm";
 import { Form, Icon, Input, Button, message, notification } from "antd";
 import { firebaseRegister } from "../../services/firebase";
@@ -11,38 +13,38 @@ const RegisterForm = () => {
     lastname: "",
     email: "",
     password: "",
-    imageUrl: ""
+    imageUrl: "",
   });
 
   const [error, setError] = useState(false);
 
   const [show, setShow] = useState({
-    visible: false
+    visible: false,
   });
 
-  const onChange = e => {
+  const onChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const onClose = () => {
     setShow({
-      visible: false
+      visible: false,
     });
     setUser({
       name: "",
       lastname: "",
       email: "",
       password: "",
-      imageUrl: ""
+      imageUrl: "",
     });
   };
 
   const { visible } = show;
 
-  const userRegister = e => {
+  const userRegister = (e) => {
     e.preventDefault();
     if (
       name.trim() === "" ||
@@ -56,7 +58,7 @@ const RegisterForm = () => {
         message.error({
           content: "Los campos son obliagatorios y no pueden ir vacios.",
           key,
-          duration: 2
+          duration: 2,
         });
       }, 1000);
       return;
@@ -70,11 +72,11 @@ const RegisterForm = () => {
           message.success({
             content: "Genial.",
             key,
-            duration: 2
+            duration: 2,
           });
         }, 1000);
       })
-      .catch(error => {
+      .catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
@@ -87,7 +89,7 @@ const RegisterForm = () => {
       description: `Se ha enviado un correo a ${email}, para verificar su registro.`,
       onClick: () => {
         console.log("Notification Clicked!");
-      }
+      },
     });
   };
 
@@ -138,7 +140,7 @@ const RegisterForm = () => {
           borderTop: "1px solid #e9e9e9",
           padding: "10px 16px",
           background: "#fff",
-          textAlign: "right"
+          textAlign: "right",
         }}
       >
         <Button onClick={onClose} size="large" style={{ marginRight: 8 }}>

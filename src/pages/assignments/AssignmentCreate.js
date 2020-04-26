@@ -23,7 +23,6 @@ const AssignmentCreate = () => {
     console.log("Subiendo");
     let file = e.target.files[0];
     let reader = new FileReader();
-    console.log(reader);
     reader.onload = (e) => {
       let data = new Uint8Array(e.target.result);
       let wb = XLSX.read(data, { type: "array" });
@@ -42,7 +41,7 @@ const AssignmentCreate = () => {
   };
 
   const { upload } = uploadFile;
-  const { fileName } = readFile;
+  const { dataset, fileName } = readFile;
   return (
     <div
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
@@ -79,6 +78,7 @@ const AssignmentCreate = () => {
       </div>
       <div>
         <p>{fileName}</p>
+        <p>{dataset[1]}</p>
       </div>
       <div
         style={{
