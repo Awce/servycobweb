@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import XLSX from "xlsx";
 import { useHistory } from "react-router-dom";
-import { PageHeader, Button, Icon, message } from "antd";
+import { PageHeader, Button, message } from "antd";
 import SteperAssignments from "../../components/SteperAssignments";
 import "bulma/css/bulma.css";
+import { CheckOutlined } from "@ant-design/icons";
 
 const AssignmentCreate = () => {
   const [uploadFile, setUploadFile] = useState({ upload: false });
@@ -100,8 +101,9 @@ const AssignmentCreate = () => {
             size="large"
             onClick={nextStep}
             style={{ marginRight: 8 }}
+            icon={<CheckOutlined />}
           >
-            <Icon type="check" /> Verificar importación
+            Verificar importación
           </Button>
         ) : null}
       </div>

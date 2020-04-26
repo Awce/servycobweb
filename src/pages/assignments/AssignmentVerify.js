@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { PageHeader, Button, Icon } from "antd";
+import { PageHeader, Button } from "antd";
 import SteperAssignments from "../../components/SteperAssignments";
+import { DatabaseOutlined } from "@ant-design/icons";
 
 const AssignmentVerify = () => {
   const history = useHistory();
@@ -46,8 +47,9 @@ const AssignmentVerify = () => {
           size="large"
           onClick={nextStep}
           style={{ marginRight: 8 }}
+          icon={<DatabaseOutlined />}
         >
-          <Icon type="database" /> Subir a base de datos
+          Subir a base de datos
         </Button>
       </div>
     </div>

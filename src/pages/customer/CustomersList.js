@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getCustomers } from "../../services/firebase";
 import { Link, useHistory } from "react-router-dom";
-import { PageHeader, Table, Badge, Avatar, Button, Icon } from "antd";
+import { PageHeader, Table, Badge, Avatar, Button } from "antd";
+import { UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const CustomersList = () => {
   const [customers, setCustomers] = useState([]);
@@ -19,7 +20,7 @@ const CustomersList = () => {
             <img src={logo} alt={name} width="100px" />
           </figure>
         ) : (
-          <Avatar shape="square" size="large" icon="user" />
+          <Avatar shape="square" size="large" icon={<UserOutlined />} />
         ),
     },
     {
@@ -96,8 +97,13 @@ const CustomersList = () => {
         title="Clientes"
         subTitle="Lista"
         extra={[
-          <Button type="primary" key={1} onClick={onRegisterCustomerButton}>
-            <Icon type="user-add" /> Crear nuevo cliente
+          <Button
+            type="primary"
+            icon={<UserAddOutlined />}
+            key={1}
+            onClick={onRegisterCustomerButton}
+          >
+            Crear nuevo cliente
           </Button>,
         ]}
       />

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getUsers } from "../../services/firebase";
 import { Link, useHistory } from "react-router-dom";
-import { PageHeader, Button, Table, Avatar, Icon } from "antd";
+import { PageHeader, Button, Table, Avatar } from "antd";
+import { UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
@@ -17,7 +18,7 @@ const UsersList = () => {
         imageUrl ? (
           <Avatar src={imageUrl} />
         ) : (
-          <Avatar icon={<Icon type="user" />} />
+          <Avatar icon={<UserOutlined />} />
         ),
     },
     {
@@ -70,8 +71,13 @@ const UsersList = () => {
         title="Empleados"
         subTitle="Lista"
         extra={[
-          <Button type="primary" key={1} onClick={onRegisterUserButton}>
-            <Icon type="user-add" /> Registrar usuario
+          <Button
+            type="primary"
+            key={1}
+            onClick={onRegisterUserButton}
+            icon={<UserAddOutlined />}
+          >
+            Registrar usuario
           </Button>,
         ]}
       />

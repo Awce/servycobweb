@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import {
   Tabs,
   Card,
-  Icon,
   PageHeader,
   Row,
   Col,
@@ -16,6 +15,7 @@ import { getContact } from "../../services/firebase";
 import DictationsContactsList from "../dictations/DictationsContactsList";
 import PaysContactList from "../pays/PaysContactList";
 import DictationsContactsPrevList from "../dictations/DictationsContactsPrevList";
+import { PhoneOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 
@@ -147,7 +147,7 @@ const AssignmentDetails = (props) => {
                             <Col span={12}>
                               <Statistic
                                 title="Telefono casa"
-                                prefix={<Icon type="phone" />}
+                                prefix={<PhoneOutlined />}
                                 value={telefonocasa}
                                 groupSeparator="-"
                               />
@@ -155,7 +155,7 @@ const AssignmentDetails = (props) => {
                             <Col span={12}>
                               <Statistic
                                 title="Telefono celular"
-                                prefix={<Icon type="phone" />}
+                                prefix={<PhoneOutlined />}
                                 value={telefonocelular}
                                 groupSeparator="-"
                               />
@@ -199,12 +199,22 @@ const AssignmentDetails = (props) => {
                 subTitle={callStatus ? "Iniciada" : "En espera"}
                 extra={
                   count === 0 ? (
-                    <Button type="primary" key={1} onClick={numberCounts}>
-                      <Icon type="phone" /> Iniciar
+                    <Button
+                      type="primary"
+                      key={1}
+                      onClick={numberCounts}
+                      icon={<PhoneOutlined />}
+                    >
+                      Iniciar
                     </Button>
                   ) : (
-                    <Button type="danger" key={1} onClick={stopCall}>
-                      <Icon type="phone" /> Terminar
+                    <Button
+                      type="danger"
+                      key={1}
+                      onClick={stopCall}
+                      icon={<PhoneOutlined />}
+                    >
+                      Terminar
                     </Button>
                   )
                 }
@@ -212,7 +222,7 @@ const AssignmentDetails = (props) => {
               <Card>
                 <p>{callStatus ? "Llamando al:" : "Llamar al:"}</p>
                 <Statistic
-                  prefix={<Icon type="phone" />}
+                  prefix={<PhoneOutlined />}
                   value={telefonocelular}
                   groupSeparator="-"
                 />

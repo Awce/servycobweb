@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { getDictations } from "../../services/firebase";
-import { PageHeader, Table, Button, Icon } from "antd";
+import { PageHeader, Table, Button } from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
 
 const DictationsList = () => {
   const [dictations, setDictations] = useState([]);
@@ -92,8 +93,12 @@ const DictationsList = () => {
         title="Historial de Dictaminación"
         subTitle="Lista"
         extra={[
-          <Button key={1} onClick={writeDictationFile}>
-            <Icon type="download" /> Exportar dictaminación
+          <Button
+            key={1}
+            onClick={writeDictationFile}
+            icon={<DownloadOutlined />}
+          >
+            Exportar dictaminación
           </Button>,
         ]}
       />

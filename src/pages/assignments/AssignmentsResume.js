@@ -3,7 +3,8 @@ import XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { getContacts } from "../../services/firebase";
 import { Link, useHistory } from "react-router-dom";
-import { PageHeader, Button, Icon, Table } from "antd";
+import { PageHeader, Button, Table } from "antd";
+import { DownloadOutlined, UploadOutlined } from "@ant-design/icons";
 
 const AssignmentsResume = () => {
   const [contacts, setContacts] = useState([]);
@@ -103,11 +104,20 @@ const AssignmentsResume = () => {
         title="Asignaciones"
         subTitle="Call Center"
         extra={[
-          <Button key={2} onClick={writeAssignmentFile}>
-            <Icon type="download" /> Exportar asignaciones
+          <Button
+            key={2}
+            onClick={writeAssignmentFile}
+            icon={<DownloadOutlined />}
+          >
+            Exportar asignaciones
           </Button>,
-          <Button type="primary" key={1} onClick={onRegisterAssignmentButton}>
-            <Icon type="upload" /> Importar asignaciones
+          <Button
+            type="primary"
+            key={1}
+            onClick={onRegisterAssignmentButton}
+            icon={<UploadOutlined />}
+          >
+            Importar asignaciones
           </Button>,
         ]}
       />

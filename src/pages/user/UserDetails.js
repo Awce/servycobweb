@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Tabs, Card, Icon, PageHeader, Row, Col, Descriptions } from "antd";
+import { Tabs, Card, PageHeader, Row, Col, Descriptions } from "antd";
 import { getUser } from "../../services/firebase";
-import EditUserButton from "../../components/edit/EditUserButton";
+//import EditUserButton from "../../components/edit/EditUserButton";
+import { EnvironmentOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 const { Meta } = Card;
@@ -38,7 +39,7 @@ const UserDetails = (props) => {
         title={`${name} ${lastname}`}
         subTitle="Detalles"
         onBack={goBack}
-        extra={[<EditUserButton key="1" />]}
+        //extra={[<EditUserButton key="1" />]}
       />
       <Tabs defaultActiveKey="1">
         <TabPane tab="PERFIL" key="1">
@@ -54,7 +55,7 @@ const UserDetails = (props) => {
               >
                 <Meta
                   title={`${name} ${lastname}`}
-                  description={<Icon type="environment" />}
+                  description={<EnvironmentOutlined />}
                 />
               </Card>
             </Col>

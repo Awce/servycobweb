@@ -1,27 +1,28 @@
 import React, { useState } from "react";
-import { Drawer, Button, Icon, Form, Input, message } from "antd";
+import { Drawer, Button, Form, Input, message } from "antd";
 import { createCampaign } from "../../services/firebase";
+import { FileProtectOutlined } from "@ant-design/icons";
 
 const key = "updatable";
 
 const RegisterCampaignButton = () => {
   const [show, setShow] = useState({
-    visible: false
+    visible: false,
   });
 
   const showDrawer = () => {
     setShow({
-      visible: true
+      visible: true,
     });
   };
 
   const onClose = () => {
     setShow({
-      visible: false
+      visible: false,
     });
     setNewCampaign({
       name: "",
-      description: ""
+      description: "",
     });
   };
 
@@ -29,19 +30,19 @@ const RegisterCampaignButton = () => {
 
   const [newCampaign, setNewCampaign] = useState({
     name: "",
-    description: ""
+    description: "",
   });
 
   const [error, setError] = useState(false);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setNewCampaign({
       ...newCampaign,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const campaignRegister = e => {
+  const campaignRegister = (e) => {
     e.preventDefault();
     if (name.trim() === "") {
       setError(true);
@@ -50,7 +51,7 @@ const RegisterCampaignButton = () => {
         message.error({
           content: "Los campos son obliagatorios y no pueden ir vacios.",
           key,
-          duration: 2
+          duration: 2,
         });
       }, 1000);
       return;
@@ -64,11 +65,11 @@ const RegisterCampaignButton = () => {
           message.success({
             content: "Genial.",
             key,
-            duration: 2
+            duration: 2,
           });
         }, 1000);
       })
-      .catch(error => {
+      .catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
@@ -79,8 +80,12 @@ const RegisterCampaignButton = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={showDrawer}>
-        <Icon type="file-protect" /> Crear campaña
+      <Button
+        type="primary"
+        onClick={showDrawer}
+        icon={<FileProtectOutlined />}
+      >
+        Crear campaña
       </Button>
       <Drawer
         title="Crear campaña"
@@ -113,7 +118,7 @@ const RegisterCampaignButton = () => {
               borderTop: "1px solid #e9e9e9",
               padding: "10px 16px",
               background: "#fff",
-              textAlign: "right"
+              textAlign: "right",
             }}
           >
             <Button onClick={onClose} size="large" style={{ marginRight: 8 }}>
@@ -124,7 +129,7 @@ const RegisterCampaignButton = () => {
               htmlType="submit"
               className="login-form-button"
               size="large"
-              icon="file-protect"
+              icon={<FileProtectOutlined />}
             >
               Registrar campaña
             </Button>

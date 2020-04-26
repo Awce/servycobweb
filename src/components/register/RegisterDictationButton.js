@@ -1,16 +1,7 @@
 import React, { useState } from "react";
-import {
-  Drawer,
-  Button,
-  Icon,
-  Cascader,
-  Form,
-  Input,
-  Col,
-  Row,
-  message
-} from "antd";
+import { Drawer, Button, Cascader, Form, Input, Col, Row, message } from "antd";
 import { createDictation } from "../../services/firebase";
+import { FileAddOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
 const InputGroup = Input.Group;
@@ -28,99 +19,99 @@ export const DictationsOptions = [
           {
             value: "Negativa de Pago",
             label: "Negativa de Pago",
-            code: 2
+            code: 2,
           },
           {
             value: "Cobrada por GDC o Consejera",
             label: "Cobrada por GDC o Consejera",
-            code: 3
+            code: 3,
           },
           {
             value: "Doble Nombramiento o Saldo",
             label: "Doble Nombramiento o Saldo",
-            code: 5
+            code: 5,
           },
           {
             value: "Reclamación de Premio",
             label: "Reclamación de Premio",
-            code: 6
+            code: 6,
           },
           {
             value: "Promesa de Pago",
             label: "Promesa de Pago",
-            code: 7
+            code: 7,
           },
           {
             value: "Caja Devuelta a GDV",
             label: "Caja Devuelta a GDV",
-            code: 8
+            code: 8,
           },
           {
             value: "Pago a Porteador",
             label: "Pago a Porteador",
-            code: 9
+            code: 9,
           },
           {
             value: "Producto devuelto a GDC",
             label: "Producto devuelto a GDC",
-            code: 10
+            code: 10,
           },
           {
             value: "Contratación Menor de Edad",
             label: "Contratación Menor de Edad",
-            code: 11
+            code: 11,
           },
           {
             value: "Pedido NO Entregado",
             label: "Pedido NO Entregado",
-            code: 12
+            code: 12,
           },
           {
             value: "Ajuste Pendiente",
             label: "Ajuste Pendiente",
-            code: 13
+            code: 13,
           },
           {
             value: "Pedido NO solicitado por Dama",
             label: "Pedido NO solicitado por Dama",
-            code: 14
+            code: 14,
           },
           {
             value: "Dama NO Recibio Producto",
             label: "Dama NO Recibio Producto",
-            code: 15
+            code: 15,
           },
           {
             value: "Pago a Cobrador",
             label: "Pago a Cobrador",
-            code: 23
+            code: 23,
           },
           {
             value: "Pedidos Multiples",
             label: "Pedidos Multiples",
-            code: 26
+            code: 26,
           },
           {
             value: "Ya pago",
             label: "Ya pago",
-            code: 34
+            code: 34,
           },
           {
             value: "Promesa Incumplida",
             label: "Promesa Incumplida",
-            code: 35
+            code: 35,
           },
           {
             value: "Seguimiento a Promesa de Pago",
             label: "Seguimiento a Promesa de Pago",
-            code: 36
+            code: 36,
           },
           {
             value: "Negociando",
             label: "Negociando",
-            code: 37
-          }
-        ]
+            code: 37,
+          },
+        ],
       },
       {
         value: "Contacto Indirecto",
@@ -129,24 +120,24 @@ export const DictationsOptions = [
           {
             value: "Se Notifica del saldo a Terceros",
             label: "Se Notifica del saldo a Terceros",
-            code: 20
+            code: 20,
           },
           {
             value: "Defuncion Dama",
             label: "Defuncion Dama",
-            code: 24
+            code: 24,
           },
           {
             value: "Domicilio-Tel. de GDC o concejera",
             label: "Domicilio-Tel. de GDC o concejera",
-            code: 25
+            code: 25,
           },
           {
             value: "Cuelgan llamada",
             label: "Cuelgan llamada",
-            code: 27
-          }
-        ]
+            code: 27,
+          },
+        ],
       },
       {
         value: "Sin Contacto",
@@ -155,24 +146,24 @@ export const DictationsOptions = [
           {
             value: "Pedidos Multiples",
             label: "Pedidos Multiples",
-            code: 26
+            code: 26,
           },
           {
             value: "No contestan",
             label: "No contestan",
-            code: 28
+            code: 28,
           },
           {
             value: "Fuera de servicio",
             label: "Fuera de servicio",
-            code: 29
+            code: 29,
           },
           {
             value: "Ocupado",
             label: "Ocupado",
-            code: 31
-          }
-        ]
+            code: 31,
+          },
+        ],
       },
       {
         value: "Ilocalizable",
@@ -181,31 +172,31 @@ export const DictationsOptions = [
           {
             value: "Cambio de Domicilio",
             label: "Cambio de Domicilio",
-            code: 1
+            code: 1,
           },
           {
             value: "No conocen a Consejera, No Vive ahí",
             label: "No conocen a Consejera, No Vive ahí",
-            code: 22
+            code: 22,
           },
           {
             value: "No existe",
             label: "No existe",
-            code: 32
+            code: 32,
           },
           {
             value: "Sin Datos Telefonicos",
             label: "Sin Datos Telefonicos",
-            code: 34
+            code: 34,
           },
           {
             value: "Telefono incompleto",
             label: "Telefono incompleto",
-            code: 35
-          }
-        ]
-      }
-    ]
+            code: 35,
+          },
+        ],
+      },
+    ],
   },
   {
     value: "Domiciliar",
@@ -218,132 +209,132 @@ export const DictationsOptions = [
           {
             value: "Nueva-Inactividad",
             label: "Nueva-Inactividad",
-            code: 0
+            code: 0,
           },
           {
             value: "Cambio de Domicilio",
             label: "Cambio de Domicilio",
-            code: 1
+            code: 1,
           },
           {
             value: "Negativa de Pago",
             label: "Negativa de Pago",
-            code: 2
+            code: 2,
           },
           {
             value: "Cobrada por GDC o Consejera",
             label: "Cobrada por GDC o Consejera",
-            code: 3
+            code: 3,
           },
           {
             value: "Domicilio no Localizado",
             label: "Domicilio no Localizado",
-            code: 4
+            code: 4,
           },
           {
             value: "Doble Nombramiento o Saldo",
             label: "Doble Nombramiento o Saldo",
-            code: 5
+            code: 5,
           },
           {
             value: "Reclamación de Premio",
             label: "Reclamación de Premio",
-            code: 6
+            code: 6,
           },
           {
             value: "Promesa de Pago",
             label: "Promesa de Pago",
-            code: 7
+            code: 7,
           },
           {
             value: "Caja Devuelta a GDV",
             label: "Caja Devuelta a GDV",
-            code: 8
+            code: 8,
           },
           {
             value: "Pago a Porteador",
             label: "Pago a Porteador",
-            code: 9
+            code: 9,
           },
           {
             value: "Producto devuelto a GDC",
             label: "Producto devuelto a GDC",
-            code: 10
+            code: 10,
           },
           {
             value: "Contratación Menor de Edad",
             label: "Contratación Menor de Edad",
-            code: 11
+            code: 11,
           },
           {
             value: "Pedido NO Entregado",
             label: "Pedido NO Entregado",
-            code: 12
+            code: 12,
           },
           {
             value: "Pedido NO solicitado por Dama",
             label: "Pedido NO solicitado por Dama",
-            code: 14
+            code: 14,
           },
           {
             value: "Dama NO Recibio Producto",
             label: "Dama NO Recibio Producto",
-            code: 15
+            code: 15,
           },
           {
             value: "Pdcto. A dev x Dama, pend. X rec.",
             label: "Pdcto. A dev x Dama, pend. X rec.",
-            code: 16
+            code: 16,
           },
           {
             value: "Dama fuera de zona",
             label: "Dama fuera de zona",
-            code: 18
+            code: 18,
           },
           {
             value: "Dama NO Gestionada - Visitada",
             label: "Dama NO Gestionada - Visitada",
-            code: 19
+            code: 19,
           },
           {
             value: "Se Notifica del saldo a Terceros",
             label: "Se Notifica del saldo a Terceros",
-            code: 20
+            code: 20,
           },
           {
             value: "Casa Vacía o Lote Baldío",
             label: "Casa Vacía o Lote Baldío",
-            code: 21
+            code: 21,
           },
           {
             value: "No conocen a Consejera, No Vive ahí",
             label: "No conocen a Consejera, No Vive ahí",
-            code: 22
+            code: 22,
           },
           {
             value: "Pago a Cobrador",
             label: "Pago a Cobrador",
-            code: 23
+            code: 23,
           },
           {
             value: "Defuncion Dama",
             label: "Defuncion Dama",
-            code: 24
+            code: 24,
           },
           {
             value: "Domicilio-Tel. de GDC o concejera",
             label: "Domicilio-Tel. de GDC o concejera",
-            code: 25
+            code: 25,
           },
           {
             value: "Pedidos Multiples",
             label: "Pedidos Multiples",
-            code: 26
-          }
-        ]
-      }
-    ]
-  }
+            code: 26,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 const RegisterDictationButton = () => {
@@ -355,30 +346,30 @@ const RegisterDictationButton = () => {
     comment: "",
     dictation: "",
     subdictation: "",
-    reason: ""
+    reason: "",
   });
 
   const [error, setError] = useState(false);
 
   const [show, setShow] = useState({
-    visible: false
+    visible: false,
   });
 
   const showDrawer = () => {
     setShow({
-      visible: true
+      visible: true,
     });
   };
 
   const onClose = () => {
     setShow({
-      visible: false
+      visible: false,
     });
     setDictationsValues({
       amount: "",
       date: "",
       serial: "",
-      comment: ""
+      comment: "",
     });
   };
 
@@ -398,7 +389,7 @@ const RegisterDictationButton = () => {
             {label} (
             <a
               href={option.code}
-              onClick={e => handleAreaClick(e, label, option)}
+              onClick={(e) => handleAreaClick(e, label, option)}
             >
               {option.code}
             </a>
@@ -409,24 +400,24 @@ const RegisterDictationButton = () => {
       return <span key={option.value}>{label} / </span>;
     });
 
-  const onChangeDictatons = e => {
+  const onChangeDictatons = (e) => {
     setDictationsValues({
       ...dictationsValues,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onChangeTree = value => {
+  const onChangeTree = (value) => {
     setDictationsTree([...dictationsTree, value]);
     setDictationsValues({
       ...dictationsValues,
       dictation: value[0],
       subdictation: value[1],
-      reason: value[2]
+      reason: value[2],
     });
   };
 
-  const dictationRegister = e => {
+  const dictationRegister = (e) => {
     e.preventDefault();
     if (
       dictationsValues.dictation.trim() === "" ||
@@ -439,7 +430,7 @@ const RegisterDictationButton = () => {
         message.error({
           content: "Los campos son obliagatorios y no pueden ir vacios.",
           key,
-          duration: 2
+          duration: 2,
         });
       }, 1000);
       return;
@@ -453,11 +444,11 @@ const RegisterDictationButton = () => {
           message.success({
             content: "Genial.",
             key,
-            duration: 2
+            duration: 2,
           });
         }, 1000);
       })
-      .catch(error => {
+      .catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
@@ -468,8 +459,8 @@ const RegisterDictationButton = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={showDrawer}>
-        <Icon type="file-add" /> Agregar
+      <Button type="primary" onClick={showDrawer} icon={<FileAddOutlined />}>
+        Agregar
       </Button>
       <Drawer
         title="Crear nueva dictaminación"
@@ -511,10 +502,10 @@ const RegisterDictationButton = () => {
                         placeholder="Ingresa el Monto"
                         name="amount"
                         value={amount}
-                        formatter={amount =>
+                        formatter={(amount) =>
                           `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                         }
-                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
                         onChange={onChangeDictatons}
                       />
                     </Col>
@@ -546,10 +537,10 @@ const RegisterDictationButton = () => {
                         placeholder="Ingresa el Monto"
                         name="amount"
                         value={amount}
-                        formatter={amount =>
+                        formatter={(amount) =>
                           `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                         }
-                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
                         onChange={onChangeDictatons}
                       />
                     </Col>
@@ -581,10 +572,10 @@ const RegisterDictationButton = () => {
                         placeholder="Ingresa el Monto"
                         name="amount"
                         value={amount}
-                        formatter={amount =>
+                        formatter={(amount) =>
                           `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                         }
-                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
                         onChange={onChangeDictatons}
                       />
                     </Col>
@@ -616,10 +607,10 @@ const RegisterDictationButton = () => {
                         placeholder="Ingresa el Monto"
                         name="amount"
                         value={amount}
-                        formatter={amount =>
+                        formatter={(amount) =>
                           `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                         }
-                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
                         onChange={onChangeDictatons}
                       />
                     </Col>
@@ -651,10 +642,10 @@ const RegisterDictationButton = () => {
                         placeholder="Ingresa el Monto"
                         name="amount"
                         value={amount}
-                        formatter={amount =>
+                        formatter={(amount) =>
                           `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                         }
-                        parser={amount => amount.replace(/\$\s?|(,*)/g, "")}
+                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
                         onChange={onChangeDictatons}
                       />
                     </Col>
@@ -693,7 +684,7 @@ const RegisterDictationButton = () => {
               borderTop: "1px solid #e9e9e9",
               padding: "10px 16px",
               background: "#fff",
-              textAlign: "right"
+              textAlign: "right",
             }}
           >
             <Button size="large" style={{ marginRight: 8 }} onClick={onClose}>

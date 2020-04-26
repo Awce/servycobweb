@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { PageHeader, Button, Icon } from "antd";
+import { PageHeader, Button } from "antd";
 import SteperAssignments from "../../components/SteperAssignments";
+import { CheckOutlined } from "@ant-design/icons";
 
 const AssignmentUpload = () => {
   const history = useHistory();
@@ -47,8 +48,9 @@ const AssignmentUpload = () => {
           size="large"
           onClick={nextStep}
           style={{ marginRight: 8 }}
+          icon={<CheckOutlined />}
         >
-          <Icon type="check" /> Terminar
+          Terminar
         </Button>
       </div>
     </div>

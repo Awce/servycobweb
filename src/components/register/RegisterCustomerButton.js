@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import CustomerLogoForm from "../../forms/register/CustomerLogoForm";
-import { Drawer, Button, Icon, Form, Input, message } from "antd";
+import { Drawer, Button, Form, Input, message } from "antd";
 import { createCustomer } from "../../services/firebase";
+import { UserAddOutlined } from "@ant-design/icons";
 
 const key = "updatable";
 
@@ -110,8 +111,8 @@ const RegisterCustomerButton = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={showDrawer}>
-        <Icon type="user-add" /> Crear nuevo cliente
+      <Button type="primary" onClick={showDrawer} icon={<UserAddOutlined />}>
+        Crear nuevo cliente
       </Button>
       <Drawer
         title="Crear nuevo cliente"

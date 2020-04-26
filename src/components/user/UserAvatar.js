@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  Avatar,
-  Badge,
-  Popover,
-  Statistic,
-  Button,
-  Icon,
-  Col,
-  Row
-} from "antd";
+import { Avatar, Badge, Popover, Statistic, Button, Col, Row } from "antd";
+import { GiftTwoTone, LogoutOutlined } from "@ant-design/icons";
 
 const UserAvatar = () => {
   const logoutUser = () => {
@@ -38,13 +30,13 @@ const UserAvatar = () => {
           <Statistic
             title="Bonos"
             value={128}
-            prefix={<Icon type="gift" theme="twoTone" twoToneColor="#eb2f96" />}
+            prefix={<GiftTwoTone twoToneColor="#eb2f96" />}
           />
         </Col>
       </Row>
-      <Row span={12}>
-        <Col>
-          <Button onClick={logoutUser} block>
+      <Row span={24}>
+        <Col span={24}>
+          <Button onClick={logoutUser} icon={<LogoutOutlined />} block>
             Cerrar sesion
           </Button>
         </Col>

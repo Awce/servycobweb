@@ -1,33 +1,32 @@
 import React, { useState } from "react";
-import { Badge, Icon, Drawer, Empty } from "antd";
+import { Badge, Drawer, Empty } from "antd";
+import { NotificationTwoTone } from "@ant-design/icons";
 
 const UserNotifications = () => {
   const [show, setShow] = useState({
-    visible: false
+    visible: false,
   });
 
   const showDrawer = () => {
     setShow({
-      visible: true
+      visible: true,
     });
   };
 
   const onClose = () => {
     setShow({
-      visible: false
+      visible: false,
     });
   };
 
   const { visible } = show;
 
   return (
-    <div>
+    <>
       <Badge count={0} dot>
-        <Icon
-          style={{ fontSize: "24px" }}
-          type="notification"
+        <NotificationTwoTone
           onClick={showDrawer}
-          theme="twoTone"
+          style={{ fontSize: "24px" }}
         />
       </Badge>
       <Drawer
@@ -39,7 +38,7 @@ const UserNotifications = () => {
       >
         <Empty description={<span>No tienes notificaciones</span>} />
       </Drawer>
-    </div>
+    </>
   );
 };
 

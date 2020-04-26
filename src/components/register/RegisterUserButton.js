@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import UserAvatarForm from "../../forms/register/UserAvatarForm";
-import { Drawer, Button, Icon, Form, Input, message, notification } from "antd";
+import { Drawer, Button, Form, Input, message, notification } from "antd";
 import { firebaseRegister } from "../../services/firebase";
+import {
+  UserAddOutlined,
+  UserOutlined,
+  MailOutlined,
+  SmileOutlined,
+  UnlockOutlined,
+} from "@ant-design/icons";
 
 const key = "updatable";
 
@@ -11,44 +18,44 @@ const RegisterUserButton = () => {
     lastname: "",
     email: "",
     password: "",
-    imageUrl: ""
+    imageUrl: "",
   });
 
   const [error, setError] = useState(false);
 
   const [show, setShow] = useState({
-    visible: false
+    visible: false,
   });
 
   const showDrawer = () => {
     setShow({
-      visible: true
+      visible: true,
     });
   };
 
   const onClose = () => {
     setShow({
-      visible: false
+      visible: false,
     });
     setUser({
       name: "",
       lastname: "",
       email: "",
       password: "",
-      imageUrl: ""
+      imageUrl: "",
     });
   };
 
   const { visible } = show;
 
-  const onChange = e => {
+  const onChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const userRegister = e => {
+  const userRegister = (e) => {
     e.preventDefault();
     if (
       name.trim() === "" ||
@@ -62,7 +69,7 @@ const RegisterUserButton = () => {
         message.error({
           content: "Los campos son obliagatorios y no pueden ir vacios.",
           key,
-          duration: 2
+          duration: 2,
         });
       }, 1000);
       return;
@@ -76,11 +83,11 @@ const RegisterUserButton = () => {
           message.success({
             content: "Genial.",
             key,
-            duration: 2
+            duration: 2,
           });
         }, 1000);
       })
-      .catch(error => {
+      .catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
@@ -94,7 +101,7 @@ const RegisterUserButton = () => {
         description: `Se ha enviado un correo a ${email}, para verificar su registro.`,
         onClick: () => {
           console.log("Notification Clicked!");
-        }
+        },
       });
     }
   };
@@ -103,8 +110,8 @@ const RegisterUserButton = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={showDrawer}>
-        <Icon type="user-add" /> Crear nuevo usuario
+      <Button type="primary" onClick={showDrawer} icon={<UserAddOutlined />}>
+        Crear nuevo usuario
       </Button>
       <Drawer
         title="Crear nuevo usuario"
@@ -120,7 +127,7 @@ const RegisterUserButton = () => {
             onChange={onChange}
           />
           <Input
-            prefix={<Icon type="smile" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<SmileOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Nombre(s)"
             className="input-form"
             name="name"
@@ -128,7 +135,7 @@ const RegisterUserButton = () => {
             value={name}
           />
           <Input
-            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Apellidos"
             className="input-form"
             name="lastname"
@@ -136,7 +143,7 @@ const RegisterUserButton = () => {
             value={lastname}
           />
           <Input
-            prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Correo electrónico"
             className="input-form"
             name="email"
@@ -144,7 +151,7 @@ const RegisterUserButton = () => {
             value={email}
           />
           <Input.Password
-            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<UnlockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             type="password"
             placeholder="Contraseña"
             className="input-form"
@@ -161,7 +168,7 @@ const RegisterUserButton = () => {
               borderTop: "1px solid #e9e9e9",
               padding: "10px 16px",
               background: "#fff",
-              textAlign: "right"
+              textAlign: "right",
             }}
           >
             <Button onClick={onClose} size="large" style={{ marginRight: 8 }}>

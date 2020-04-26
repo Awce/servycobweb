@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Space } from "antd";
 import UserAvatar from "./user/UserAvatar";
 import LogoCompany from "./LogoCompany";
 import UserNotifications from "./user/UserNotifications";
@@ -14,15 +14,17 @@ const NavbarMenu = () => {
           <Col span={6} />
           <Col span={6} />
           <Col span={6}>
-            <Col span={6}>
-              <UserMessages />
-            </Col>
-            <Col span={6}>
-              <UserEmails />
-            </Col>
-            <Col span={6}>
-              <UserNotifications />
-            </Col>
+            <Space>
+              <Col span={6}>
+                <UserMessages />
+              </Col>
+              <Col span={6}>
+                <UserEmails />
+              </Col>
+              <Col span={6}>
+                <UserNotifications />
+              </Col>
+            </Space>
           </Col>
           <Col span={6}>
             <UserAvatar />

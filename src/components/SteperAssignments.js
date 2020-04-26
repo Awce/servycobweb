@@ -1,6 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Steps, Icon } from "antd";
+import { Steps } from "antd";
+import {
+  UploadOutlined,
+  DatabaseOutlined,
+  FileDoneOutlined,
+} from "@ant-design/icons";
 
 const SteperAssignments = () => {
   const { Step } = Steps;
@@ -21,12 +26,9 @@ const SteperAssignments = () => {
   return (
     <div style={{ marginTop: "10px" }}>
       <Steps current={currentPath}>
-        <Step title="Cargar archivo" icon={<Icon type="upload" />} />
-        <Step title="Verificar" icon={<Icon type="file-done" />} />
-        <Step
-          title="Subir a la base de datos"
-          icon={<Icon type="database" />}
-        />
+        <Step title="Cargar archivo" icon={<UploadOutlined />} />
+        <Step title="Verificar" icon={<FileDoneOutlined />} />
+        <Step title="Subir a la base de datos" icon={<DatabaseOutlined />} />
       </Steps>
     </div>
   );

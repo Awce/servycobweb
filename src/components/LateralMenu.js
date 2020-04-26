@@ -1,6 +1,27 @@
 import React from "react";
-import { Menu, Icon } from "antd";
+import { Menu } from "antd";
 import { useHistory, withRouter } from "react-router-dom";
+import {
+  HomeOutlined,
+  InteractionOutlined,
+  SelectOutlined,
+  MessageOutlined,
+  MailOutlined,
+  BookOutlined,
+  ReadOutlined,
+  VideoCameraOutlined,
+  QuestionOutlined,
+  ContactsOutlined,
+  TeamOutlined,
+  PushpinOutlined,
+  IdcardOutlined,
+  UsergroupAddOutlined,
+  GiftOutlined,
+  PieChartOutlined,
+  HistoryOutlined,
+  ContainerOutlined,
+  DatabaseOutlined,
+} from "@ant-design/icons";
 
 const { SubMenu } = Menu;
 
@@ -20,8 +41,7 @@ const LateralMenu = () => {
     <Menu defaultSelectedKeys={currentLocation} mode="inline">
       <Menu.ItemGroup key="g1" title="PERSONAL">
         <Menu.Item key="informacion" onClick={() => link("/informacion")}>
-          <Icon
-            type="home"
+          <HomeOutlined
             className={`${
               currentLocation === "informacion" ? "menu-item-active" : ""
             }`}
@@ -29,8 +49,7 @@ const LateralMenu = () => {
           <span>Información general</span>
         </Menu.Item>
         <Menu.Item key="gestiones" onClick={() => link("/gestiones")}>
-          <Icon
-            type="interaction"
+          <InteractionOutlined
             className={`${
               currentLocation === "gestiones" ? "menu-item-active" : ""
             }`}
@@ -41,14 +60,13 @@ const LateralMenu = () => {
           key="sub1"
           title={
             <span>
-              <Icon type="select" />
+              <SelectOutlined />
               <span>Canales</span>
             </span>
           }
         >
           <Menu.Item key="mensajes" onClick={() => link("/mensajes")} disabled>
-            <Icon
-              type="message"
+            <MessageOutlined
               className={`${
                 currentLocation === "mensajes" ? "menu-item-active" : ""
               }`}
@@ -56,8 +74,7 @@ const LateralMenu = () => {
             <span>Mensajes</span>
           </Menu.Item>
           <Menu.Item key="correos" onClick={() => link("/correos")} disabled>
-            <Icon
-              type="mail"
+            <MailOutlined
               className={`${
                 currentLocation === "correos" ? "menu-item-active" : ""
               }`}
@@ -70,7 +87,7 @@ const LateralMenu = () => {
           key="sub2"
           title={
             <span>
-              <Icon type="book" />
+              <BookOutlined />
               <span>Capacitación</span>
             </span>
           }
@@ -80,8 +97,7 @@ const LateralMenu = () => {
             onClick={() => link("/documentacion")}
             disabled
           >
-            <Icon
-              type="read"
+            <ReadOutlined
               className={`${
                 currentLocation === "documentacion" ? "menu-item-active" : ""
               }`}
@@ -89,8 +105,7 @@ const LateralMenu = () => {
             <span>Documentación</span>
           </Menu.Item>
           <Menu.Item key="videos" onClick={() => link("/videos")} disabled>
-            <Icon
-              type="video-camera"
+            <VideoCameraOutlined
               className={`${
                 currentLocation === "videos" ? "menu-item-active" : ""
               }`}
@@ -102,8 +117,7 @@ const LateralMenu = () => {
             onClick={() => link("/preguntas")}
             disabled
           >
-            <Icon
-              type="question"
+            <QuestionOutlined
               className={`${
                 currentLocation === "preguntas" ? "menu-item-active" : ""
               }`}
@@ -118,14 +132,13 @@ const LateralMenu = () => {
           key="sub3"
           title={
             <span>
-              <Icon type="contacts" />
+              <ContactsOutlined />
               <span>CRM</span>
             </span>
           }
         >
           <Menu.Item key="clientes" onClick={() => link("/clientes")}>
-            <Icon
-              type="team"
+            <TeamOutlined
               className={`${
                 currentLocation === "clientes" ? "menu-item-active" : ""
               }`}
@@ -133,8 +146,7 @@ const LateralMenu = () => {
             <span>Clientes</span>
           </Menu.Item>
           <Menu.Item key="asignaciones" onClick={() => link("/asignaciones")}>
-            <Icon
-              type="pushpin"
+            <PushpinOutlined
               className={`${
                 currentLocation === "asignaciones" ? "menu-item-active" : ""
               }`}
@@ -147,14 +159,13 @@ const LateralMenu = () => {
           key="sub4"
           title={
             <span>
-              <Icon type="idcard" />
+              <IdcardOutlined />
               <span>RRHH</span>
             </span>
           }
         >
           <Menu.Item key="empleados" onClick={() => link("/empleados")}>
-            <Icon
-              type="usergroup-add"
+            <UsergroupAddOutlined
               className={`${
                 currentLocation === "empleados" ? "menu-item-active" : ""
               }`}
@@ -162,8 +173,7 @@ const LateralMenu = () => {
             <span>Empleados</span>
           </Menu.Item>
           <Menu.Item key="bonos" onClick={() => link("/bonos")} disabled>
-            <Icon
-              type="gift"
+            <GiftOutlined
               className={`${
                 currentLocation === "bonos" ? "menu-item-active" : ""
               }`}
@@ -176,7 +186,7 @@ const LateralMenu = () => {
           key="sub5"
           title={
             <span>
-              <Icon type="pie-chart" />
+              <PieChartOutlined />
               <span>Reportes</span>
             </span>
           }
@@ -185,8 +195,7 @@ const LateralMenu = () => {
             key="dictaminaciones"
             onClick={() => link("/dictaminaciones")}
           >
-            <Icon
-              type="history"
+            <HistoryOutlined
               className={`${
                 currentLocation === "dictaminaciones" ? "menu-item-active" : ""
               }`}
@@ -194,8 +203,7 @@ const LateralMenu = () => {
             <span>Dictaminación</span>
           </Menu.Item>
           <Menu.Item key="pagos" onClick={() => link("/pagos")}>
-            <Icon
-              type="container"
+            <ContainerOutlined
               className={`${
                 currentLocation === "pagos" ? "menu-item-active" : ""
               }`}
@@ -203,8 +211,7 @@ const LateralMenu = () => {
             <span>Pagos</span>
           </Menu.Item>
           <Menu.Item key="resumen" onClick={() => link("/resumen")}>
-            <Icon
-              type="database"
+            <DatabaseOutlined
               className={`${
                 currentLocation === "resumen" ? "menu-item-active" : ""
               }`}

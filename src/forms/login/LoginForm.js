@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
-import { Form, Icon, Input, Button, Card, Row, Col, message } from "antd";
+import { Form, Input, Button, Card, Row, Col, message } from "antd";
 import { useFormik } from "formik";
 import { firebaseLogin } from "../../services/firebase";
 import Logo from "../../components/LogoWhite";
+import { MailOutlined, UnlockOutlined } from "@ant-design/icons";
 
 const key = "updatable";
 
@@ -67,15 +68,15 @@ const LoginForm = () => {
 
   return (
     <Card style={{ width: 600, background: "gray" }}>
-      <Row justify="center">
-        <Col span={12} offset={6}>
+      <Row span={24} gutter={[16, 16]}>
+        <Col span={24} style={{ flex: "none", justify: "center" }}>
           <Logo />
         </Col>
       </Row>
 
       <Form className="login-form" onSubmit={userLogin}>
         <Input
-          prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
+          prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
           placeholder="Ingresa tu correo"
           className="input-form"
           name="email"
@@ -83,7 +84,7 @@ const LoginForm = () => {
           value={email}
         />
         <Input.Password
-          prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+          prefix={<UnlockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
           type="password"
           placeholder="Ingresa tu contraseña"
           className="input-form"

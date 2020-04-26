@@ -1,32 +1,28 @@
 import React, { useState } from "react";
-import { Badge, Icon, Drawer, Empty } from "antd";
+import { Badge, Drawer, Empty } from "antd";
+import { MailTwoTone } from "@ant-design/icons";
 
 const UserEmails = () => {
   const [show, setShow] = useState({
-    visible: false
+    visible: false,
   });
 
   const showDrawer = () => {
     setShow({
-      visible: true
+      visible: true,
     });
   };
 
   const onClose = () => {
     setShow({
-      visible: false
+      visible: false,
     });
   };
   const { visible } = show;
   return (
-    <div>
+    <>
       <Badge count={0} dot>
-        <Icon
-          style={{ fontSize: "24px" }}
-          type="mail"
-          onClick={showDrawer}
-          theme="twoTone"
-        />
+        <MailTwoTone style={{ fontSize: "24px" }} onClick={showDrawer} />
       </Badge>
       <Drawer
         title="Correos"
@@ -37,7 +33,7 @@ const UserEmails = () => {
       >
         <Empty description={<span>No tienes correos</span>} />
       </Drawer>
-    </div>
+    </>
   );
 };
 

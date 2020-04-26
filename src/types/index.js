@@ -1,6 +1,0 @@
-export const REGISTER_USER = "REGISTER_USER";
-export const REGISTER_USER_ERROR = "REGISTER_USER_ERROR";
-export const GET_USER = "GET_USER";
-export const LOGIN_USER = "LOGIN_USER";
-export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR";
-export const LOGOUT_USER = "LOGOUT_USER";

@@ -1,5 +1,6 @@
 import React from "react";
-import { PageHeader, Button, Icon } from "antd";
+import { PageHeader, Button } from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
 
 const SummaryList = () => {
   return (
@@ -13,8 +14,8 @@ const SummaryList = () => {
         title="Resumen"
         subTitle="Lista"
         extra={[
-          <Button key={1}>
-            <Icon type="download" /> Exportar resumen
+          <Button key={1} icon={<DownloadOutlined />}>
+            Exportar resumen
           </Button>,
         ]}
       />

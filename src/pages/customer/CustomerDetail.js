@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Tabs, Card, Icon, PageHeader, Row, Col, Descriptions } from "antd";
+import { Tabs, Card, PageHeader, Row, Col, Descriptions } from "antd";
 import { getCustomer } from "../../services/firebase";
-import EditCustomerButton from "../../components/edit/EditCustomerButton";
+//import EditCustomerButton from "../../components/edit/EditCustomerButton";
 import CampaignsLists from "../campaigns/CampaignsLists";
+import { EnvironmentOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 const { Meta } = Card;
@@ -51,7 +52,7 @@ const CustomerDetail = (props) => {
         title={namebusiness}
         subTitle="Detalles"
         onBack={goBack}
-        extra={[<EditCustomerButton key="1" />]}
+        //extra={[<EditCustomerButton key="1" />]}
       />
       <Tabs defaultActiveKey="1">
         <TabPane tab="PERFIL" key="1">
@@ -65,7 +66,7 @@ const CustomerDetail = (props) => {
                   </figure>
                 }
               >
-                <Meta title={name} description={<Icon type="environment" />} />
+                <Meta title={name} description={<EnvironmentOutlined />} />
                 <span>{address}</span>
               </Card>
             </Col>

@@ -3,7 +3,8 @@ import XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { getPays } from "../../services/firebase";
 import { Link } from "react-router-dom";
-import { PageHeader, Table, Button, Icon, Upload, message } from "antd";
+import { PageHeader, Table, Button, Upload, message } from "antd";
+import { DownloadOutlined, UploadOutlined } from "@ant-design/icons";
 
 const PaysList = () => {
   const [pays, setPays] = useState([]);
@@ -139,12 +140,12 @@ const PaysList = () => {
         title="Pagos Realizados"
         subTitle="Lista"
         extra={[
-          <Button key={2} onClick={writePaysFile}>
-            <Icon type="download" /> Exportar pagos
+          <Button key={2} onClick={writePaysFile} icon={<DownloadOutlined />}>
+            Exportar pagos
           </Button>,
           <Upload {...props}>
-            <Button type="primary" key={1}>
-              <Icon type="upload" /> Importar pagos
+            <Button type="primary" key={1} icon={<UploadOutlined />}>
+              Importar pagos
             </Button>
           </Upload>,
         ]}

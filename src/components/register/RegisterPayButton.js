@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import { Drawer, Button, Icon, Form, Input, message } from "antd";
+import { Drawer, Button, Form, Input, message } from "antd";
 import { createPay } from "../../services/firebase";
+import { UploadOutlined } from "@ant-design/icons";
 
 const key = "updatable";
 
 const RegisterPayButton = () => {
   const [show, setShow] = useState({
-    visible: false
+    visible: false,
   });
 
   const showDrawer = () => {
     setShow({
-      visible: true
+      visible: true,
     });
   };
 
   const onClose = () => {
     setShow({
-      visible: false
+      visible: false,
     });
     setNewPay({
       amount: "",
@@ -25,7 +26,7 @@ const RegisterPayButton = () => {
       delivery_date: "",
       number: "",
       pay: "",
-      yearcampaign: ""
+      yearcampaign: "",
     });
   };
 
@@ -37,19 +38,19 @@ const RegisterPayButton = () => {
     delivery_date: "",
     number: "",
     pay: "",
-    yearcampaign: ""
+    yearcampaign: "",
   });
 
   const [error, setError] = useState(false);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setNewPay({
       ...newPay,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const payRegister = e => {
+  const payRegister = (e) => {
     e.preventDefault();
     if (
       amount.trim() === "" ||
@@ -65,7 +66,7 @@ const RegisterPayButton = () => {
         message.error({
           content: "Los campos son obliagatorios y no pueden ir vacios.",
           key,
-          duration: 2
+          duration: 2,
         });
       }, 1000);
       return;
@@ -79,11 +80,11 @@ const RegisterPayButton = () => {
           message.success({
             content: "Genial.",
             key,
-            duration: 2
+            duration: 2,
           });
         }, 1000);
       })
-      .catch(error => {
+      .catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
@@ -94,8 +95,8 @@ const RegisterPayButton = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={showDrawer}>
-        <Icon type="upload" /> Subir pagos
+      <Button type="primary" onClick={showDrawer} icon={<UploadOutlined />}>
+        Subir pagos
       </Button>
       <Drawer
         title="Capturar pago"
@@ -160,7 +161,7 @@ const RegisterPayButton = () => {
               borderTop: "1px solid #e9e9e9",
               padding: "10px 16px",
               background: "#fff",
-              textAlign: "right"
+              textAlign: "right",
             }}
           >
             <Button onClick={onClose} size="large" style={{ marginRight: 8 }}>

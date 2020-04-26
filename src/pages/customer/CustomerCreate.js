@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CustomerLogoForm from "../../forms/register/CustomerLogoForm";
+// import CustomerLogoForm from "../../forms/register/CustomerLogoForm";
 import { createCustomer } from "../../services/firebase";
 import { useHistory } from "react-router-dom";
 import {
@@ -11,9 +11,15 @@ import {
   Button,
   Form,
   Input,
-  Icon,
   message,
 } from "antd";
+import {
+  PhoneOutlined,
+  MailOutlined,
+  GlobalOutlined,
+  UserAddOutlined,
+  EnvironmentOutlined,
+} from "@ant-design/icons";
 
 const key = "updatable";
 const { TabPane } = Tabs;
@@ -127,11 +133,11 @@ const CustomerCreate = () => {
             <Row gutter={16}>
               <Col span={6}>
                 <Card>
-                  <CustomerLogoForm
+                  {/* <CustomerLogoForm
                     value={imageUrl}
                     name="imageUrl"
                     onChange={onChange}
-                  />
+                  /> */}
                 </Card>
               </Col>
               <Col span={18}>
@@ -174,8 +180,7 @@ const CustomerCreate = () => {
                       <Col span={14}>
                         <Input
                           prefix={
-                            <Icon
-                              type="mail"
+                            <MailOutlined
                               style={{ color: "rgba(0,0,0,.25)" }}
                             />
                           }
@@ -189,8 +194,7 @@ const CustomerCreate = () => {
                       <Col span={10}>
                         <Input
                           prefix={
-                            <Icon
-                              type="global"
+                            <GlobalOutlined
                               style={{ color: "rgba(0,0,0,.25)" }}
                             />
                           }
@@ -204,8 +208,7 @@ const CustomerCreate = () => {
                       <Col span={12}>
                         <Input
                           prefix={
-                            <Icon
-                              type="phone"
+                            <PhoneOutlined
                               style={{ color: "rgba(0,0,0,.25)" }}
                             />
                           }
@@ -220,8 +223,7 @@ const CustomerCreate = () => {
                       <Col span={12}>
                         <Input
                           prefix={
-                            <Icon
-                              type="phone"
+                            <PhoneOutlined
                               style={{ color: "rgba(0,0,0,.25)" }}
                             />
                           }
@@ -238,8 +240,7 @@ const CustomerCreate = () => {
 
                   <Input
                     prefix={
-                      <Icon
-                        type="environment"
+                      <EnvironmentOutlined
                         style={{ color: "rgba(0,0,0,.25)" }}
                       />
                     }
@@ -251,7 +252,6 @@ const CustomerCreate = () => {
                   />
                   <div
                     style={{
-                      //position: "absolute",
                       right: 0,
                       bottom: 0,
                       width: "100%",
@@ -273,7 +273,7 @@ const CustomerCreate = () => {
                       htmlType="submit"
                       className="login-form-button"
                       size="large"
-                      icon="user"
+                      icon={<UserAddOutlined />}
                     >
                       Registrar cliente
                     </Button>

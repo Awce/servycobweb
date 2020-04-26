@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserAvatarForm from "../../forms/register/UserAvatarForm";
+//import UserAvatarForm from "../../forms/register/UserAvatarForm";
 import { firebaseRegister } from "../../services/firebase";
 import { useHistory } from "react-router-dom";
 import {
@@ -11,10 +11,15 @@ import {
   Button,
   Form,
   Input,
-  Icon,
   message,
   notification,
 } from "antd";
+import {
+  SmileOutlined,
+  UserOutlined,
+  MailOutlined,
+  UnlockOutlined,
+} from "@ant-design/icons";
 
 const key = "updatable";
 const { TabPane } = Tabs;
@@ -120,11 +125,11 @@ const UserCreate = () => {
             <Row gutter={16}>
               <Col span={6}>
                 <Card>
-                  <UserAvatarForm
+                  {/* <UserAvatarForm
                     value={imageUrl}
                     name="imageUrl"
                     onChange={onChange}
-                  />
+                  /> */}
                 </Card>
               </Col>
               <Col span={18}>
@@ -132,10 +137,7 @@ const UserCreate = () => {
                   <Form.Item label="Datos del Empleado">
                     <Input
                       prefix={
-                        <Icon
-                          type="smile"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
+                        <SmileOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                       }
                       placeholder="Nombre(s)"
                       className="input-form"
@@ -145,10 +147,7 @@ const UserCreate = () => {
                     />
                     <Input
                       prefix={
-                        <Icon
-                          type="user"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
+                        <UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                       }
                       placeholder="Apellidos"
                       className="input-form"
@@ -158,10 +157,7 @@ const UserCreate = () => {
                     />
                     <Input
                       prefix={
-                        <Icon
-                          type="mail"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
+                        <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                       }
                       placeholder="Correo electrónico"
                       className="input-form"
@@ -171,10 +167,7 @@ const UserCreate = () => {
                     />
                     <Input.Password
                       prefix={
-                        <Icon
-                          type="lock"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
+                        <UnlockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                       }
                       type="password"
                       placeholder="Contraseña"

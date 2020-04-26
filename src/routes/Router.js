@@ -1,9 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Layout } from "antd";
-import Home from "../pages/home/HomePage";
 import Login from "../pages/login/LoginPage";
-import Register from "../pages/register/RegisterPage";
 import Summary from "../pages/summary/SummaryPage";
 import Customers from "../pages/customer/CustomersList";
 import CustomerCreate from "../pages/customer/CustomerCreate";
@@ -94,8 +92,6 @@ const AppRouter = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={Login} />
-        <Route exact path="/registro" component={Register} />
-        <Route exact path="/admin" component={Home} />
         <PrivateRouter />
         <Route component={NotFound} />
       </Switch>
