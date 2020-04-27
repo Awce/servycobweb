@@ -1,111 +1,82 @@
-import React, { useState } from "react";
-//import UserAvatarForm from "../../forms/register/UserAvatarForm";
-import { firebaseRegister } from "../../services/firebase";
+import React from "react";
+import * as Yup from "yup";
+import Loading from "../../components/Loading";
+import { useFormik } from "formik";
+import { useMutation, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
   PageHeader,
-  Tabs,
   Row,
   Col,
   Card,
   Button,
   Form,
   Input,
+  Alert,
   message,
   notification,
 } from "antd";
-import {
-  SmileOutlined,
-  UserOutlined,
-  MailOutlined,
-  UnlockOutlined,
-} from "@ant-design/icons";
+import { UserOutlined, UnlockOutlined, MailOutlined } from "@ant-design/icons";
 
-const key = "updatable";
-const { TabPane } = Tabs;
+const layout = {
+  labelCol: {
+    span: 24,
+  },
+  wrapperCol: {
+    span: 24,
+  },
+};
 
 const UserCreate = () => {
-  const [user, setUser] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    password: "",
-    imageUrl: "",
+  const formik = useFormik({
+    initialValues: {
+      nombre: "",
+      apellido: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      nombre: Yup.string().required(
+        "El nombre o los nombres del nuevo usuario no pueden ir vacios y son requeridos"
+      ),
+      apellido: Yup.string().required(
+        "El apellido o los apellidos del nuevo usuario no pueden ir vacios y son requeridos"
+      ),
+      email: Yup.string()
+        .email("El email no es válido")
+        .required("El email es obligatorio"),
+      password: Yup.string()
+        .required("La contraseña no puede ir vacia")
+        .min(6, "6 caracteres como mínimo"),
+    }),
+    onSubmit: (valores) => {
+      console.log("enviando");
+      console.log(valores);
+    },
   });
 
-  const [error, setError] = useState(false);
-
-  const onChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
+  const onFinish = (values) => {
+    console.log("Success:", values);
   };
 
-  const userRegister = (e) => {
-    e.preventDefault();
-    if (
-      name.trim() === "" ||
-      lastname.trim() === "" ||
-      email.trim() === "" ||
-      password.trim() === ""
-    ) {
-      setError(true);
-      message.loading({ content: "Registrando usuario...", key });
-      setTimeout(() => {
-        message.error({
-          content: "Los campos son obliagatorios y no pueden ir vacios.",
-          key,
-          duration: 2,
-        });
-      }, 1000);
-      return;
-    }
-    setError(!error);
-    firebaseRegister(imageUrl, name, lastname, email, password)
-      .then(() => {
-        message.loading({ content: "Registrando usuario...", key });
-        setTimeout(() => {
-          message.success({
-            content: "Genial.",
-            key,
-            duration: 2,
-          });
-        }, 1000);
-        goBack();
-        openNotification();
-      })
-      .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log(`${errorCode}: ${errorMessage}`);
-      });
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
-
   const history = useHistory();
 
   const goBack = () => {
     history.goBack();
-    setUser({
-      name: "",
-      lastname: "",
-      email: "",
-      password: "",
-      imageUrl: "",
-    });
   };
 
   const openNotification = () => {
     notification.open({
       message: "Registro exitoso",
-      description: `Se ha enviado un correo a ${email}, para verificar su registro.`,
+      description: `Se ha enviado un correo a ${formik.values.email}, para verificar su registro.`,
       onClick: () => {
         console.log("Notification Clicked!");
       },
     });
   };
-
-  const { imageUrl, name, lastname, email, password } = user;
 
   return (
     <div
@@ -119,97 +90,129 @@ const UserCreate = () => {
         subTitle="Alta"
         onBack={goBack}
       />
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="PERFIL" key="1">
-          <Form onSubmit={userRegister}>
-            <Row gutter={16}>
-              <Col span={6}>
-                <Card>
-                  {/* <UserAvatarForm
-                    value={imageUrl}
-                    name="imageUrl"
-                    onChange={onChange}
-                  /> */}
-                </Card>
-              </Col>
-              <Col span={18}>
-                <Card>
-                  <Form.Item label="Datos del Empleado">
-                    <Input
-                      prefix={
-                        <SmileOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                      }
-                      placeholder="Nombre(s)"
-                      className="input-form"
-                      name="name"
-                      onChange={onChange}
-                      value={name}
+
+      <div style={{ marginTop: "3px" }}>
+        <Form
+          {...layout}
+          onFinish={formik.handleSubmit}
+          onFinishFailed={onFinishFailed}
+        >
+          <Row gutter={16}>
+            <Col span={6}>
+              <Card style={{ width: 250 }} />
+            </Col>
+            <Col span={18}>
+              <Card>
+                <Form.Item label="Nombre(s)">
+                  <Input
+                    placeholder="Nombre(s)"
+                    className="input-form"
+                    name="nombre"
+                    prefix={
+                      <UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    value={formik.values.nombre}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.nombre && formik.errors.nombre ? (
+                    <Alert
+                      message={formik.errors.nombre}
+                      type="error"
+                      showIcon
                     />
-                    <Input
-                      prefix={
-                        <UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                      }
-                      placeholder="Apellidos"
-                      className="input-form"
-                      name="lastname"
-                      onChange={onChange}
-                      value={lastname}
+                  ) : null}
+                </Form.Item>
+                <Form.Item label="Apellido(s)">
+                  <Input
+                    placeholder="Apellido(s)"
+                    className="input-form"
+                    name="apellido"
+                    value={formik.values.apellido}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.apellido && formik.errors.apellido ? (
+                    <Alert
+                      message={formik.errors.apellido}
+                      type="error"
+                      showIcon
                     />
-                    <Input
-                      prefix={
-                        <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                      }
-                      placeholder="Correo electrónico"
-                      className="input-form"
-                      name="email"
-                      onChange={onChange}
-                      value={email}
+                  ) : null}
+                </Form.Item>
+                <Form.Item label="Email">
+                  <Input
+                    placeholder="Correo electrónico"
+                    className="input-form"
+                    name="email"
+                    prefix={
+                      <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.email && formik.errors.email ? (
+                    <Alert
+                      message={formik.errors.email}
+                      type="error"
+                      showIcon
                     />
-                    <Input.Password
-                      prefix={
-                        <UnlockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                      }
-                      type="password"
-                      placeholder="Contraseña"
-                      className="input-form"
-                      name="password"
-                      onChange={onChange}
-                      value={password}
+                  ) : null}
+                </Form.Item>
+                <Form.Item label="Contraseña">
+                  <Input.Password
+                    placeholder="Contraseña"
+                    className="input-form"
+                    name="password"
+                    prefix={
+                      <UnlockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.password && formik.errors.password ? (
+                    <Alert
+                      message={formik.errors.password}
+                      type="error"
+                      showIcon
                     />
-                  </Form.Item>
-                  <div
-                    style={{
-                      right: 0,
-                      bottom: 0,
-                      width: "100%",
-                      borderTop: "1px solid #e9e9e9",
-                      padding: "10px 16px",
-                      background: "#fff",
-                      textAlign: "right",
-                    }}
+                  ) : null}
+                </Form.Item>
+
+                <div
+                  style={{
+                    right: 0,
+                    bottom: 0,
+                    width: "100%",
+                    borderTop: "1px solid #e9e9e9",
+                    padding: "10px 16px",
+                    background: "#fff",
+                    textAlign: "right",
+                  }}
+                >
+                  <Button
+                    onClick={goBack}
+                    size="large"
+                    style={{ marginRight: 8 }}
                   >
-                    <Button
-                      onClick={goBack}
-                      size="large"
-                      style={{ marginRight: 8 }}
-                    >
-                      Cancelar
-                    </Button>
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="login-form-button"
-                      size="large"
-                    >
-                      Registrar usuario
-                    </Button>
-                  </div>
-                </Card>
-              </Col>
-            </Row>
-          </Form>
-        </TabPane>
-      </Tabs>
+                    Cancelar
+                  </Button>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                    size="large"
+                  >
+                    Registrar usuario
+                  </Button>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+        </Form>
+      </div>
     </div>
   );
 };

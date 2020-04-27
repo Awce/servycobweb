@@ -2,7 +2,7 @@ import React from "react";
 import "antd/dist/antd.css";
 import "./App.css";
 import AppRouter from "./routes/Router";
-import client from "./services/apollo";
+import client from "./config/apollo";
 import { ApolloProvider } from "@apollo/client";
 
 function App() {
