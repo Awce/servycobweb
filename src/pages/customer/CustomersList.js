@@ -1,90 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { getCustomers } from "../../services/firebase";
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
+import Loading from "../../components/Loading";
 import { Link, useHistory } from "react-router-dom";
-import { PageHeader, Table, Badge, Avatar, Button } from "antd";
-import { UserAddOutlined, UserOutlined } from "@ant-design/icons";
+import "bulma/css/bulma.css";
+import { PageHeader, Button } from "antd";
+import { UserAddOutlined } from "@ant-design/icons";
+
+const OBTENER_CLIENTES = gql`
+  query obtenerClientes {
+    obtenerClientes {
+      id
+      empresa
+      razonsocial
+      rfc
+      direccion
+      email
+      telefono
+      logo
+      web
+    }
+  }
+`;
 
 const CustomersList = () => {
-  const [customers, setCustomers] = useState([]);
+  const { data, loading, error } = useQuery(OBTENER_CLIENTES);
+  console.log(data);
+  console.log(error);
   const history = useHistory();
 
-  const columns = [
-    {
-      title: "#",
-      dataIndex: "logo",
-      key: "id",
-      align: "center",
-      render: (logo, name) =>
-        logo ? (
-          <figure>
-            <img src={logo} alt={name} width="100px" />
-          </figure>
-        ) : (
-          <Avatar shape="square" size="large" icon={<UserOutlined />} />
-        ),
-    },
-    {
-      title: "Cliente",
-      dataIndex: "name",
-      key: "name",
-      align: "center",
-      render: (text, customer) => (
-        <Link to={`/clientes/${customer.id}`}>
-          <span>{customer.name}</span>
-        </Link>
-      ),
-    },
-    {
-      title: "Desde",
-      dataIndex: "customerform",
-      key: "customerform",
-      align: "center",
-    },
-    {
-      title: "Gestores telefónicos",
-      dataIndex: "managers",
-      key: "managers",
-      align: "center",
-    },
-    {
-      title: "Gestores en campo",
-      dataIndex: "fieldmanagers",
-      key: "fieldmanagers",
-      align: "center",
-    },
-    {
-      title: "Supervisor",
-      dataIndex: "supervisor",
-      key: "supervisor",
-      align: "center",
-    },
-    {
-      title: "Desempeño",
-      dataIndex: "ratings",
-      key: "ratings",
-      align: "center",
-      render: (ratings) =>
-        ratings ? <Badge status="success" text={ratings} /> : null,
-    },
-  ];
+  if (loading) return <Loading />;
 
   const onRegisterCustomerButton = () => {
     history.push("/clientes/alta");
   };
-
-  useEffect(() => {
-    const getCustomersFirebase = () => {
-      getCustomers()
-        .then((res) => {
-          console.log(res);
-          setCustomers(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-    getCustomersFirebase();
-  }, []);
 
   return (
     <div
@@ -107,14 +55,33 @@ const CustomersList = () => {
           </Button>,
         ]}
       />
-      <Table
-        style={{ marginTop: "3px" }}
-        columns={columns}
-        dataSource={customers}
-        rowKey={(customers) => customers.id}
-        pagination={{ pageSize: 5 }}
-        scroll={{ y: 440 }}
-      />
+      <div style={{ marginTop: "3px" }}>
+        <table className="table is-fullwidth is-hoverable is-striped">
+          <thead>
+            <tr>
+              <th>Logo</th>
+              <th>Nombre</th>
+              <th>Empresa</th>
+              <th>RFC</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.obtenerClientes.map((cliente) => (
+              <tr key={cliente.id}>
+                <td>
+                  <figure className="image is-48x48">
+                    <img src={cliente.logo} />
+                  </figure>
+                </td>
+                <td>{cliente.empresa}</td>
+                <td>{cliente.razonsocial}</td>
+                <td>{cliente.rfc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -1,25 +1,88 @@
 import React from "react";
-import { Avatar, Badge, Popover, Statistic, Button, Col, Row } from "antd";
-import { GiftTwoTone, LogoutOutlined } from "@ant-design/icons";
+import { useQuery, gql } from "@apollo/client";
+import { useHistory } from "react-router-dom";
+import {
+  Avatar,
+  Badge,
+  Popover,
+  Statistic,
+  Space,
+  Button,
+  Col,
+  Row,
+  Tag,
+  message,
+} from "antd";
+import { GiftTwoTone, LogoutOutlined, UserOutlined } from "@ant-design/icons";
+
+const OBTENER_USUARIO = gql`
+  query obtenerUsuario {
+    obtenerUsuario {
+      id
+      nombre
+      apellido
+      email
+      avatar
+      tipousuario
+    }
+  }
+`;
+
+const key = "updatable";
 
 const UserAvatar = () => {
+  const { data, loading, error } = useQuery(OBTENER_USUARIO);
+  console.log(data);
+  console.log(error);
+
+  const history = useHistory();
+
   const logoutUser = () => {
-    console.log("Cerrando sesion");
+    localStorage.removeItem("token");
+    message.success({
+      content: `Cerrando sesión ...`,
+      key,
+      duration: 2,
+    });
+    history.push("/");
   };
+
+  if (loading) return null;
+
+  const { nombre, apellido, avatar, tipousuario } = data.obtenerUsuario;
 
   const content = (
     <>
       <Row gutter={8}>
         <Col className="gutter-row" span={12}>
-          <Avatar
-            src="https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/avatars%2Fyo.jpeg?alt=media&token=e44759d8-3a24-4edc-a873-f427bf5fa430"
-            size={80}
-            alt={`Bienvenido, Raúl Hernández`}
-          />
+          {avatar ? (
+            <Avatar
+              src={avatar}
+              size={80}
+              alt={`Bienvenido, ${nombre} ${apellido}`}
+            />
+          ) : (
+            <Avatar
+              icon={<UserOutlined />}
+              size={80}
+              alt={`Bienvenido, ${nombre} ${apellido}`}
+            />
+          )}
         </Col>
         <Col className="gutter-row" span={12}>
-          <h4>Raúl Hernández</h4>
-          <h6>Developer</h6>
+          <h4>
+            {nombre} {apellido}
+          </h4>
+          {tipousuario === "Admin" ? (
+            <Tag color="gold">{tipousuario}</Tag>
+          ) : null}
+          {tipousuario === "Gestor" ? (
+            <Tag color="blue">{tipousuario}</Tag>
+          ) : null}
+          {tipousuario === "Desarrollador" ? (
+            <Tag color="cyan">{tipousuario}</Tag>
+          ) : null}
+          {/* <Tag color="cyan">{tipousuario}</Tag> */}
         </Col>
       </Row>
       <Row gutter={8}>
@@ -46,14 +109,26 @@ const UserAvatar = () => {
 
   return (
     <Popover content={content}>
-      <Badge count={0}>
-        <Avatar
-          src="https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/avatars%2Fyo.jpeg?alt=media&token=e44759d8-3a24-4edc-a873-f427bf5fa430"
-          size="large"
-          alt={`Bienvenido, Raúl Hernández`}
-        />
-      </Badge>
-      <span> Raúl Hernández</span>
+      <Space>
+        <Badge count={0}>
+          {avatar ? (
+            <Avatar
+              src={avatar}
+              size="large"
+              alt={`Bienvenido, ${nombre} ${apellido}`}
+            />
+          ) : (
+            <Avatar
+              icon={<UserOutlined />}
+              size="large"
+              alt={`Bienvenido, ${nombre} ${apellido}`}
+            />
+          )}
+        </Badge>
+        <span>
+          {nombre} {apellido}
+        </span>
+      </Space>
     </Popover>
   );
 };

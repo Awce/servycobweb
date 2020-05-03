@@ -1,6 +1,5 @@
 import React from "react";
 import * as Yup from "yup";
-import Loading from "../../components/Loading";
 import { useFormik } from "formik";
 import { useMutation, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
@@ -27,7 +26,21 @@ const layout = {
   },
 };
 
+const key = "updatable";
+
+const NUEVA_CUENTA = gql`
+  mutation nuevoUsario($input: UsuarioInput) {
+    nuevoUsuario(input: $input) {
+      id
+      nombre
+      apellido
+      email
+    }
+  }
+`;
+
 const UserCreate = () => {
+  const [nuevoUsuario] = useMutation(NUEVA_CUENTA);
   const formik = useFormik({
     initialValues: {
       nombre: "",
@@ -49,15 +62,39 @@ const UserCreate = () => {
         .required("La contraseña no puede ir vacia")
         .min(6, "6 caracteres como mínimo"),
     }),
-    onSubmit: (valores) => {
-      console.log("enviando");
-      console.log(valores);
+    onSubmit: async (valores) => {
+      const { nombre, apellido, email, password } = valores;
+      try {
+        const { data } = await nuevoUsuario({
+          variables: {
+            input: {
+              nombre,
+              apellido,
+              email,
+              password,
+            },
+          },
+        });
+        notification.open({
+          message: "Registro exitoso",
+          description: `${data.nuevoUsuario.nombre}, se ha registrado con el correo ${data.nuevoUsuario.email}, ya puede iniciar sesión con su registro.`,
+          onClick: () => {
+            console.log("Notification Clicked!");
+          },
+        });
+        goBack();
+      } catch (error) {
+        setTimeout(() => {
+          const mesError = error.message.replace("GraphQL error: ", "");
+          message.error({
+            content: `${mesError} en la base de datos.`,
+            key,
+            duration: 2,
+          });
+        }, 1000);
+      }
     },
   });
-
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -66,16 +103,6 @@ const UserCreate = () => {
 
   const goBack = () => {
     history.goBack();
-  };
-
-  const openNotification = () => {
-    notification.open({
-      message: "Registro exitoso",
-      description: `Se ha enviado un correo a ${formik.values.email}, para verificar su registro.`,
-      onClick: () => {
-        console.log("Notification Clicked!");
-      },
-    });
   };
 
   return (

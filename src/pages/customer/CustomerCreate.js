@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import CustomerLogoForm from "../../forms/register/CustomerLogoForm";
 import { createCustomer } from "../../services/firebase";
 import { useHistory } from "react-router-dom";
 import {
@@ -34,7 +33,6 @@ const CustomerCreate = () => {
     address: "",
     email: "",
     web: "",
-    imageUrl: "",
   });
 
   const [error, setError] = useState(false);
@@ -99,7 +97,6 @@ const CustomerCreate = () => {
       address: "",
       email: "",
       web: "",
-      imageUrl: "",
     });
   };
 
@@ -112,7 +109,6 @@ const CustomerCreate = () => {
     address,
     email,
     web,
-    imageUrl,
   } = newCustomer;
 
   return (
@@ -132,13 +128,7 @@ const CustomerCreate = () => {
           <Form onSubmit={customerRegister}>
             <Row gutter={16}>
               <Col span={6}>
-                <Card>
-                  {/* <CustomerLogoForm
-                    value={imageUrl}
-                    name="imageUrl"
-                    onChange={onChange}
-                  /> */}
-                </Card>
+                <Card></Card>
               </Col>
               <Col span={18}>
                 <Card>

@@ -11,8 +11,7 @@ const NavbarMenu = () => {
     <Row>
       <Col justify="end" span={18} push={6}>
         <Row gutter={[16, 16]}>
-          <Col span={6} />
-          <Col span={6} />
+          <Col span={8} />
           <Col span={6}>
             <Space>
               <Col span={6}>
@@ -26,7 +25,7 @@ const NavbarMenu = () => {
               </Col>
             </Space>
           </Col>
-          <Col span={6}>
+          <Col span={8}>
             <UserAvatar />
           </Col>
         </Row>

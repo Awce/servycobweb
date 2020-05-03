@@ -7,41 +7,41 @@ import {
   Calendar,
   PageHeader,
   Progress,
-  Avatar
+  Avatar,
 } from "antd";
 
 const data = [
   {
     title: "Hoy",
-    content: "10"
+    content: "10",
   },
   {
     title: "Confirmadas",
-    content: "8"
+    content: "8",
   },
   {
     title: "Realizadas",
-    content: "3"
+    content: "3",
   },
   {
     title: "Recuperados",
-    content: "$15,000"
-  }
+    content: "$15,000",
+  },
 ];
 
 const data2 = [
   {
-    title: "Ant Design Title 1"
+    title: "Ant Design Title 1",
   },
   {
-    title: "Ant Design Title 2"
+    title: "Ant Design Title 2",
   },
   {
-    title: "Ant Design Title 3"
+    title: "Ant Design Title 3",
   },
   {
-    title: "Ant Design Title 4"
-  }
+    title: "Ant Design Title 4",
+  },
 ];
 
 const SummaryPage = () => {
@@ -54,16 +54,16 @@ const SummaryPage = () => {
     >
       <PageHeader
         style={{
-          border: "1px solid rgb(235, 237, 240)"
+          border: "1px solid rgb(235, 237, 240)",
         }}
-        title="Buenvenido, Raul"
+        title="Bienvenido"
         subTitle="Inicio"
       />
       <List
         grid={{ gutter: 16, column: 4 }}
         dataSource={data}
         style={{ marginTop: "3px" }}
-        renderItem={item => (
+        renderItem={(item) => (
           <List.Item>
             <Card>
               <Row gutter={16}>
@@ -90,7 +90,7 @@ const SummaryPage = () => {
             <List
               itemLayout="horizontal"
               dataSource={data2}
-              renderItem={item => (
+              renderItem={(item) => (
                 <List.Item>
                   <List.Item.Meta
                     avatar={
