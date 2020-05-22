@@ -2,9 +2,13 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import Loading from "../../components/Loading";
 import { Link, useHistory } from "react-router-dom";
-import "bulma/css/bulma.css";
-import { PageHeader, Button } from "antd";
-import { UserAddOutlined } from "@ant-design/icons";
+import { PageHeader, Button, Table, Space, Avatar } from "antd";
+import {
+  UserAddOutlined,
+  UserOutlined,
+  DeleteTwoTone,
+  EditTwoTone,
+} from "@ant-design/icons";
 
 const OBTENER_CLIENTES = gql`
   query obtenerClientes {
@@ -28,10 +32,63 @@ const CustomersList = () => {
   console.log(error);
   const history = useHistory();
 
+  const columns = [
+    {
+      title: "Logo",
+      dataIndex: "logo",
+      key: "logo",
+      align: "center",
+      render: (logo) =>
+        logo ? (
+          <Avatar shape="square" size="large" src={logo} />
+        ) : (
+          <Avatar shape="square" size="large" icon={<UserOutlined />} />
+        ),
+    },
+    {
+      title: "Nombre",
+      dataIndex: "razonsocial",
+      key: "razonsocial",
+      align: "center",
+      render: (text, cliente) => (
+        <Link to={`/clientes/${cliente.id}`}>
+          <span>{cliente.razonsocial}</span>
+        </Link>
+      ),
+      onFilter: (value, record) => record.name.indexOf(value) === 0,
+    },
+    {
+      title: "RFC",
+      dataIndex: "rfc",
+      key: "rfc",
+      align: "center",
+    },
+    {
+      title: "Correo",
+      dataIndex: "email",
+      key: "email",
+      align: "center",
+    },
+    {
+      title: "Acciones",
+      key: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
+          <DeleteTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
+        </Space>
+      ),
+    },
+  ];
+
   if (loading) return <Loading />;
 
   const onRegisterCustomerButton = () => {
     history.push("/clientes/alta");
+  };
+
+  const editCustomer = () => {
+    console.log("Test");
   };
 
   return (
@@ -56,31 +113,13 @@ const CustomersList = () => {
         ]}
       />
       <div style={{ marginTop: "3px" }}>
-        <table className="table is-fullwidth is-hoverable is-striped">
-          <thead>
-            <tr>
-              <th>Logo</th>
-              <th>Nombre</th>
-              <th>Empresa</th>
-              <th>RFC</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.obtenerClientes.map((cliente) => (
-              <tr key={cliente.id}>
-                <td>
-                  <figure className="image is-48x48">
-                    <img src={cliente.logo} />
-                  </figure>
-                </td>
-                <td>{cliente.empresa}</td>
-                <td>{cliente.razonsocial}</td>
-                <td>{cliente.rfc}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Table
+          columns={columns}
+          dataSource={data.obtenerClientes}
+          style={{ marginTop: "3px" }}
+          pagination={{ pageSize: 25 }}
+          scroll={{ y: 240 }}
+        />
       </div>
     </div>
   );

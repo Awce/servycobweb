@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { createCustomer } from "../../services/firebase";
+import React from "react";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useMutation, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
   PageHeader,
+  Alert,
   Tabs,
   Row,
   Col,
@@ -11,6 +14,7 @@ import {
   Form,
   Input,
   message,
+  notification,
 } from "antd";
 import {
   PhoneOutlined,
@@ -20,96 +24,98 @@ import {
   EnvironmentOutlined,
 } from "@ant-design/icons";
 
+const layout = {
+  labelCol: {
+    span: 24,
+  },
+  wrapperCol: {
+    span: 24,
+  },
+};
+
 const key = "updatable";
 const { TabPane } = Tabs;
 
-const CustomerCreate = () => {
-  const [newCustomer, setNewCustomer] = useState({
-    name: "",
-    namebusiness: "",
-    rfc: "",
-    phone: "",
-    cellphone: "",
-    address: "",
-    email: "",
-    web: "",
-  });
-
-  const [error, setError] = useState(false);
-
-  const onChange = (e) => {
-    setNewCustomer({
-      ...newCustomer,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const customerRegister = (e) => {
-    e.preventDefault();
-    if (
-      name.trim() === "" ||
-      namebusiness.trim() === "" ||
-      phone.trim() === "" ||
-      address.trim() === "" ||
-      email.trim() === ""
-    ) {
-      setError(true);
-      message.loading({ content: "Registrando cliente...", key });
-      setTimeout(() => {
-        message.error({
-          content: "Los campos son obliagatorios y no pueden ir vacios.",
-          key,
-          duration: 2,
-        });
-      }, 1000);
-      return;
+const NUEVO_CLIENTE = gql`
+  mutation nuevoCliente($input: ClienteInput) {
+    nuevoCliente(input: $input) {
+      razonsocial
+      empresa
+      email
+      telefono
+      direccion
+      creado
+      rfc
+      id
     }
-    setError(!error);
-    createCustomer(newCustomer)
-      .then(() => {
-        message.loading({ content: "Registrando cliente...", key });
+  }
+`;
+
+const CustomerCreate = () => {
+  const [nuevoCliente] = useMutation(NUEVO_CLIENTE);
+  const formik = useFormik({
+    initialValues: {
+      razonsocial: "",
+      empresa: "",
+      email: "",
+      telefono: "",
+      direccion: "",
+      rfc: "",
+    },
+    validationSchema: Yup.object({
+      razonsocial: Yup.string().required(
+        "el nombre de la Razón social no puede ir vacio y es requerido"
+      ),
+      empresa: Yup.string().required(
+        "El nombre de la Empresa no puede ir vacio y es requerido"
+      ),
+      email: Yup.string().email("El email no es válido"),
+    }),
+    onSubmit: async (valores) => {
+      const { razonsocial, empresa, email, telefono, direccion, rfc } = valores;
+      try {
+        const { data } = await nuevoCliente({
+          variables: {
+            input: {
+              razonsocial,
+              empresa,
+              email,
+              telefono,
+              direccion,
+              rfc,
+            },
+          },
+        });
+        notification.open({
+          message: "Registro exitoso",
+          description: `${data.nuevoCliente.razonsocial}, se ha registrado con éxito.`,
+          onClick: () => {
+            console.log("Notification Clicked!");
+          },
+        });
+        goBack();
+      } catch (error) {
         setTimeout(() => {
-          message.success({
-            content: "Genial.",
+          const mesError = error.message.replace("GraphQL error: ", "");
+          message.error({
+            content: `${mesError} en la base de datos.`,
             key,
             duration: 2,
           });
         }, 1000);
-        goBack();
-      })
-      .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log(`${errorCode}: ${errorMessage}`);
-      });
+      }
+    },
+  });
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   const history = useHistory();
 
   const goBack = () => {
     history.goBack();
-    setNewCustomer({
-      name: "",
-      namebusiness: "",
-      rfc: "",
-      phone: "",
-      cellphone: "",
-      address: "",
-      email: "",
-      web: "",
-    });
   };
-
-  const {
-    name,
-    namebusiness,
-    rfc,
-    phone,
-    cellphone,
-    address,
-    email,
-    web,
-  } = newCustomer;
 
   return (
     <div
@@ -125,7 +131,11 @@ const CustomerCreate = () => {
       />
       <Tabs defaultActiveKey="1">
         <TabPane tab="PERFIL" key="1">
-          <Form onSubmit={customerRegister}>
+          <Form
+            {...layout}
+            onFinish={formik.handleSubmit}
+            onFinishFailed={onFinishFailed}
+          >
             <Row gutter={16}>
               <Col span={6}>
                 <Card></Card>
@@ -138,28 +148,45 @@ const CustomerCreate = () => {
                         <Input
                           placeholder="Razón social"
                           className="input-form"
-                          name="namebusiness"
-                          onChange={onChange}
-                          value={namebusiness}
+                          name="razonsocial"
+                          value={formik.values.razonsocial}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
+                        {formik.touched.razonsocial &&
+                        formik.errors.razonsocial ? (
+                          <Alert
+                            message={formik.errors.razonsocial}
+                            type="error"
+                            showIcon
+                          />
+                        ) : null}
                       </Col>
 
                       <Col span={8}>
                         <Input
                           placeholder="Alias"
                           className="input-form"
-                          name="name"
-                          onChange={onChange}
-                          value={name}
+                          name="empresa"
+                          value={formik.values.empresa}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
+                        {formik.touched.empresa && formik.errors.empresa ? (
+                          <Alert
+                            message={formik.errors.empresa}
+                            type="error"
+                            showIcon
+                          />
+                        ) : null}
                       </Col>
                       <Col span={16}>
                         <Input
                           placeholder="RFC"
                           className="input-form"
                           name="rfc"
-                          onChange={onChange}
-                          value={rfc}
+                          //onChange={onChange}
+                          //value={rfc}
                         />
                       </Col>
                     </Row>
@@ -176,9 +203,9 @@ const CustomerCreate = () => {
                           }
                           placeholder="Correo electrónico"
                           className="input-form"
-                          name="email"
-                          onChange={onChange}
-                          value={email}
+                          //name="email"
+                          //onChange={onChange}
+                          //value={email}
                         />
                       </Col>
                       <Col span={10}>
@@ -190,9 +217,9 @@ const CustomerCreate = () => {
                           }
                           placeholder="Web"
                           className="input-form"
-                          name="web"
-                          onChange={onChange}
-                          value={web}
+                          //name="web"
+                          //onChange={onChange}
+                          //value={web}
                         />
                       </Col>
                       <Col span={12}>
@@ -205,9 +232,9 @@ const CustomerCreate = () => {
                           type="Number"
                           placeholder="Número de teléfono"
                           className="input-form"
-                          name="phone"
-                          onChange={onChange}
-                          value={phone}
+                          //name="phone"
+                          //onChange={onChange}
+                          //value={phone}
                         />
                       </Col>
                       <Col span={12}>
@@ -220,9 +247,9 @@ const CustomerCreate = () => {
                           type="Number"
                           placeholder="Número de celular"
                           className="input-form"
-                          name="cellphone"
-                          onChange={onChange}
-                          value={cellphone}
+                          // name="cellphone"
+                          //onChange={onChange}
+                          //value={cellphone}
                         />
                       </Col>
                     </Row>
@@ -236,9 +263,9 @@ const CustomerCreate = () => {
                     }
                     placeholder="Dirección"
                     className="input-form"
-                    name="address"
-                    onChange={onChange}
-                    value={address}
+                    //name="address"
+                    //onChange={onChange}
+                    //value={address}
                   />
                   <div
                     style={{

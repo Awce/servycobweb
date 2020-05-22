@@ -10,7 +10,7 @@ const LoginPage = () => {
       style={{ minHeight: "100vh", alignItems: "center" }}
       className="bg-image"
     >
-      <Content style={{ paddingTop: "200px" }}>
+      <Content style={{ position: "fixed", paddingTop: "80px" }}>
         <LoginForm />
       </Content>
     </Layout>

@@ -1,11 +1,12 @@
 import React from "react";
 import * as Yup from "yup";
+import "bulma/css/bulma.css";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
-import { Alert, Form, Input, Button, Card, Row, Col, message } from "antd";
+import { Alert, Form, Input, Button, Card, message } from "antd";
 import Logo from "../../components/LogoWhite";
-import { MailOutlined, UnlockOutlined } from "@ant-design/icons";
+import { MailOutlined, UnlockOutlined, LoginOutlined } from "@ant-design/icons";
 
 const layout = {
   wrapperCol: {
@@ -79,12 +80,15 @@ const LoginForm = () => {
   let history = useHistory();
 
   return (
-    <Card style={{ width: 600, background: "gray" }}>
-      <Row span={24} gutter={[16, 16]}>
-        <Col span={24} style={{ flex: "none", justify: "center" }}>
+    <Card style={{ background: "gray" }}>
+      <div className="container is-fluid">
+        <div
+          className="level-item has-text-centered"
+          style={{ marginBottom: "10px" }}
+        >
           <Logo />
-        </Col>
-      </Row>
+        </div>
+      </div>
 
       <Form
         {...layout}
@@ -127,6 +131,7 @@ const LoginForm = () => {
             className="login-form-button"
             size="large"
             block
+            icon={<LoginOutlined />}
           >
             Ingresar
           </Button>

@@ -6,9 +6,9 @@ import { saveAs } from "file-saver";
 import { PageHeader, Table, Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 
-const OBTENER_DICTAMENES = gql`
-  query obtenerDictamenes {
-    obtenerDictamenes {
+const OBTENER_MIS_DICTAMENES = gql`
+  query obtenerDictamenesUsuario {
+    obtenerDictamenesUsuario {
       id
       dictamen
       subdictamen
@@ -16,15 +16,14 @@ const OBTENER_DICTAMENES = gql`
       folio
       monto
       fechapago
-      creado
-      comentarios
       gestor
+      creado
     }
   }
 `;
 
-const DictationsList = () => {
-  const { data, loading, error } = useQuery(OBTENER_DICTAMENES);
+const DictationsUserList = () => {
+  const { data, loading, error } = useQuery(OBTENER_MIS_DICTAMENES);
   console.log(data);
   console.log(error);
 
@@ -75,8 +74,6 @@ const DictationsList = () => {
     },
   ];
 
-  if (loading) return <Loading />;
-
   const writeDictationFile = () => {
     let wb = XLSX.utils.table_to_book(document.getElementById("mytable"), {
       sheet: "Dictaminación",
@@ -94,10 +91,11 @@ const DictationsList = () => {
     };
     saveAs(
       new Blob([s2ab(wbout)], { type: "application/octet-stream" }),
-      "Historial de Dictaminación.xlsx"
+      "Mi Historial de Dictaminación.xlsx"
     );
   };
 
+  if (loading) return <Loading />;
   return (
     <div
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
@@ -106,7 +104,7 @@ const DictationsList = () => {
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
-        title="Historial de Dictaminación"
+        title="Mis Dictaminaciones"
         subTitle="Lista"
         extra={[
           <Button
@@ -114,14 +112,14 @@ const DictationsList = () => {
             onClick={writeDictationFile}
             icon={<DownloadOutlined />}
           >
-            Exportar dictaminación
+            Exportar mi dictaminación
           </Button>,
         ]}
       />
       <Table
         id="mytable"
         columns={columns}
-        dataSource={data.obtenerDictamenes}
+        dataSource={data.obtenerDictamenesUsuario}
         //rowKey={(dictations) => dictations.id}
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
@@ -131,4 +129,4 @@ const DictationsList = () => {
   );
 };
 
-export default DictationsList;
+export default DictationsUserList;

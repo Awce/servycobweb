@@ -1,26 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
 import XLSX from "xlsx";
+import Loading from "../../components/Loading";
 import { saveAs } from "file-saver";
-import { getContacts } from "../../services/firebase";
-import { Link, useHistory } from "react-router-dom";
-import { PageHeader, Button, Table } from "antd";
-import { DownloadOutlined, UploadOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { PageHeader, Table, Button } from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
 
-const AssignmentsResume = () => {
-  const [contacts, setContacts] = useState([]);
-  const history = useHistory();
+const OBTENER_MIS_ASIGNACIONES = gql`
+  query obtenerAsignacionesUsuario {
+    obtenerAsignacionesUsuario {
+      id
+      tipocartera
+      numdama
+      digitodama
+      nombre
+      numerozonafacturacion
+      aniocampaniasaldo
+      diasmora
+      campanasvencidas
+      saldofactura
+      saldocobro
+      cargosmoratorios
+      totalacobrar
+      telefonocasa
+      telefonocelular
+      direccion
+      colonia
+      referencia
+      poblacion
+      estado
+      fechafacturacion
+      fechafinalvigencia
+      tipocuenta
+      gestor
+    }
+  }
+`;
+
+const AssignmentsUserList = () => {
+  const { data, loading, error } = useQuery(OBTENER_MIS_ASIGNACIONES);
+  console.log(data);
+  console.log(error);
 
   const columns = [
     {
-      title: "Num Dama",
+      title: "Dama",
       dataIndex: "numdama",
       key: "numdama",
       align: "center",
       render: (text, contact) => (
-        <Link to={`/gestiones/damas/${contact.id}`}>
+        <Link to={`/asignacion/damas/${contact.id}`}>
           <span>{contact.numdama}</span>
         </Link>
       ),
+    },
+    {
+      title: "Dígito",
+      dataIndex: "digitodama",
+      key: "digitodama",
+      align: "center",
     },
     {
       title: "Nombre",
@@ -33,14 +72,16 @@ const AssignmentsResume = () => {
       dataIndex: "direccion",
       key: "direccion",
       align: "center",
+      ellipsis: true,
     },
     {
-      title: "Teléfonos",
+      title: "Teléfono Celular",
       dataIndex: "telefonocelular",
       key: "telefonocelular",
       align: "center",
     },
     {
+      title: "Teléfono Casa",
       dataIndex: "telefonocasa",
       key: "telefonocasa",
       align: "center",
@@ -54,13 +95,11 @@ const AssignmentsResume = () => {
     },
   ];
 
-  const onRegisterAssignmentButton = () => {
-    history.push("/asignaciones/nueva");
-  };
+  if (loading) return <Loading />;
 
   const writeAssignmentFile = () => {
     let wb = XLSX.utils.table_to_book(document.getElementById("mytable"), {
-      sheet: "Assignaciones",
+      sheet: "Asignaciones",
     });
     let wbout = XLSX.write(wb, {
       bookType: "xlsx",
@@ -75,23 +114,9 @@ const AssignmentsResume = () => {
     };
     saveAs(
       new Blob([s2ab(wbout)], { type: "application/octet-stream" }),
-      "Assignaciones.xlsx"
+      "Mis Asignaciones.xlsx"
     );
   };
-
-  useEffect(() => {
-    const getContactsFirebase = () => {
-      getContacts()
-        .then((res) => {
-          console.log(res);
-          setContacts(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-    getContactsFirebase();
-  }, []);
 
   return (
     <div
@@ -101,36 +126,29 @@ const AssignmentsResume = () => {
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
-        title="Asignaciones"
+        title="Mis Asignaciones"
         subTitle="Call Center"
         extra={[
           <Button
-            key={2}
+            key={1}
             onClick={writeAssignmentFile}
             icon={<DownloadOutlined />}
           >
-            Exportar asignaciones
-          </Button>,
-          <Button
-            type="primary"
-            key={1}
-            onClick={onRegisterAssignmentButton}
-            icon={<UploadOutlined />}
-          >
-            Importar asignaciones
+            Exportar mis asignaciones
           </Button>,
         ]}
       />
       <Table
         id="mytable"
         columns={columns}
-        dataSource={contacts}
+        dataSource={data.obtenerAsignacionesUsuario}
         style={{ marginTop: "3px" }}
-        rowKey={(contacts) => contacts.id}
+        //rowKey={(contacts) => contacts.id}
         pagination={{ pageSize: 25 }}
+        scroll={{ y: 240 }}
       />
     </div>
   );
 };
 
-export default AssignmentsResume;
+export default AssignmentsUserList;

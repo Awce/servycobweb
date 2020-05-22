@@ -99,6 +99,7 @@ const UserCreate = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   const history = useHistory();
 
   const goBack = () => {

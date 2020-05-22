@@ -73,7 +73,7 @@ const UserAvatar = () => {
           <h4>
             {nombre} {apellido}
           </h4>
-          {tipousuario === "Admin" ? (
+          {tipousuario === "Administrador" ? (
             <Tag color="gold">{tipousuario}</Tag>
           ) : null}
           {tipousuario === "Gestor" ? (
@@ -82,7 +82,9 @@ const UserAvatar = () => {
           {tipousuario === "Desarrollador" ? (
             <Tag color="cyan">{tipousuario}</Tag>
           ) : null}
-          {/* <Tag color="cyan">{tipousuario}</Tag> */}
+          {tipousuario === "Supervisor" ? (
+            <Tag color="purple">{tipousuario}</Tag>
+          ) : null}
         </Col>
       </Row>
       <Row gutter={8}>

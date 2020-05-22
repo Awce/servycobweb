@@ -1,35 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { getUsers } from "../../services/firebase";
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
+import Loading from "../../components/Loading";
 import { Link, useHistory } from "react-router-dom";
-import { PageHeader, Button, Table, Avatar } from "antd";
-import { UserAddOutlined, UserOutlined } from "@ant-design/icons";
+import { PageHeader, Button, Table, Space, Avatar, Tag } from "antd";
+import {
+  UserAddOutlined,
+  UserOutlined,
+  DeleteTwoTone,
+  EditTwoTone,
+} from "@ant-design/icons";
+
+const OBTENER_USUARIOS = gql`
+  query obtenerUsuarios {
+    obtenerUsuarios {
+      id
+      nombre
+      apellido
+      email
+      creado
+      tipousuario
+      avatar
+    }
+  }
+`;
 
 const UsersList = () => {
-  const [users, setUsers] = useState([]);
+  const { data, loading, error } = useQuery(OBTENER_USUARIOS);
+  console.log(data);
+  console.log(error);
   const history = useHistory();
 
   const columns = [
     {
       title: "Foto",
-      dataIndex: "imageUrl",
-      key: "imageUrl",
+      dataIndex: "avatar",
+      key: "avatar",
       align: "center",
-      render: (imageUrl) =>
-        imageUrl ? (
-          <Avatar src={imageUrl} />
+      render: (avatar) =>
+        avatar ? (
+          <Avatar size="large" src={avatar} />
         ) : (
-          <Avatar icon={<UserOutlined />} />
+          <Avatar size="large" icon={<UserOutlined />} />
         ),
     },
     {
       title: "Nombre",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "nombre",
+      key: "nombre",
       align: "center",
       render: (text, user) => (
         <Link to={`/empleados/${user.id}`}>
           <span>
-            {user.name} {user.lastname}
+            {user.nombre} {user.apellido}
           </span>
         </Link>
       ),
@@ -40,25 +62,49 @@ const UsersList = () => {
       key: "email",
       align: "center",
     },
+    {
+      title: "Usuario",
+      dataIndex: "tipousuario",
+      key: "tipousuario",
+      align: "center",
+      render: (tipousuario) => (
+        <>
+          {tipousuario === "Administrador" ? (
+            <Tag color="gold">{tipousuario}</Tag>
+          ) : null}
+          {tipousuario === "Gestor" ? (
+            <Tag color="blue">{tipousuario}</Tag>
+          ) : null}
+          {tipousuario === "Desarrollador" ? (
+            <Tag color="cyan">{tipousuario}</Tag>
+          ) : null}
+          {tipousuario === "Supervisor" ? (
+            <Tag color="purple">{tipousuario}</Tag>
+          ) : null}{" "}
+        </>
+      ),
+    },
+    {
+      title: "Acciones",
+      key: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
+          <DeleteTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
+        </Space>
+      ),
+    },
   ];
+
+  if (loading) return <Loading />;
 
   const onRegisterUserButton = () => {
     history.push("/empelados/alta");
   };
 
-  useEffect(() => {
-    const getUsersFirebase = () => {
-      getUsers()
-        .then((res) => {
-          console.log(res);
-          setUsers(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-    getUsersFirebase();
-  }, []);
+  const editCustomer = () => {
+    console.log("Test");
+  };
 
   return (
     <div
@@ -81,13 +127,16 @@ const UsersList = () => {
           </Button>,
         ]}
       />
-      <Table
-        columns={columns}
-        dataSource={users}
-        rowKey={(users) => users.id}
-        style={{ marginTop: "3px" }}
-        pagination={{ pageSize: 25 }}
-      />
+      <div style={{ marginTop: "3px" }}>
+        <Table
+          columns={columns}
+          dataSource={data.obtenerUsuarios}
+          //rowKey={(users) => users.id}
+          style={{ marginTop: "3px" }}
+          pagination={{ pageSize: 25 }}
+          scroll={{ y: 240 }}
+        />
+      </div>
     </div>
   );
 };

@@ -49,6 +49,7 @@ const DictationsList = () => {
         rowKey={(dictations) => dictations.id}
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
+        scroll={{ y: 240 }}
       />
     </div>
   );

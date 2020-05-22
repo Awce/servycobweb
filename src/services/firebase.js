@@ -1,6 +1,5 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import "firebase/auth";
 import "firebase/storage";
 
 const firebaseConfig = {
@@ -27,38 +26,6 @@ const dictationsRef = firestore.collection("dictations");
 
 const usersAvatar = firebase.storage().ref("avatars");
 const assignmentsFolder = firebase.storage().ref("contacts");
-
-export const firebaseRegister = (imageUrl, name, lastname, email, password) => {
-  return firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      const id = firebase.auth().currentUser.uid;
-      return usersRef
-        .doc(id)
-        .set({ id, imageUrl, name, lastname, email, password });
-    })
-    .catch((error) => {
-      let errorCode = error.code;
-      let errorMessage = error.message;
-      console.log(`${errorCode}: ${errorMessage}`);
-    });
-};
-
-export const firebaseLogin = (email, password) => {
-  return firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((res) => {
-      localStorage.setItem("user", JSON.stringify(res.user));
-      return res.user;
-    });
-};
-
-export const firebaseLogout = () => {
-  localStorage.removeItem("user");
-  return firebase.auth().signOut();
-};
 
 export const firebaseCurrentUser = () => {
   return firebase.auth().onAuthStateChanged((user) => {

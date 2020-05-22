@@ -10,9 +10,9 @@ import NotFound from "../pages/NotFound";
 import NavbarMenu from "../components/NavbarMenu";
 import LateralMenu from "../components/LateralMenu";
 import EmptyPage from "../pages/EmptyPage";
-import AssignmentsList from "../pages/assignments/AssignmentsList";
+import AssignmentsUserList from "../pages/assignments/AssignmentsUserList";
 import AssignmentDetails from "../pages/assignments/AssignmentDetails";
-import AssignmentsResume from "../pages/assignments/AssignmentsResume";
+import AssignmentsList from "../pages/assignments/AssignmentsList";
 import AssignmentCreate from "../pages/assignments/AssignmentCreate";
 import AssignmentVerify from "../pages/assignments/AssignmentVerify";
 import AssignmentUpload from "../pages/assignments/AssignmentUpload";
@@ -20,6 +20,7 @@ import UsersList from "../pages/user/UsersList";
 import UserCreate from "../pages/user/UserCreate";
 import UserDetails from "../pages/user/UserDetails";
 import DictationsList from "../pages/dictations/DictationsList";
+import DictationsUserList from "../pages/dictations/DictationsUserList";
 import PaysList from "../pages/pays/PaysList";
 import SummaryList from "../pages/summary/SummaryList";
 
@@ -50,13 +51,13 @@ const PrivateRouter = () => {
               <Route exact path="/clientes" component={Customers} />
               <Route exact path="/clientes/alta" component={CustomerCreate} />
               <Route exact path="/clientes/:Id" component={CustomerDetails} />
-              <Route exact path="/gestiones" component={AssignmentsList} />
+              <Route exact path="/asignacion" component={AssignmentsUserList} />
               <Route
                 exact
-                path="/gestiones/damas/:Id"
+                path="/asignacion/damas/:Id"
                 component={AssignmentDetails}
               />
-              <Route exact path="/asignaciones" component={AssignmentsResume} />
+              <Route exact path="/asignaciones" component={AssignmentsList} />
               <Route
                 exact
                 path="/asignaciones/nueva"
@@ -76,6 +77,11 @@ const PrivateRouter = () => {
               <Route exact path="/empelados/alta" component={UserCreate} />
               <Route exact path="/empleados/:Id" component={UserDetails} />
               <Route exact path="/dictaminaciones" component={DictationsList} />
+              <Route
+                exact
+                path="/dictaminacion"
+                component={DictationsUserList}
+              />
               <Route exact path="/pagos" component={PaysList} />
               <Route exact path="/resumen" component={SummaryList} />
               <Route component={EmptyPage} />
