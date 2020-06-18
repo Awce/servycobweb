@@ -39,8 +39,30 @@ const NUEVA_CUENTA = gql`
   }
 `;
 
+const OBTENER_USUARIOS = gql`
+  query obtenerUsuarios {
+    obtenerUsuarios {
+      id
+      nombre
+      apellido
+      email
+      creado
+      tipousuario
+      avatar
+    }
+  }
+`;
+
 const UserCreate = () => {
-  const [nuevoUsuario] = useMutation(NUEVA_CUENTA);
+  const [nuevoUsuario] = useMutation(NUEVA_CUENTA, {
+    update(cache, { data: { nuevoUsuario } }) {
+      const { obtenerUsuarios } = cache.readQuery({ query: OBTENER_USUARIOS });
+      cache.writeQuery({
+        query: OBTENER_USUARIOS,
+        data: { obtenerUsuarios: [...obtenerUsuarios, nuevoUsuario] },
+      });
+    },
+  });
   const formik = useFormik({
     initialValues: {
       nombre: "",

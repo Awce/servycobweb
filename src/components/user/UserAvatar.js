@@ -45,6 +45,7 @@ const UserAvatar = () => {
       duration: 2,
     });
     history.push("/");
+    data.resetStore();
   };
 
   if (loading) return null;

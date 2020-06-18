@@ -1,32 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
-import { Tabs, Card, PageHeader, Row, Col, Descriptions } from "antd";
-import { getUser } from "../../services/firebase";
-//import EditUserButton from "../../components/edit/EditUserButton";
+import { Tabs, Card, PageHeader, Row, Col, Descriptions, Tag } from "antd";
+import Loading from "../../components/Loading";
 import { EnvironmentOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 const { Meta } = Card;
 
-const UserDetails = (props) => {
-  const [user, setUser] = useState({});
-  const history = useHistory();
+const OBTENER_DETALLES_USUARIO = gql`
+  query obtenerDetallesUsuario($id: ID!) {
+    obtenerDetallesUsuario(id: $id) {
+      id
+      nombre
+      apellido
+      email
+      avatar
+      tipousuario
+    }
+  }
+`;
 
-  useEffect(() => {
-    getUser(props.match.params.Id)
-      .then((r) => {
-        setUser(r);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+const UserDetails = (props) => {
+  const { data, loading, error } = useQuery(OBTENER_DETALLES_USUARIO, {
+    variables: {
+      id: props.match.params.Id,
+    },
   });
+  console.log(data);
+  console.log(error);
+
+  const history = useHistory();
 
   const goBack = () => {
     history.goBack();
   };
 
-  const { name, lastname, email, imageUrl } = user;
+  if (loading) return <Loading />;
+
+  const {
+    nombre,
+    apellido,
+    email,
+    avatar,
+    tipousuario,
+  } = data.obtenerDetallesUsuario;
 
   return (
     <div
@@ -36,10 +54,9 @@ const UserDetails = (props) => {
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
-        title={`${name} ${lastname}`}
+        title={`${nombre} ${apellido}`}
         subTitle="Detalles"
         onBack={goBack}
-        //extra={[<EditUserButton key="1" />]}
       />
       <Tabs defaultActiveKey="1">
         <TabPane tab="PERFIL" key="1">
@@ -49,12 +66,12 @@ const UserDetails = (props) => {
                 style={{ width: 250 }}
                 cover={
                   <figure>
-                    <img src={imageUrl} alt={name} style={{ width: 250 }} />
+                    <img src={avatar} alt={nombre} style={{ width: 250 }} />
                   </figure>
                 }
               >
                 <Meta
-                  title={`${name} ${lastname}`}
+                  title={`${nombre} ${apellido}`}
                   description={<EnvironmentOutlined />}
                 />
               </Card>
@@ -63,12 +80,26 @@ const UserDetails = (props) => {
               <Card>
                 <Descriptions title="Perfil" layout="vertical">
                   <Descriptions.Item label="Nombre(s)">
-                    {name}
+                    {nombre}
                   </Descriptions.Item>
                   <Descriptions.Item label="Apellido(s)">
-                    {lastname}
+                    {apellido}
                   </Descriptions.Item>
                   <Descriptions.Item label="Correo">{email}</Descriptions.Item>
+                  <Descriptions.Item label="Tipo de Usuario">
+                    {tipousuario === "Administrador" ? (
+                      <Tag color="gold">{tipousuario}</Tag>
+                    ) : null}
+                    {tipousuario === "Gestor" ? (
+                      <Tag color="blue">{tipousuario}</Tag>
+                    ) : null}
+                    {tipousuario === "Desarrollador" ? (
+                      <Tag color="cyan">{tipousuario}</Tag>
+                    ) : null}
+                    {tipousuario === "Supervisor" ? (
+                      <Tag color="purple">{tipousuario}</Tag>
+                    ) : null}{" "}
+                  </Descriptions.Item>
                 </Descriptions>
               </Card>
             </Col>

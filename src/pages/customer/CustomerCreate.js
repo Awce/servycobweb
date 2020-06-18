@@ -51,8 +51,35 @@ const NUEVO_CLIENTE = gql`
   }
 `;
 
+const OBTENER_CLIENTES = gql`
+  query obtenerClientes {
+    obtenerClientes {
+      id
+      empresa
+      razonsocial
+      rfc
+      direccion
+      email
+      telefono
+      logo
+      web
+    }
+  }
+`;
+
 const CustomerCreate = () => {
-  const [nuevoCliente] = useMutation(NUEVO_CLIENTE);
+  const [nuevoCliente] = useMutation(NUEVO_CLIENTE, {
+    update(cache, { data: { nuevoCliente } }) {
+      // obteber cache
+      const { obtenerClientes } = cache.readQuery({ query: OBTENER_CLIENTES });
+      // reescribimos cache no es mutable
+      cache.writeQuery({
+        query: OBTENER_CLIENTES,
+        data: { obtenerClientes: [...obtenerClientes, nuevoCliente] },
+      });
+    },
+  });
+
   const formik = useFormik({
     initialValues: {
       razonsocial: "",
@@ -69,7 +96,12 @@ const CustomerCreate = () => {
       empresa: Yup.string().required(
         "El nombre de la Empresa no puede ir vacio y es requerido"
       ),
-      email: Yup.string().email("El email no es válido"),
+      email: Yup.string()
+        .email("El email no es válido")
+        .required("El email es obligatorio"),
+      direccion: Yup.string().required(
+        "La dirección no puede ir vacia y es requerida."
+      ),
     }),
     onSubmit: async (valores) => {
       const { razonsocial, empresa, email, telefono, direccion, rfc } = valores;
@@ -185,8 +217,9 @@ const CustomerCreate = () => {
                           placeholder="RFC"
                           className="input-form"
                           name="rfc"
-                          //onChange={onChange}
-                          //value={rfc}
+                          value={formik.values.rfc}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                       </Col>
                     </Row>
@@ -203,10 +236,18 @@ const CustomerCreate = () => {
                           }
                           placeholder="Correo electrónico"
                           className="input-form"
-                          //name="email"
-                          //onChange={onChange}
-                          //value={email}
+                          name="email"
+                          value={formik.values.email}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
+                        {formik.touched.email && formik.errors.email ? (
+                          <Alert
+                            message={formik.errors.email}
+                            type="error"
+                            showIcon
+                          />
+                        ) : null}
                       </Col>
                       <Col span={10}>
                         <Input
@@ -217,12 +258,13 @@ const CustomerCreate = () => {
                           }
                           placeholder="Web"
                           className="input-form"
-                          //name="web"
-                          //onChange={onChange}
-                          //value={web}
+                          name="web"
+                          value={formik.values.web}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                       </Col>
-                      <Col span={12}>
+                      <Col span={24}>
                         <Input
                           prefix={
                             <PhoneOutlined
@@ -232,24 +274,10 @@ const CustomerCreate = () => {
                           type="Number"
                           placeholder="Número de teléfono"
                           className="input-form"
-                          //name="phone"
-                          //onChange={onChange}
-                          //value={phone}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <Input
-                          prefix={
-                            <PhoneOutlined
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          }
-                          type="Number"
-                          placeholder="Número de celular"
-                          className="input-form"
-                          // name="cellphone"
-                          //onChange={onChange}
-                          //value={cellphone}
+                          name="telefono"
+                          value={formik.values.telefono}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                       </Col>
                     </Row>
@@ -263,10 +291,18 @@ const CustomerCreate = () => {
                     }
                     placeholder="Dirección"
                     className="input-form"
-                    //name="address"
-                    //onChange={onChange}
-                    //value={address}
+                    name="direccion"
+                    value={formik.values.direccion}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.direccion && formik.errors.direccion ? (
+                    <Alert
+                      message={formik.errors.direccion}
+                      type="error"
+                      showIcon
+                    />
+                  ) : null}
                   <div
                     style={{
                       right: 0,

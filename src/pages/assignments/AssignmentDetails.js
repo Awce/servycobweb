@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useQuery, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
   Tabs,
@@ -10,61 +11,63 @@ import {
   Button,
   Statistic,
 } from "antd";
+import Loading from "../../components/Loading";
 import RegisterDictationButton from "../../components/register/RegisterDictationButton";
-import { getContact } from "../../services/firebase";
 import DictationsContactsList from "../dictations/DictationsContactsList";
 import PaysContactList from "../pays/PaysContactList";
-import DictationsContactsPrevList from "../dictations/DictationsContactsPrevList";
 import { PhoneOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 
+const OBTENER_ASIGNACION = gql`
+  query obtenerAsignacion($id: ID!) {
+    obtenerAsignacion(id: $id) {
+      id
+      tipocartera
+      numdama
+      digitodama
+      nombre
+      numerozonafacturacion
+      aniocampaniasaldo
+      diasmora
+      campanasvencidas
+      saldofactura
+      saldocobro
+      cargosmoratorios
+      totalacobrar
+      telefonocasa
+      telefonocelular
+      direccion
+      colonia
+      referencia
+      poblacion
+      estado
+      codigopostal
+      fechafacturacion
+      fechafinalvigencia
+      tipocuenta
+      gestor
+    }
+  }
+`;
+
 const AssignmentDetails = (props) => {
-  const [contact, setContact] = useState({});
+  const { data, loading, error } = useQuery(OBTENER_ASIGNACION, {
+    variables: {
+      id: props.match.params.Id,
+    },
+  });
+  console.log(data);
+  console.log(error);
+
   const [count, setCount] = useState(0);
   const [callStatus, setCallStatus] = useState(false);
 
   const history = useHistory();
 
-  useEffect(() => {
-    getContact(props.match.params.Id)
-      .then((r) => {
-        setContact(r);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  });
-
   const goBack = () => {
     history.goBack();
   };
-
-  const {
-    aniocampania,
-    campaniasvencidas,
-    cargosmoratorios,
-    codigopostal,
-    colonia,
-    diasmora,
-    digitodama,
-    direccion,
-    estado,
-    fechafacturacion,
-    fechafinalvigencia,
-    gastoscobranza,
-    nombre,
-    numdama,
-    numerozonafacturacion,
-    poblacion,
-    referencia,
-    saldocobro,
-    telefonocasa,
-    telefonocelular,
-    tipocartera,
-    tipodecuenta,
-    totalacobrar,
-  } = contact;
 
   const numberCounts = () => {
     setCount(count + 1);
@@ -75,6 +78,34 @@ const AssignmentDetails = (props) => {
     setCount(count);
     setCallStatus(false);
   };
+
+  if (loading) return <Loading />;
+
+  const {
+    tipocartera,
+    numdama,
+    digitodama,
+    nombre,
+    numerozonafacturacion,
+    aniocampaniasaldo,
+    diasmora,
+    campanasvencidas,
+    saldofactura,
+    saldocobro,
+    cargosmoratorios,
+    totalacobrar,
+    telefonocasa,
+    telefonocelular,
+    direccion,
+    colonia,
+    referencia,
+    poblacion,
+    estado,
+    codigopostal,
+    fechafacturacion,
+    fechafinalvigencia,
+    tipocuenta,
+  } = data.obtenerAsignacion;
 
   return (
     <div
@@ -111,13 +142,13 @@ const AssignmentDetails = (props) => {
                     {numerozonafacturacion}
                   </Descriptions.Item>
                   <Descriptions.Item label="Tipo de cuenta">
-                    {tipodecuenta}
+                    {tipocuenta}
                   </Descriptions.Item>
                   <Descriptions.Item label="Año campaña">
-                    {aniocampania}
+                    {aniocampaniasaldo}
                   </Descriptions.Item>
                   <Descriptions.Item label="Campañas venciadas">
-                    {campaniasvencidas}
+                    {campanasvencidas}
                   </Descriptions.Item>
                   <Descriptions.Item label="Días de mora">
                     {diasmora}
@@ -131,8 +162,8 @@ const AssignmentDetails = (props) => {
                   <Descriptions.Item label="Saldo cobro">
                     ${saldocobro}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Gastos de cobranza">
-                    ${gastoscobranza}
+                  <Descriptions.Item label="Saldo factura">
+                    ${saldofactura}
                   </Descriptions.Item>
                   <Descriptions.Item label="Cargos moratorios">
                     ${cargosmoratorios}
@@ -235,9 +266,6 @@ const AssignmentDetails = (props) => {
                 title="Dictaminación"
                 extra={[<RegisterDictationButton key={1} />]}
               />
-              <Card>
-                <DictationsContactsPrevList />
-              </Card>
             </Col>
           </Row>
         </TabPane>

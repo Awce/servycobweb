@@ -2,7 +2,15 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import Loading from "../../components/Loading";
 import { Link, useHistory } from "react-router-dom";
-import { PageHeader, Button, Table, Space, Avatar } from "antd";
+import {
+  PageHeader,
+  Button,
+  Table,
+  Space,
+  Avatar,
+  Popconfirm,
+  message,
+} from "antd";
 import {
   UserAddOutlined,
   UserOutlined,
@@ -23,6 +31,12 @@ const OBTENER_CLIENTES = gql`
       logo
       web
     }
+  }
+`;
+
+const ELIMINIAR_CLIENTE = gql`
+  mutation eliminarCliente($id: ID!) {
+    eliminarCliente(id: $id)
   }
 `;
 
@@ -75,7 +89,15 @@ const CustomersList = () => {
       render: (text, record) => (
         <Space size="middle">
           <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
-          <DeleteTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
+          <Popconfirm
+            title="¿Estás seguro de eliminar?"
+            onConfirm={confirmDelete}
+            onCancel={cancelDelete}
+            okText="Aceptar"
+            cancelText="Cancelar"
+          >
+            <DeleteTwoTone style={{ fontSize: "18px" }} />
+          </Popconfirm>
         </Space>
       ),
     },
@@ -88,7 +110,15 @@ const CustomersList = () => {
   };
 
   const editCustomer = () => {
-    console.log("Test");
+    message.success("Click en Editar");
+  };
+
+  const confirmDelete = (e) => {
+    message.success("Click en Si");
+  };
+
+  const cancelDelete = (e) => {
+    message.error("Click en No");
   };
 
   return (

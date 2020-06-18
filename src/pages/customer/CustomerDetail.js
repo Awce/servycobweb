@@ -1,45 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { Tabs, Card, PageHeader, Row, Col, Descriptions } from "antd";
-import { getCustomer } from "../../services/firebase";
-//import EditCustomerButton from "../../components/edit/EditCustomerButton";
+import Loading from "../../components/Loading";
 import CampaignsLists from "../campaigns/CampaignsLists";
 import { EnvironmentOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 const { Meta } = Card;
 
+const OBTENER_CLIENTE = gql`
+  query obtenerCliente($id: ID!) {
+    obtenerCliente(id: $id) {
+      empresa
+      razonsocial
+      email
+      web
+      logo
+      telefono
+      direccion
+      rfc
+    }
+  }
+`;
+
 const CustomerDetail = (props) => {
-  const [customer, setCustomer] = useState({});
+  const { data, loading, error } = useQuery(OBTENER_CLIENTE, {
+    variables: {
+      id: props.match.params.Id,
+    },
+  });
+  console.log(data);
+  console.log(error);
 
   const history = useHistory();
-
-  useEffect(() => {
-    getCustomer(props.match.params.Id)
-      .then((r) => {
-        setCustomer(r);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  });
 
   const goBack = () => {
     history.goBack();
   };
 
+  if (loading) return <Loading />;
+
   const {
-    name,
-    namebusiness,
-    logo,
-    address,
-    rfc,
-    phone,
-    cellphone,
-    customerform,
+    empresa,
+    razonsocial,
     email,
     web,
-  } = customer;
+    logo,
+    direccion,
+    rfc,
+  } = data.obtenerCliente;
 
   return (
     <div
@@ -49,10 +59,9 @@ const CustomerDetail = (props) => {
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
-        title={namebusiness}
+        title={razonsocial}
         subTitle="Detalles"
         onBack={goBack}
-        //extra={[<EditCustomerButton key="1" />]}
       />
       <Tabs defaultActiveKey="1">
         <TabPane tab="PERFIL" key="1">
@@ -62,31 +71,33 @@ const CustomerDetail = (props) => {
                 style={{ width: 250 }}
                 cover={
                   <figure>
-                    <img src={logo} alt={name} style={{ width: 240 }} />
+                    <img src={logo} alt={empresa} style={{ width: 240 }} />
                   </figure>
                 }
               >
-                <Meta title={name} description={<EnvironmentOutlined />} />
-                <span>{address}</span>
+                <Meta title={empresa} description={<EnvironmentOutlined />} />
+                <span>{direccion}</span>
               </Card>
             </Col>
             <Col span={18}>
               <Card>
                 <Descriptions title="Perfil" layout="vertical">
                   <Descriptions.Item label="Razón social">
-                    {namebusiness}
+                    {razonsocial}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Nombre">{name}</Descriptions.Item>
+                  <Descriptions.Item label="Nombre">
+                    {empresa}
+                  </Descriptions.Item>
                   <Descriptions.Item label="RFC">{rfc}</Descriptions.Item>
-                  <Descriptions.Item label="Teléfono">
+                  {/* <Descriptions.Item label="Teléfono">
                     {phone}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Celular">
+                  </Descriptions.Item> */}
+                  {/* <Descriptions.Item label="Celular">
                     {cellphone}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Mienbro desde">
+                  </Descriptions.Item> */}
+                  {/* <Descriptions.Item label="Mienbro desde">
                     {customerform}
-                  </Descriptions.Item>
+                  </Descriptions.Item> */}
                   <Descriptions.Item label="Correo">{email}</Descriptions.Item>
                   <Descriptions.Item label="Web">{web}</Descriptions.Item>
                 </Descriptions>
