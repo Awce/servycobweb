@@ -45,6 +45,7 @@ const UserAvatar = () => {
       duration: 2,
     });
     history.push("/");
+    window.location.reload();
     data.resetStore();
   };
 
@@ -90,12 +91,12 @@ const UserAvatar = () => {
       </Row>
       <Row gutter={8}>
         <Col span={12}>
-          <Statistic title="Gestiones" value={3} suffix="/ 10" />
+          <Statistic title="Gestiones" value={0} suffix="/ 0" />
         </Col>
         <Col span={12}>
           <Statistic
             title="Bonos"
-            value={128}
+            value={0}
             prefix={<GiftTwoTone twoToneColor="#eb2f96" />}
           />
         </Col>

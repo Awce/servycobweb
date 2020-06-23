@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery, gql } from "@apollo/client";
 import { Affix, Menu } from "antd";
 import { useHistory, withRouter } from "react-router-dom";
 import {
@@ -25,7 +26,22 @@ import {
 
 const { SubMenu } = Menu;
 
+const OBTENER_USUARIO = gql`
+  query obtenerUsuario {
+    obtenerUsuario {
+      id
+      nombre
+      email
+      tipousuario
+    }
+  }
+`;
+
 const LateralMenu = () => {
+  const { data, loading, error } = useQuery(OBTENER_USUARIO);
+  console.log(data);
+  console.log(error);
+
   const history = useHistory();
   let { location } = history;
   const locationSplit = location.pathname.split("/");
@@ -36,6 +52,10 @@ const LateralMenu = () => {
   };
 
   console.log(currentLocation);
+
+  if (loading) return null;
+
+  const { nombre, tipousuario } = data.obtenerUsuario;
 
   return (
     <Affix offsetTop={10}>
@@ -54,7 +74,7 @@ const LateralMenu = () => {
             title={
               <span>
                 <InteractionOutlined />
-                <span>Gestiones</span>
+                <span>Gestiones de {nombre}</span>
               </span>
             }
           >
@@ -154,101 +174,171 @@ const LateralMenu = () => {
           </SubMenu>
         </Menu.ItemGroup>
 
-        <Menu.ItemGroup key="g2" title="ADMINISTRACION">
-          <SubMenu
-            key="sub3"
-            title={
-              <span>
-                <ContactsOutlined />
-                <span>CRM</span>
-              </span>
-            }
-          >
-            <Menu.Item key="clientes" onClick={() => link("/clientes")}>
-              <TeamOutlined
-                className={`${
-                  currentLocation === "clientes" ? "menu-item-active" : ""
-                }`}
-              />
-              <span>Clientes</span>
-            </Menu.Item>
-            <Menu.Item key="asignaciones" onClick={() => link("/asignaciones")}>
-              <PushpinOutlined
-                className={`${
-                  currentLocation === "asignaciones" ? "menu-item-active" : ""
-                }`}
-              />
-              <span>Asignaciones</span>
-            </Menu.Item>
-          </SubMenu>
-
-          <SubMenu
-            key="sub4"
-            title={
-              <span>
-                <IdcardOutlined />
-                <span>RRHH</span>
-              </span>
-            }
-          >
-            <Menu.Item key="empleados" onClick={() => link("/empleados")}>
-              <UsergroupAddOutlined
-                className={`${
-                  currentLocation === "empleados" ? "menu-item-active" : ""
-                }`}
-              />
-              <span>Empleados</span>
-            </Menu.Item>
-            <Menu.Item key="bonos" onClick={() => link("/bonos")} disabled>
-              <GiftOutlined
-                className={`${
-                  currentLocation === "bonos" ? "menu-item-active" : ""
-                }`}
-              />
-              <span>Bonos</span>
-            </Menu.Item>
-          </SubMenu>
-
-          <SubMenu
-            key="sub5"
-            title={
-              <span>
-                <PieChartOutlined />
-                <span>Reportes</span>
-              </span>
-            }
-          >
-            <Menu.Item
-              key="dictaminaciones"
-              onClick={() => link("/dictaminaciones")}
+        {tipousuario === "Administrador" || tipousuario === "Desarrollador" ? (
+          <Menu.ItemGroup key="g2" title="ADMINISTRACION">
+            <SubMenu
+              key="sub3"
+              title={
+                <span>
+                  <ContactsOutlined />
+                  <span>CRM</span>
+                </span>
+              }
             >
-              <HistoryOutlined
-                className={`${
-                  currentLocation === "dictaminaciones"
-                    ? "menu-item-active"
-                    : ""
-                }`}
-              />
-              <span>Dictaminación</span>
-            </Menu.Item>
-            <Menu.Item key="pagos" onClick={() => link("/pagos")}>
-              <ContainerOutlined
-                className={`${
-                  currentLocation === "pagos" ? "menu-item-active" : ""
-                }`}
-              />
-              <span>Pagos</span>
-            </Menu.Item>
-            <Menu.Item key="resumen" onClick={() => link("/resumen")}>
-              <DatabaseOutlined
-                className={`${
-                  currentLocation === "resumen" ? "menu-item-active" : ""
-                }`}
-              />
-              <span>Resumen</span>
-            </Menu.Item>
-          </SubMenu>
-        </Menu.ItemGroup>
+              <Menu.Item key="clientes" onClick={() => link("/clientes")}>
+                <TeamOutlined
+                  className={`${
+                    currentLocation === "clientes" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Clientes</span>
+              </Menu.Item>
+              <Menu.Item
+                key="asignaciones"
+                onClick={() => link("/asignaciones")}
+              >
+                <PushpinOutlined
+                  className={`${
+                    currentLocation === "asignaciones" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Asignaciones</span>
+              </Menu.Item>
+            </SubMenu>
+
+            <SubMenu
+              key="sub4"
+              title={
+                <span>
+                  <IdcardOutlined />
+                  <span>RRHH</span>
+                </span>
+              }
+            >
+              <Menu.Item key="empleados" onClick={() => link("/empleados")}>
+                <UsergroupAddOutlined
+                  className={`${
+                    currentLocation === "empleados" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Empleados</span>
+              </Menu.Item>
+              <Menu.Item key="bonos" onClick={() => link("/bonos")} disabled>
+                <GiftOutlined
+                  className={`${
+                    currentLocation === "bonos" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Bonos</span>
+              </Menu.Item>
+            </SubMenu>
+
+            <SubMenu
+              key="sub5"
+              title={
+                <span>
+                  <PieChartOutlined />
+                  <span>Reportes</span>
+                </span>
+              }
+            >
+              <Menu.Item
+                key="dictaminaciones"
+                onClick={() => link("/dictaminaciones")}
+              >
+                <HistoryOutlined
+                  className={`${
+                    currentLocation === "dictaminaciones"
+                      ? "menu-item-active"
+                      : ""
+                  }`}
+                />
+                <span>Dictaminación</span>
+              </Menu.Item>
+              <Menu.Item key="pagos" onClick={() => link("/pagos")}>
+                <ContainerOutlined
+                  className={`${
+                    currentLocation === "pagos" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Pagos</span>
+              </Menu.Item>
+              <Menu.Item key="resumen" onClick={() => link("/resumen")}>
+                <DatabaseOutlined
+                  className={`${
+                    currentLocation === "resumen" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Resumen</span>
+              </Menu.Item>
+            </SubMenu>
+          </Menu.ItemGroup>
+        ) : null}
+
+        {tipousuario === "Supervisor" ? (
+          <Menu.ItemGroup key="g2" title="ADMINISTRACION">
+            <SubMenu
+              key="sub3"
+              title={
+                <span>
+                  <ContactsOutlined />
+                  <span>CRM</span>
+                </span>
+              }
+            >
+              <Menu.Item
+                key="asignaciones"
+                onClick={() => link("/asignaciones")}
+              >
+                <PushpinOutlined
+                  className={`${
+                    currentLocation === "asignaciones" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Asignaciones</span>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu
+              key="sub5"
+              title={
+                <span>
+                  <PieChartOutlined />
+                  <span>Reportes</span>
+                </span>
+              }
+            >
+              <Menu.Item
+                key="dictaminaciones"
+                onClick={() => link("/dictaminaciones")}
+              >
+                <HistoryOutlined
+                  className={`${
+                    currentLocation === "dictaminaciones"
+                      ? "menu-item-active"
+                      : ""
+                  }`}
+                />
+                <span>Dictaminación</span>
+              </Menu.Item>
+              <Menu.Item key="pagos" onClick={() => link("/pagos")}>
+                <ContainerOutlined
+                  className={`${
+                    currentLocation === "pagos" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Pagos</span>
+              </Menu.Item>
+              <Menu.Item key="resumen" onClick={() => link("/resumen")}>
+                <DatabaseOutlined
+                  className={`${
+                    currentLocation === "resumen" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Resumen</span>
+              </Menu.Item>
+            </SubMenu>
+          </Menu.ItemGroup>
+        ) : null}
       </Menu>
     </Affix>
   );

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import DictationContext from "../../context/dictations/DictationContext";
 import { Drawer, Button, Cascader, Form, Input, Col, Row, message } from "antd";
 import { createDictation } from "../../services/firebase";
 import { FileAddOutlined } from "@ant-design/icons";
@@ -338,6 +339,7 @@ export const DictationsOptions = [
 ];
 
 const RegisterDictationButton = () => {
+  const dicationContext = useContext(DictationContext);
   const [dictationsTree, setDictationsTree] = useState([]);
   const [dictationsValues, setDictationsValues] = useState({
     amount: "",

@@ -82,6 +82,7 @@ const AssignmentDetails = (props) => {
   if (loading) return <Loading />;
 
   const {
+    id,
     tipocartera,
     numdama,
     digitodama,
