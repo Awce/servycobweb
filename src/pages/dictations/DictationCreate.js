@@ -1,8 +1,29 @@
-import React, { useState, useContext } from "react";
-import DictationContext from "../../context/dictations/DictationContext";
-import { Drawer, Button, Cascader, Form, Input, Col, Row, message } from "antd";
-import { createDictation } from "../../services/firebase";
+import React, { useState } from "react";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useMutation, gql } from "@apollo/client";
+import {
+  Alert,
+  Drawer,
+  Button,
+  Cascader,
+  Form,
+  Input,
+  Col,
+  Row,
+  message,
+  notification,
+} from "antd";
 import { FileAddOutlined } from "@ant-design/icons";
+
+const layout = {
+  labelCol: {
+    span: 24,
+  },
+  wrapperCol: {
+    span: 24,
+  },
+};
 
 const { TextArea } = Input;
 const InputGroup = Input.Group;
@@ -338,129 +359,143 @@ export const DictationsOptions = [
   },
 ];
 
-const RegisterDictationButton = () => {
-  const dicationContext = useContext(DictationContext);
-  const [dictationsTree, setDictationsTree] = useState([]);
-  const [dictationsValues, setDictationsValues] = useState({
-    amount: "",
-    date: "",
-    serial: "",
-    comment: "",
-    dictation: "",
-    subdictation: "",
-    reason: "",
-  });
-
-  const [error, setError] = useState(false);
-
-  const [show, setShow] = useState({
-    visible: false,
-  });
-
-  const showDrawer = () => {
-    setShow({
-      visible: true,
-    });
-  };
-
-  const onClose = () => {
-    setShow({
-      visible: false,
-    });
-    setDictationsValues({
-      amount: "",
-      date: "",
-      serial: "",
-      comment: "",
-    });
-  };
-
-  const { visible } = show;
-
-  function handleAreaClick(e, label, option) {
-    e.stopPropagation();
-    console.log("clicked", label, option);
-  }
-
-  const displayRender = (labels, selectedOptions) =>
-    labels.map((label, i) => {
-      const option = selectedOptions[i];
-      if (i === labels.length - 1) {
-        return (
-          <span key={option.value}>
-            {label} (
-            <a
-              href={option.code}
-              onClick={(e) => handleAreaClick(e, label, option)}
-            >
-              {option.code}
-            </a>
-            )
-          </span>
-        );
-      }
-      return <span key={option.value}>{label} / </span>;
-    });
-
-  const onChangeDictatons = (e) => {
-    setDictationsValues({
-      ...dictationsValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onChangeTree = (value) => {
-    setDictationsTree([...dictationsTree, value]);
-    setDictationsValues({
-      ...dictationsValues,
-      dictation: value[0],
-      subdictation: value[1],
-      reason: value[2],
-    });
-  };
-
-  const dictationRegister = (e) => {
-    e.preventDefault();
-    if (
-      dictationsValues.dictation.trim() === "" ||
-      dictationsValues.subdictation.trim() === "" ||
-      dictationsValues.reason.trim() === ""
-    ) {
-      setError(true);
-      message.loading({ content: "Dictaminando...", key });
-      setTimeout(() => {
-        message.error({
-          content: "Los campos son obliagatorios y no pueden ir vacios.",
-          key,
-          duration: 2,
-        });
-      }, 1000);
-      return;
+const NUEVO_DICTAMEN = gql`
+  mutation nuevoDictamen($input: DictamenInput) {
+    nuevoDictamen(input: $input) {
+      numdama
+      digitodama
+      dictamen
+      subdictamen
+      razon
+      folio
+      monto
+      fechapago
+      comentarios
+      gestor
     }
-    setError(!error);
-    createDictation(dictationsValues)
-      .then(() => {
+  }
+`;
+
+const OBTENER_DICTAMENES = gql`
+  query obtenerDictamenes {
+    obtenerDictamenes {
+      id
+      numdama
+      digitodama
+      dictamen
+      subdictamen
+      razon
+      folio
+      monto
+      fechapago
+      creado
+      comentarios
+    }
+  }
+`;
+
+const onFinishFailed = (errorInfo) => {
+  console.log("Failed:", errorInfo);
+};
+
+function DictationCreate() {
+  const [nuevoDictamen] = useMutation(NUEVO_DICTAMEN, {
+    update(cache, { data: { nuevoDictamen } }) {
+      const { obtenerDictamenes } = cache.readQuery({
+        query: OBTENER_DICTAMENES,
+      });
+      cache.writeQuery({
+        query: OBTENER_DICTAMENES,
+        data: { obtenerDictamenes: [...obtenerDictamenes, nuevoDictamen] },
+      });
+    },
+  });
+  const [visible, setVisible] = useState(false);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      numdama: "",
+      digitodama: "",
+      dictamen: "",
+      subdictamen: "",
+      razon: "",
+      folio: "",
+      monto: 0,
+      fechapago: "",
+      comentarios: "",
+      gestor: "",
+    },
+    validationSchema: Yup.object({
+      numdama: Yup.string().required(
+        "El número de dama es obligatorio y no puede ir vacio."
+      ),
+      digitodama: Yup.string(
+        "El digíto de dama es obligatorio y no puede ir vacio."
+      ),
+      dictamen: Yup.string().required(
+        "El tipo de gestion del dictamen no puede ir vacio."
+      ),
+      subdictamen: Yup.string().required("El subdictamen no puede ir vacio."),
+      razon: Yup.string().required("El motivo del dictamen no puede ir vacio."),
+      comentarios: Yup.string().required("Debes ingresar un comentario breve."),
+    }),
+    onSubmit: async (valores) => {
+      const {
+        numdama,
+        digitodama,
+        dictamen,
+        subdictamen,
+        razon,
+        folio,
+        monto,
+        fechapago,
+        comentarios,
+      } = valores;
+      try {
+        const { data } = await nuevoDictamen({
+          variables: {
+            input: {
+              numdama,
+              digitodama,
+              dictamen,
+              subdictamen,
+              razon,
+              folio,
+              monto,
+              fechapago,
+              comentarios,
+            },
+          },
+        });
+        notification.open({
+          message: "Registro exitoso",
+          description: `El Dictamen se ha registrado con éxito.`,
+          onClick: () => {
+            console.log("Notification Clicked!");
+          },
+        });
         onClose();
-        message.loading({ content: "Dictaminando...", key });
+      } catch (error) {
         setTimeout(() => {
-          message.success({
-            content: "Genial.",
+          const mesError = error.message.replace("GraphQL error: ", "");
+          message.error({
+            content: `${mesError} en la base de datos.`,
             key,
             duration: 2,
           });
         }, 1000);
-      })
-      .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log(`${errorCode}: ${errorMessage}`);
-      });
-  };
-
-  const { amount, date, serial, comment, reason } = dictationsValues;
+      }
+    },
+  });
 
   return (
-    <div>
+    <>
       <Button type="primary" onClick={showDrawer} icon={<FileAddOutlined />}>
         Agregar
       </Button>
@@ -468,214 +503,167 @@ const RegisterDictationButton = () => {
         title="Crear nueva dictaminación"
         width={720}
         bodyStyle={{ paddingBottom: 80 }}
+        placement="right"
+        closable={false}
         onClose={onClose}
         visible={visible}
       >
-        <Form onSubmit={dictationRegister}>
+        <Form
+          {...layout}
+          onFinish={formik.handleSubmit}
+          onFinishFailed={onFinishFailed}
+        >
+          <Form.Item label="Número y Digíto de Dama">
+            <Row gutter={16}>
+              <Col span={8}>
+                <Input
+                  placeholder="Número"
+                  className="input-form"
+                  name="numdama"
+                  value={formik.values.numdama}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.numdama && formik.errors.numdama ? (
+                  <Alert
+                    message={formik.errors.numdama}
+                    type="error"
+                    showIcon
+                  />
+                ) : null}
+              </Col>
+
+              <Col span={8}>
+                <Input
+                  placeholder="Digito"
+                  className="input-form"
+                  name="digitodama"
+                  value={formik.values.digitodama}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.digitodama && formik.errors.digitodama ? (
+                  <Alert
+                    message={formik.errors.digitodama}
+                    type="error"
+                    showIcon
+                  />
+                ) : null}
+              </Col>
+            </Row>
+          </Form.Item>
+
           <Form.Item label="Dictamen / Subdictamen / Motivo">
-            <Cascader
+            <Row gutter={16}>
+              {/* <Cascader
               size="large"
               options={DictationsOptions}
               placeholder="Selecciona el árbol de dictamen"
-              displayRender={displayRender}
-              onChange={onChangeTree}
+              //onChange={onChangeTree}
               allowClear
-            />
+            /> */}
+              <Col span={24}>
+                <Input
+                  placeholder="Tipo de gestion"
+                  size="large"
+                  name="dictamen"
+                  value={formik.values.dictamen}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.dictamen && formik.errors.dictamen ? (
+                  <Alert
+                    message={formik.errors.dictamen}
+                    type="error"
+                    showIcon
+                  />
+                ) : null}
+              </Col>
+
+              <Col span={24}>
+                <Input
+                  placeholder="Subdictamen"
+                  size="large"
+                  name="subdictamen"
+                  value={formik.values.subdictamen}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.subdictamen && formik.errors.subdictamen ? (
+                  <Alert
+                    message={formik.errors.subdictamen}
+                    type="error"
+                    showIcon
+                  />
+                ) : null}
+              </Col>
+
+              <Col span={24}>
+                <Input
+                  placeholder="Motivo"
+                  size="large"
+                  name="razon"
+                  value={formik.values.razon}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.razon && formik.errors.razon ? (
+                  <Alert message={formik.errors.razon} type="error" showIcon />
+                ) : null}
+              </Col>
+            </Row>
           </Form.Item>
-          {reason === "Promesa de Pago" && (
-            <>
-              <Form.Item label="Fecha y Monto de pago">
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={8}>
-                      <Input
-                        type="date"
-                        style={{ width: "100%" }}
-                        name="date"
-                        value={date}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                    <Col span={8}>
-                      <Input
-                        type="number"
-                        size="large"
-                        style={{ width: "100%" }}
-                        placeholder="Ingresa el Monto"
-                        name="amount"
-                        value={amount}
-                        formatter={(amount) =>
-                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                        }
-                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                  </Row>
-                </InputGroup>
-              </Form.Item>
-            </>
-          )}
-
-          {reason === "Cobrada por GDC o Consejera" && (
-            <>
-              <Form.Item label="Fecha y Monto de pago">
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={8}>
-                      <Input
-                        type="date"
-                        style={{ width: "100%" }}
-                        name="date"
-                        value={date}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                    <Col span={8}>
-                      <Input
-                        type="number"
-                        size="large"
-                        style={{ width: "100%" }}
-                        placeholder="Ingresa el Monto"
-                        name="amount"
-                        value={amount}
-                        formatter={(amount) =>
-                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                        }
-                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                  </Row>
-                </InputGroup>
-              </Form.Item>
-            </>
-          )}
-
-          {reason === "Pago a Porteador" && (
-            <>
-              <Form.Item label="Fecha y Monto de pago">
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={8}>
-                      <Input
-                        type="date"
-                        style={{ width: "100%" }}
-                        name="date"
-                        value={date}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                    <Col span={8}>
-                      <Input
-                        type="number"
-                        size="large"
-                        style={{ width: "100%" }}
-                        placeholder="Ingresa el Monto"
-                        name="amount"
-                        value={amount}
-                        formatter={(amount) =>
-                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                        }
-                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                  </Row>
-                </InputGroup>
-              </Form.Item>
-            </>
-          )}
-
-          {reason === "Ya pago" && (
-            <>
-              <Form.Item label="Fecha y Monto de pago">
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={8}>
-                      <Input
-                        type="date"
-                        style={{ width: "100%" }}
-                        name="date"
-                        value={date}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                    <Col span={8}>
-                      <Input
-                        type="number"
-                        size="large"
-                        style={{ width: "100%" }}
-                        placeholder="Ingresa el Monto"
-                        name="amount"
-                        value={amount}
-                        formatter={(amount) =>
-                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                        }
-                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                  </Row>
-                </InputGroup>
-              </Form.Item>
-            </>
-          )}
-
-          {reason === "Pago a Cobrador" && (
-            <>
-              <Form.Item label="Fecha, Monto de pago y Folio de recibo">
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={8}>
-                      <Input
-                        type="date"
-                        style={{ width: "100%" }}
-                        name="date"
-                        value={date}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                    <Col span={8}>
-                      <Input
-                        type="number"
-                        size="large"
-                        style={{ width: "100%" }}
-                        placeholder="Ingresa el Monto"
-                        name="amount"
-                        value={amount}
-                        formatter={(amount) =>
-                          `$ ${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                        }
-                        parser={(amount) => amount.replace(/\$\s?|(,*)/g, "")}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                    <Col span={8}>
-                      <Input
-                        type="number"
-                        size="large"
-                        placeholder="Folio"
-                        name="serial"
-                        value={serial}
-                        onChange={onChangeDictatons}
-                      />
-                    </Col>
-                  </Row>
-                </InputGroup>
-              </Form.Item>
-            </>
-          )}
-
+          <Form.Item label="Fecha, Monto de pago y Folio de recibo">
+            <InputGroup size="large">
+              <Row gutter={8}>
+                <Col span={8}>
+                  <Input
+                    // type="date"
+                    style={{ width: "100%" }}
+                    name="fechapago"
+                    value={formik.values.fechapago}
+                    onChange={formik.handleChange}
+                  />
+                </Col>
+                <Col span={8}>
+                  <Input
+                    type="number"
+                    size="large"
+                    style={{ width: "100%" }}
+                    placeholder="Ingresa el Monto"
+                    name="monto"
+                    value={formik.values.monto}
+                    onChange={formik.handleChange}
+                  />
+                </Col>
+                <Col span={8}>
+                  <Input
+                    size="large"
+                    placeholder="Folio"
+                    name="folio"
+                    value={formik.values.folio}
+                    onChange={formik.handleChange}
+                  />
+                </Col>
+              </Row>
+            </InputGroup>
+          </Form.Item>
           <Form.Item label="Nota de seguimiento">
             <TextArea
-              type="text"
               rows={4}
               placeholder="Agrega un comentario"
-              name="comment"
-              value={comment}
-              onChange={onChangeDictatons}
+              name="comentarios"
+              value={formik.values.comentarios}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            {formik.touched.comentarios && formik.errors.comentarios ? (
+              <Alert
+                message={formik.errors.comentarios}
+                type="error"
+                showIcon
+              />
+            ) : null}
           </Form.Item>
           <div
             style={{
@@ -703,8 +691,8 @@ const RegisterDictationButton = () => {
           </div>
         </Form>
       </Drawer>
-    </div>
+    </>
   );
-};
+}
 
-export default RegisterDictationButton;
+export default DictationCreate;

@@ -33,6 +33,7 @@ const layout = {
   },
 };
 
+const { TextArea } = Input;
 const key = "updatable";
 const { TabPane } = Tabs;
 
@@ -91,7 +92,7 @@ const CustomerCreate = () => {
     },
     validationSchema: Yup.object({
       razonsocial: Yup.string().required(
-        "el nombre de la Razón social no puede ir vacio y es requerido"
+        "El nombre de la Razón social no puede ir vacio y es requerido"
       ),
       empresa: Yup.string().required(
         "El nombre de la Empresa no puede ir vacio y es requerido"
@@ -271,7 +272,6 @@ const CustomerCreate = () => {
                               style={{ color: "rgba(0,0,0,.25)" }}
                             />
                           }
-                          type="Number"
                           placeholder="Número de teléfono"
                           className="input-form"
                           name="telefono"
@@ -283,12 +283,13 @@ const CustomerCreate = () => {
                     </Row>
                   </Form.Item>
 
-                  <Input
+                  <TextArea
                     prefix={
                       <EnvironmentOutlined
                         style={{ color: "rgba(0,0,0,.25)" }}
                       />
                     }
+                    rows={4}
                     placeholder="Dirección"
                     className="input-form"
                     name="direccion"

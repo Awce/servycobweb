@@ -10,11 +10,14 @@ const OBTENER_MIS_DICTAMENES = gql`
   query obtenerDictamenesUsuario {
     obtenerDictamenesUsuario {
       id
+      numdama
+      digitodama
       dictamen
       subdictamen
       razon
       folio
       monto
+      comentarios
       fechapago
       gestor
       creado
@@ -28,6 +31,23 @@ const DictationsUserList = () => {
   console.log(error);
 
   const columns = [
+    {
+      title: "Dama",
+      dataIndex: "numdama",
+      key: "numdama",
+      align: "center",
+      // render: (text, contact) => (
+      //   <Link to={`/asignacion/damas/${contact.id}`}>
+      //     <span>{contact.numdama}</span>
+      //   </Link>
+      // ),
+    },
+    {
+      title: "Dígito",
+      dataIndex: "digitodama",
+      key: "digitodama",
+      align: "center",
+    },
     {
       title: "Dictamen",
       dataIndex: "dictamen",

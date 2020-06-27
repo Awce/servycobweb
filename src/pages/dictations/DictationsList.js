@@ -10,6 +10,8 @@ const OBTENER_DICTAMENES = gql`
   query obtenerDictamenes {
     obtenerDictamenes {
       id
+      numdama
+      digitodama
       dictamen
       subdictamen
       razon
@@ -29,6 +31,23 @@ const DictationsList = () => {
   console.log(error);
 
   const columns = [
+    {
+      title: "Dama",
+      dataIndex: "numdama",
+      key: "numdama",
+      align: "center",
+      // render: (text, contact) => (
+      //   <Link to={`/asignacion/damas/${contact.id}`}>
+      //     <span>{contact.numdama}</span>
+      //   </Link>
+      // ),
+    },
+    {
+      title: "Dígito",
+      dataIndex: "digitodama",
+      key: "digitodama",
+      align: "center",
+    },
     {
       title: "Dictamen",
       dataIndex: "dictamen",
@@ -71,6 +90,12 @@ const DictationsList = () => {
       title: "Comentario",
       dataIndex: "comentarios",
       key: "comentarios",
+      align: "center",
+    },
+    {
+      title: "Gestor",
+      dataIndex: "gestor",
+      key: "gestor",
       align: "center",
     },
   ];

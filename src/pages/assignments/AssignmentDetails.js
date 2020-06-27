@@ -12,7 +12,7 @@ import {
   Statistic,
 } from "antd";
 import Loading from "../../components/Loading";
-import RegisterDictationButton from "../../components/register/RegisterDictationButton";
+import DictationCreate from "../dictations/DictationCreate";
 import DictationsContactsList from "../dictations/DictationsContactsList";
 import PaysContactList from "../pays/PaysContactList";
 import { PhoneOutlined } from "@ant-design/icons";
@@ -82,7 +82,6 @@ const AssignmentDetails = (props) => {
   if (loading) return <Loading />;
 
   const {
-    id,
     tipocartera,
     numdama,
     digitodama,
@@ -265,17 +264,17 @@ const AssignmentDetails = (props) => {
                   border: "1px solid rgb(235, 237, 240)",
                 }}
                 title="Dictaminación"
-                extra={[<RegisterDictationButton key={1} />]}
+                extra={[<DictationCreate key={1} />]}
               />
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="HISTORIAL DE DICTAMINACION" key="2">
+        {/* <TabPane tab="HISTORIAL DE DICTAMINACION" key="2">
           <DictationsContactsList />
         </TabPane>
         <TabPane tab="HISTORIAL DE PAGOS" key="3">
           <PaysContactList />
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </div>
   );
