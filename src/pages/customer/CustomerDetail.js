@@ -68,10 +68,9 @@ const CustomerDetail = (props) => {
           <Row gutter={16}>
             <Col span={6}>
               <Card
-                style={{ width: 250 }}
                 cover={
                   <figure>
-                    <img src={logo} alt={empresa} style={{ width: 240 }} />
+                    <img src={logo} alt={empresa} />
                   </figure>
                 }
               >

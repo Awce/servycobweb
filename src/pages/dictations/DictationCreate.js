@@ -436,10 +436,10 @@ function DictationCreate() {
         "El número de dama es obligatorio y no puede ir vacio."
       ),
       digitodama: Yup.string(
-        "El digíto de dama es obligatorio y no puede ir vacio."
+        "El dígito de dama es obligatorio y no puede ir vacio."
       ),
       dictamen: Yup.string().required(
-        "El tipo de gestion del dictamen no puede ir vacio."
+        "El tipo de gestión del dictamen no puede ir vacio."
       ),
       subdictamen: Yup.string().required("El subdictamen no puede ir vacio."),
       razon: Yup.string().required("El motivo del dictamen no puede ir vacio."),
@@ -513,13 +513,14 @@ function DictationCreate() {
           onFinish={formik.handleSubmit}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item label="Número y Digíto de Dama">
+          <Form.Item label="Número y Dígito de Dama">
             <Row gutter={16}>
               <Col span={8}>
                 <Input
                   placeholder="Número"
                   className="input-form"
                   name="numdama"
+                  allowClear
                   value={formik.values.numdama}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -535,9 +536,10 @@ function DictationCreate() {
 
               <Col span={8}>
                 <Input
-                  placeholder="Digito"
+                  placeholder="Dígito"
                   className="input-form"
                   name="digitodama"
+                  allowClear
                   value={formik.values.digitodama}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -564,9 +566,10 @@ function DictationCreate() {
             /> */}
               <Col span={24}>
                 <Input
-                  placeholder="Tipo de gestion"
-                  size="large"
+                  placeholder="Tipo de gestión"
+                  className="input-form"
                   name="dictamen"
+                  allowClear
                   value={formik.values.dictamen}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -583,8 +586,9 @@ function DictationCreate() {
               <Col span={24}>
                 <Input
                   placeholder="Subdictamen"
-                  size="large"
+                  className="input-form"
                   name="subdictamen"
+                  allowClear
                   value={formik.values.subdictamen}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -601,8 +605,9 @@ function DictationCreate() {
               <Col span={24}>
                 <Input
                   placeholder="Motivo"
-                  size="large"
+                  className="input-form"
                   name="razon"
+                  allowClear
                   value={formik.values.razon}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -618,9 +623,10 @@ function DictationCreate() {
               <Row gutter={8}>
                 <Col span={8}>
                   <Input
-                    // type="date"
+                    className="input-form"
                     style={{ width: "100%" }}
                     name="fechapago"
+                    allowClear
                     value={formik.values.fechapago}
                     onChange={formik.handleChange}
                   />
@@ -628,19 +634,21 @@ function DictationCreate() {
                 <Col span={8}>
                   <Input
                     type="number"
-                    size="large"
+                    className="input-form"
                     style={{ width: "100%" }}
                     placeholder="Ingresa el Monto"
                     name="monto"
+                    allowClear
                     value={formik.values.monto}
                     onChange={formik.handleChange}
                   />
                 </Col>
                 <Col span={8}>
                   <Input
-                    size="large"
+                    className="input-form"
                     placeholder="Folio"
                     name="folio"
+                    allowClear
                     value={formik.values.folio}
                     onChange={formik.handleChange}
                   />
@@ -653,6 +661,7 @@ function DictationCreate() {
               rows={4}
               placeholder="Agrega un comentario"
               name="comentarios"
+              allowClear
               value={formik.values.comentarios}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

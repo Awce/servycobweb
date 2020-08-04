@@ -60,15 +60,15 @@ const LateralMenu = () => {
   return (
     <Affix offsetTop={10}>
       <Menu defaultSelectedKeys={currentLocation} mode="inline">
-        <Menu.ItemGroup key="g1" title="PERSONAL">
-          <Menu.Item key="informacion" onClick={() => link("/informacion")}>
-            <HomeOutlined
-              className={`${
-                currentLocation === "informacion" ? "menu-item-active" : ""
-              }`}
-            />
-            <span>Información general</span>
-          </Menu.Item>
+        <Menu.Item key="informacion" onClick={() => link("/informacion")}>
+          <HomeOutlined
+            className={`${
+              currentLocation === "informacion" ? "menu-item-active" : ""
+            }`}
+          />
+          <span>Información general</span>
+        </Menu.Item>
+        <Menu.ItemGroup key="g1" title={`PERSONAL`}>
           <SubMenu
             key="sub0"
             title={

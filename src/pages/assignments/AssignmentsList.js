@@ -154,7 +154,7 @@ const AssignmentsList = () => {
         columns={columns}
         dataSource={data.obtenerAsignaciones}
         style={{ marginTop: "3px" }}
-        //rowKey={(contacts) => contacts.id}
+        rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
         scroll={{ y: 240 }}
       />

@@ -6,7 +6,6 @@ import Loading from "../../components/Loading";
 import { EnvironmentOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
-const { Meta } = Card;
 
 const OBTENER_DETALLES_USUARIO = gql`
   query obtenerDetallesUsuario($id: ID!) {
@@ -63,18 +62,12 @@ const UserDetails = (props) => {
           <Row gutter={16}>
             <Col span={6}>
               <Card
-                style={{ width: 250 }}
                 cover={
                   <figure>
-                    <img src={avatar} alt={nombre} style={{ width: 250 }} />
+                    <img src={avatar} alt={nombre} />
                   </figure>
                 }
-              >
-                <Meta
-                  title={`${nombre} ${apellido}`}
-                  description={<EnvironmentOutlined />}
-                />
-              </Card>
+              />
             </Col>
             <Col span={18}>
               <Card>

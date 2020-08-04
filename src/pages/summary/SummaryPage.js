@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  List,
-  Card,
-  Row,
-  Col,
-  Calendar,
-  PageHeader,
-  Progress,
-  Avatar,
-} from "antd";
+import UserCalendar from "../../components/user/UserCalendar";
+import TopSellers from "../../components/TopSellers";
+import { List, Card, Row, Col, PageHeader, Progress } from "antd";
 
 const data = [
   {
@@ -29,25 +22,7 @@ const data = [
   },
 ];
 
-const data2 = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-];
-
 const SummaryPage = () => {
-  const onPanelChange = (value, mode) => {
-    console.log(value, mode);
-  };
   return (
     <div
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
@@ -81,28 +56,10 @@ const SummaryPage = () => {
       />
       <Row gutter={16}>
         <Col span={16}>
-          <Card>
-            <Calendar onPanelChange={onPanelChange} />
-          </Card>
+          <UserCalendar />
         </Col>
         <Col span={8}>
-          <Card title="Top Gestores">
-            <List
-              itemLayout="horizontal"
-              dataSource={data2}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={
-                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                    }
-                    title={<a href="https://ant.design">{item.title}</a>}
-                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                  />
-                </List.Item>
-              )}
-            />
-          </Card>
+          <TopSellers />
         </Col>
       </Row>
     </div>

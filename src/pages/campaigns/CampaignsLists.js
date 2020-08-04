@@ -11,24 +11,24 @@ const CampaignsLists = () => {
       title: "Campaña",
       dataIndex: "name",
       key: "name",
-      align: "center"
+      align: "center",
     },
     {
       title: "Descripción",
       dataIndex: "description",
       key: "description",
-      align: "center"
-    }
+      align: "center",
+    },
   ];
 
   useEffect(() => {
     const getCampaignsFirebase = () => {
       getCampaigns()
-        .then(res => {
+        .then((res) => {
           console.log(res);
           setCampaigns(res);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     };
@@ -39,7 +39,7 @@ const CampaignsLists = () => {
     <div style={{ marginTop: "3px" }}>
       <PageHeader
         style={{
-          border: "1px solid rgb(235, 237, 240)"
+          border: "1px solid rgb(235, 237, 240)",
         }}
         title="Campañas"
         subTitle="Lista"
@@ -49,7 +49,7 @@ const CampaignsLists = () => {
         style={{ marginTop: "3px" }}
         columns={columns}
         dataSource={campaigns}
-        rowKey={campaigns => campaigns.id}
+        rowKey={(record) => record.id}
         pagination={{ pageSize: 5 }}
       />
     </div>

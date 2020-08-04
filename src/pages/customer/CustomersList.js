@@ -146,6 +146,7 @@ const CustomersList = () => {
         <Table
           columns={columns}
           dataSource={data.obtenerClientes}
+          rowKey={(record) => record.id}
           style={{ marginTop: "3px" }}
           pagination={{ pageSize: 25 }}
           scroll={{ y: 240 }}

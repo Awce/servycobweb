@@ -154,7 +154,7 @@ const PaysList = () => {
         id="mytable"
         columns={columns}
         dataSource={pays}
-        rowKey={(pays) => pays.id}
+        rowKey={(record) => record.id}
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
       />

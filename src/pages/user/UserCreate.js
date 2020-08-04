@@ -149,7 +149,7 @@ const UserCreate = () => {
         >
           <Row gutter={16}>
             <Col span={6}>
-              <Card style={{ width: 250 }} />
+              <Card />
             </Col>
             <Col span={18}>
               <Card>
@@ -161,6 +161,7 @@ const UserCreate = () => {
                     prefix={
                       <UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                     }
+                    allowClear
                     value={formik.values.nombre}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -178,6 +179,7 @@ const UserCreate = () => {
                     placeholder="Apellido(s)"
                     className="input-form"
                     name="apellido"
+                    allowClear
                     value={formik.values.apellido}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -198,6 +200,7 @@ const UserCreate = () => {
                     prefix={
                       <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                     }
+                    allowClear
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -218,6 +221,7 @@ const UserCreate = () => {
                     prefix={
                       <UnlockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                     }
+                    allowClear
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}

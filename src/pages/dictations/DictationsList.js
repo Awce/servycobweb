@@ -147,7 +147,7 @@ const DictationsList = () => {
         id="mytable"
         columns={columns}
         dataSource={data.obtenerDictamenes}
-        //rowKey={(dictations) => dictations.id}
+        rowKey={(record) => record.id}
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
         scroll={{ y: 240 }}

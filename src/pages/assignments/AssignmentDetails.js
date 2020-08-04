@@ -13,8 +13,8 @@ import {
 } from "antd";
 import Loading from "../../components/Loading";
 import DictationCreate from "../dictations/DictationCreate";
-import DictationsContactsList from "../dictations/DictationsContactsList";
-import PaysContactList from "../pays/PaysContactList";
+//import DictationsContactsList from "../dictations/DictationsContactsList";
+//import PaysContactList from "../pays/PaysContactList";
 import { PhoneOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
@@ -172,28 +172,8 @@ const AssignmentDetails = (props) => {
                 <Row gutter={16}>
                   <Col span={24}>
                     <Card>
-                      <Tabs defaultActiveKey="1">
-                        <TabPane tab="NUMEROS DE CONTACTO" key="1">
-                          <Row gutter={16}>
-                            <Col span={12}>
-                              <Statistic
-                                title="Telefono casa"
-                                prefix={<PhoneOutlined />}
-                                value={telefonocasa}
-                                groupSeparator="-"
-                              />
-                            </Col>
-                            <Col span={12}>
-                              <Statistic
-                                title="Telefono celular"
-                                prefix={<PhoneOutlined />}
-                                value={telefonocelular}
-                                groupSeparator="-"
-                              />
-                            </Col>
-                          </Row>
-                        </TabPane>
-                        <TabPane tab="DIRECCIONES" key="2">
+                      <Tabs defaultActiveKey={1}>
+                        <TabPane tab="DIRECCIONES" key={1}>
                           <Descriptions>
                             <Descriptions.Item label="Dirección">
                               {direccion}
@@ -222,6 +202,14 @@ const AssignmentDetails = (props) => {
               </Card>
             </Col>
             <Col span={8}>
+              <Card
+                style={{
+                  border: "1px solid rgb(235, 237, 240)",
+                }}
+                title="Dictaminación"
+                extra={[<DictationCreate key={1} />]}
+              />
+
               <PageHeader
                 style={{
                   border: "1px solid rgb(235, 237, 240)",
@@ -251,6 +239,24 @@ const AssignmentDetails = (props) => {
                 }
               />
               <Card>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Statistic
+                      title="Telefono casa"
+                      prefix={<PhoneOutlined />}
+                      value={telefonocasa}
+                      //groupSeparator="-"
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <Statistic
+                      title="Telefono celular"
+                      prefix={<PhoneOutlined />}
+                      value={telefonocelular}
+                      //groupSeparator="-"
+                    />
+                  </Col>
+                </Row>
                 <p>{callStatus ? "Llamando al:" : "Llamar al:"}</p>
                 <Statistic
                   prefix={<PhoneOutlined />}
@@ -259,13 +265,6 @@ const AssignmentDetails = (props) => {
                 />
                 <p> {count} intentos</p>
               </Card>
-              <PageHeader
-                style={{
-                  border: "1px solid rgb(235, 237, 240)",
-                }}
-                title="Dictaminación"
-                extra={[<DictationCreate key={1} />]}
-              />
             </Col>
           </Row>
         </TabPane>

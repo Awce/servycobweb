@@ -33,7 +33,6 @@ const layout = {
   },
 };
 
-const { TextArea } = Input;
 const key = "updatable";
 const { TabPane } = Tabs;
 
@@ -182,6 +181,7 @@ const CustomerCreate = () => {
                           placeholder="Razón social"
                           className="input-form"
                           name="razonsocial"
+                          allowClear
                           value={formik.values.razonsocial}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -201,6 +201,7 @@ const CustomerCreate = () => {
                           placeholder="Alias"
                           className="input-form"
                           name="empresa"
+                          allowClear
                           value={formik.values.empresa}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -218,6 +219,7 @@ const CustomerCreate = () => {
                           placeholder="RFC"
                           className="input-form"
                           name="rfc"
+                          allowClear
                           value={formik.values.rfc}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -238,6 +240,7 @@ const CustomerCreate = () => {
                           placeholder="Correo electrónico"
                           className="input-form"
                           name="email"
+                          allowClear
                           value={formik.values.email}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -260,6 +263,7 @@ const CustomerCreate = () => {
                           placeholder="Web"
                           className="input-form"
                           name="web"
+                          allowClear
                           value={formik.values.web}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -275,35 +279,38 @@ const CustomerCreate = () => {
                           placeholder="Número de teléfono"
                           className="input-form"
                           name="telefono"
+                          allowClear
                           value={formik.values.telefono}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                         />
                       </Col>
+                      <Col span={24}>
+                        <Input
+                          prefix={
+                            <EnvironmentOutlined
+                              style={{ color: "rgba(0,0,0,.25)" }}
+                            />
+                          }
+                          placeholder="Dirección"
+                          className="input-form"
+                          name="direccion"
+                          allowClear
+                          value={formik.values.direccion}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                        />
+                        {formik.touched.direccion && formik.errors.direccion ? (
+                          <Alert
+                            message={formik.errors.direccion}
+                            type="error"
+                            showIcon
+                          />
+                        ) : null}
+                      </Col>
                     </Row>
                   </Form.Item>
 
-                  <TextArea
-                    prefix={
-                      <EnvironmentOutlined
-                        style={{ color: "rgba(0,0,0,.25)" }}
-                      />
-                    }
-                    rows={4}
-                    placeholder="Dirección"
-                    className="input-form"
-                    name="direccion"
-                    value={formik.values.direccion}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.direccion && formik.errors.direccion ? (
-                    <Alert
-                      message={formik.errors.direccion}
-                      type="error"
-                      showIcon
-                    />
-                  ) : null}
                   <div
                     style={{
                       right: 0,

@@ -13,8 +13,8 @@ import DictationState from "./context/dictations/DictationState";
 import { setContext } from "apollo-link-context";
 
 const httpLink = createHttpLink({
-  //uri: "http://localhost:4000/",
-  uri: "https://powerful-springs-44042.herokuapp.com/",
+  uri: "http://localhost:4000/",
+  //uri: "https://powerful-springs-44042.herokuapp.com/",
   fetch,
 });
 

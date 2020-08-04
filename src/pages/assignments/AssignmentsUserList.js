@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import Highlighter from "react-highlight-words";
 import { useQuery, gql } from "@apollo/client";
 import XLSX from "xlsx";
 import Loading from "../../components/Loading";
 import { saveAs } from "file-saver";
 import { Link } from "react-router-dom";
-import { PageHeader, Table, Button } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { PageHeader, Table, Button, Input, Space } from "antd";
+import { DownloadOutlined, SearchOutlined } from "@ant-design/icons";
 
 const OBTENER_MIS_ASIGNACIONES = gql`
   query obtenerAsignacionesUsuario {
@@ -39,6 +40,10 @@ const OBTENER_MIS_ASIGNACIONES = gql`
 `;
 
 const AssignmentsUserList = () => {
+  const [findText, setFindText] = useState({
+    searchText: "",
+    searchedColumn: "",
+  });
   const { data, loading, error } = useQuery(OBTENER_MIS_ASIGNACIONES);
   console.log(data);
   console.log(error);
@@ -118,6 +123,87 @@ const AssignmentsUserList = () => {
     );
   };
 
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={(node) => {
+            this.searchInput = node;
+          }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ width: 188, marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : "",
+    onFilterDropdownVisibleChange: (visible) => {
+      if (visible) {
+        setTimeout(() => this.searchInput.select());
+      }
+    },
+    render: (text) =>
+      this.state.searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[this.state.searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setFindText({
+      searchText: selectedKeys[0],
+      searchedColumn: dataIndex,
+    });
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setFindText({ searchText: "" });
+  };
+
   return (
     <div
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
@@ -143,9 +229,11 @@ const AssignmentsUserList = () => {
         columns={columns}
         dataSource={data.obtenerAsignacionesUsuario}
         style={{ marginTop: "3px" }}
-        //rowKey={(contacts) => contacts.id}
+        rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
         scroll={{ y: 240 }}
+        title={() => "Header"}
+        footer={() => "Footer"}
       />
     </div>
   );

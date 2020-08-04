@@ -4,9 +4,14 @@ import "bulma/css/bulma.css";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
-import { Alert, Form, Input, Button, Card, message } from "antd";
+import { Alert, Form, Input, Button, Card, Tooltip, message } from "antd";
 import Logo from "../../components/LogoWhite";
-import { MailOutlined, UnlockOutlined, LoginOutlined } from "@ant-design/icons";
+import {
+  MailOutlined,
+  UnlockOutlined,
+  LoginOutlined,
+  InfoCircleOutlined,
+} from "@ant-design/icons";
 
 const layout = {
   wrapperCol: {
@@ -99,9 +104,15 @@ const LoginForm = () => {
         <Form.Item>
           <Input
             prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            suffix={
+              <Tooltip title="Usa el correo que se te asigno">
+                <InfoCircleOutlined style={{ color: "rgba(0,0,0,.45)" }} />
+              </Tooltip>
+            }
             placeholder="Ingresa tu correo"
             className="input-form"
             name="email"
+            allowClear
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -116,6 +127,7 @@ const LoginForm = () => {
             placeholder="Ingresa tu contraseña"
             className="input-form"
             name="password"
+            allowClear
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
