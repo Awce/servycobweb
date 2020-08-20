@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useMutation, gql } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 import {
   Alert,
   Drawer,
@@ -394,10 +395,6 @@ const OBTENER_DICTAMENES = gql`
   }
 `;
 
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
 function DictationCreate() {
   const [nuevoDictamen] = useMutation(NUEVO_DICTAMEN, {
     update(cache, { data: { nuevoDictamen } }) {
@@ -481,6 +478,7 @@ function DictationCreate() {
           },
         });
         onClose();
+        goBack();
       } catch (error) {
         setTimeout(() => {
           const mesError = error.message.replace("GraphQL error: ", "");
@@ -493,6 +491,15 @@ function DictationCreate() {
       }
     },
   });
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const history = useHistory();
+  const goBack = () => {
+    history.goBack();
+  };
 
   return (
     <>

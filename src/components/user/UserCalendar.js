@@ -176,19 +176,16 @@ const UserCalendar = () => {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item label="Tipo de evento">
-            <Select
-              //placeholder="Tipo de evento"
-              //className="input-form"
+            <Input
+              placeholder="Tipo de evento"
+              className="input-form"
               name="tipoevento"
               defaultValue={{ value: "Cobranza" }}
               allowClear
               value={formik.values.tipoevento}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-            >
-              <Option value="Cobranza">Cobranza</Option>
-              <Option value="Vista">Visita</Option>
-            </Select>
+            />
             {formik.touched.tipoevento && formik.errors.tipoevento ? (
               <Alert message={formik.errors.tipoevento} type="error" showIcon />
             ) : null}

@@ -122,159 +122,132 @@ const AssignmentDetails = (props) => {
           <Statistic title="Total a Cobrar" prefix="$" value={totalacobrar} />,
         ]}
       />
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="DATOS GENERALES" key="1">
-          <Row gutter={16}>
-            <Col span={16}>
-              <Card>
-                <Descriptions title="Dama" layout="vertical">
-                  <Descriptions.Item label="Número">
-                    {numdama}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Dígito">
-                    {digitodama}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Nombre">{nombre}</Descriptions.Item>
-                  <Descriptions.Item label="Tipo de cartera">
-                    {tipocartera}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Zona">
-                    {numerozonafacturacion}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Tipo de cuenta">
-                    {tipocuenta}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Año campaña">
-                    {aniocampaniasaldo}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Campañas venciadas">
-                    {campanasvencidas}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Días de mora">
-                    {diasmora}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Fecha de facturación">
-                    {fechafacturacion}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Fecha de vigencia">
-                    {fechafinalvigencia}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Saldo cobro">
-                    ${saldocobro}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Saldo factura">
-                    ${saldofactura}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Cargos moratorios">
-                    ${cargosmoratorios}
-                  </Descriptions.Item>
-                </Descriptions>
-                <Row gutter={16}>
-                  <Col span={24}>
-                    <Card>
-                      <Tabs defaultActiveKey={1}>
-                        <TabPane tab="DIRECCIONES" key={1}>
-                          <Descriptions>
-                            <Descriptions.Item label="Dirección">
-                              {direccion}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Colonia">
-                              {colonia}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Código postal">
-                              {codigopostal}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Estado">
-                              {estado}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Población">
-                              {poblacion}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Referencia">
-                              {referencia}
-                            </Descriptions.Item>
-                          </Descriptions>
-                        </TabPane>
-                      </Tabs>
-                    </Card>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card
-                style={{
-                  border: "1px solid rgb(235, 237, 240)",
-                }}
-                title="Dictaminación"
-                extra={[<DictationCreate key={1} />]}
-              />
-
-              <PageHeader
-                style={{
-                  border: "1px solid rgb(235, 237, 240)",
-                }}
-                title="Llamada"
-                subTitle={callStatus ? "Iniciada" : "En espera"}
-                extra={
-                  count === 0 ? (
-                    <Button
-                      type="primary"
-                      key={1}
-                      onClick={numberCounts}
-                      icon={<PhoneOutlined />}
-                    >
-                      Iniciar
-                    </Button>
-                  ) : (
-                    <Button
-                      type="danger"
-                      key={1}
-                      onClick={stopCall}
-                      icon={<PhoneOutlined />}
-                    >
-                      Terminar
-                    </Button>
-                  )
-                }
-              />
-              <Card>
-                <Row gutter={16}>
-                  <Col span={12}>
-                    <Statistic
-                      title="Telefono casa"
-                      prefix={<PhoneOutlined />}
-                      value={telefonocasa}
-                      //groupSeparator="-"
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <Statistic
-                      title="Telefono celular"
-                      prefix={<PhoneOutlined />}
-                      value={telefonocelular}
-                      //groupSeparator="-"
-                    />
-                  </Col>
-                </Row>
-                <p>{callStatus ? "Llamando al:" : "Llamar al:"}</p>
-                <Statistic
-                  prefix={<PhoneOutlined />}
-                  value={telefonocelular}
-                  groupSeparator="-"
-                />
-                <p> {count} intentos</p>
-              </Card>
-            </Col>
-          </Row>
-        </TabPane>
-        {/* <TabPane tab="HISTORIAL DE DICTAMINACION" key="2">
-          <DictationsContactsList />
-        </TabPane>
-        <TabPane tab="HISTORIAL DE PAGOS" key="3">
-          <PaysContactList />
-        </TabPane> */}
-      </Tabs>
+      <Row gutter={16}>
+        <Col span={16}>
+          <Card>
+            <Descriptions title="Datos de la dama" layout="vertical">
+              <Descriptions.Item label="Número">{numdama}</Descriptions.Item>
+              <Descriptions.Item label="Dígito">{digitodama}</Descriptions.Item>
+              <Descriptions.Item label="Nombre">{nombre}</Descriptions.Item>
+              <Descriptions.Item label="Tipo de cartera">
+                {tipocartera}
+              </Descriptions.Item>
+              <Descriptions.Item label="Zona">
+                {numerozonafacturacion}
+              </Descriptions.Item>
+              <Descriptions.Item label="Tipo de cuenta">
+                {tipocuenta}
+              </Descriptions.Item>
+              <Descriptions.Item label="Año campaña">
+                {aniocampaniasaldo}
+              </Descriptions.Item>
+              <Descriptions.Item label="Campañas venciadas">
+                {campanasvencidas}
+              </Descriptions.Item>
+              <Descriptions.Item label="Días de mora">
+                {diasmora}
+              </Descriptions.Item>
+              <Descriptions.Item label="Fecha de facturación">
+                {fechafacturacion}
+              </Descriptions.Item>
+              <Descriptions.Item label="Fecha de vigencia">
+                {fechafinalvigencia}
+              </Descriptions.Item>
+              <Descriptions.Item label="Saldo cobro">
+                ${saldocobro}
+              </Descriptions.Item>
+              <Descriptions.Item label="Saldo factura">
+                ${saldofactura}
+              </Descriptions.Item>
+              <Descriptions.Item label="Cargos moratorios">
+                ${cargosmoratorios}
+              </Descriptions.Item>
+            </Descriptions>
+            <Row gutter={16}>
+              <Col span={24}>
+                <Card>
+                  <Descriptions layout="vertical">
+                    <Descriptions.Item label="Dirección">
+                      {direccion}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Colonia">
+                      {colonia}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Código postal">
+                      {codigopostal}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Estado">
+                      {estado}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Población">
+                      {poblacion}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Referencia">
+                      {referencia}
+                    </Descriptions.Item>
+                  </Descriptions>
+                </Card>
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+        <Col span={8}>
+          <PageHeader
+            style={{
+              border: "1px solid rgb(235, 237, 240)",
+            }}
+            title="Llamada"
+            subTitle={callStatus ? "Iniciada" : "En espera"}
+            extra={
+              count === 0 ? (
+                <Button
+                  type="primary"
+                  key={1}
+                  onClick={numberCounts}
+                  icon={<PhoneOutlined />}
+                >
+                  Iniciar
+                </Button>
+              ) : (
+                <Button
+                  type="danger"
+                  key={1}
+                  onClick={stopCall}
+                  icon={<PhoneOutlined />}
+                >
+                  Terminar
+                </Button>
+              )
+            }
+          />
+          <Card>
+            <Row gutter={16}>
+              <Col span={12}>
+                <b>Telefono casa</b>
+                <p>{telefonocasa}</p>
+              </Col>
+              <Col span={12}>
+                <b>Telefono calular</b>
+                <p>{telefonocelular}</p>
+              </Col>
+            </Row>
+            <p>{callStatus ? "Llamando al:" : "Llamar al:"}</p>
+            <Statistic
+              prefix={<PhoneOutlined />}
+              value={telefonocelular}
+              groupSeparator="-"
+            />
+            <p> {count} intentos</p>
+          </Card>
+          <Card
+            style={{
+              border: "1px solid rgb(235, 237, 240)",
+            }}
+            title="Dictaminación"
+            extra={[<DictationCreate key={1} />]}
+          />
+        </Col>
+      </Row>
     </div>
   );
 };
