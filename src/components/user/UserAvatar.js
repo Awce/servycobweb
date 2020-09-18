@@ -130,7 +130,7 @@ const UserAvatar = () => {
           )}
         </Badge>
         <span>
-          {nombre} {apellido}
+          Hola <b>{nombre}</b>
         </span>
       </Space>
     </Popover>

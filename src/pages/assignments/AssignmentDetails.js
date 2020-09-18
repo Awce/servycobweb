@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
-  Tabs,
   Card,
   PageHeader,
   Row,
@@ -10,14 +9,11 @@ import {
   Descriptions,
   Button,
   Statistic,
+  Space,
 } from "antd";
 import Loading from "../../components/Loading";
 import DictationCreate from "../dictations/DictationCreate";
-//import DictationsContactsList from "../dictations/DictationsContactsList";
-//import PaysContactList from "../pays/PaysContactList";
 import { PhoneOutlined } from "@ant-design/icons";
-
-const { TabPane } = Tabs;
 
 const OBTENER_ASIGNACION = gql`
   query obtenerAsignacion($id: ID!) {
@@ -82,7 +78,6 @@ const AssignmentDetails = (props) => {
   if (loading) return <Loading />;
 
   const {
-    id,
     tipocartera,
     numdama,
     digitodama,
@@ -120,7 +115,10 @@ const AssignmentDetails = (props) => {
         subTitle="Detalles"
         onBack={goBack}
         extra={[
-          <Statistic title="Total a Cobrar" prefix="$" value={totalacobrar} />,
+          <Space size="middle">
+            <Statistic title="Total a Cobrar" prefix="$" value={totalacobrar} />
+            <DictationCreate key={1} />
+          </Space>,
         ]}
       />
       <Row gutter={16}>
@@ -164,32 +162,6 @@ const AssignmentDetails = (props) => {
                 ${cargosmoratorios}
               </Descriptions.Item>
             </Descriptions>
-            <Row gutter={16}>
-              <Col span={24}>
-                <Card>
-                  <Descriptions layout="vertical">
-                    <Descriptions.Item label="Dirección">
-                      {direccion}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Colonia">
-                      {colonia}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Código postal">
-                      {codigopostal}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Estado">
-                      {estado}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Población">
-                      {poblacion}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Referencia">
-                      {referencia}
-                    </Descriptions.Item>
-                  </Descriptions>
-                </Card>
-              </Col>
-            </Row>
           </Card>
         </Col>
         <Col span={8}>
@@ -224,11 +196,11 @@ const AssignmentDetails = (props) => {
           <Card>
             <Row gutter={16}>
               <Col span={12}>
-                <b>Telefono casa</b>
+                <b>Teléfono casa</b>
                 <p>{telefonocasa}</p>
               </Col>
               <Col span={12}>
-                <b>Telefono calular</b>
+                <b>Teléfono celular</b>
                 <p>{telefonocelular}</p>
               </Col>
             </Row>
@@ -240,13 +212,26 @@ const AssignmentDetails = (props) => {
             />
             <p> {count} intentos</p>
           </Card>
-          <Card
-            style={{
-              border: "1px solid rgb(235, 237, 240)",
-            }}
-            title="Dictaminación"
-            extra={[<DictationCreate key={1} />]}
-          />
+          <Card>
+            <Row gutter={16}>
+              <Descriptions title="Direcciónes">
+                <Descriptions.Item label="Dirección completa">
+                  {direccion}
+                </Descriptions.Item>
+                <Descriptions.Item label="Colonia">{colonia}</Descriptions.Item>
+                <Descriptions.Item label="Código postal">
+                  {codigopostal}
+                </Descriptions.Item>
+                <Descriptions.Item label="Estado">{estado}</Descriptions.Item>
+                <Descriptions.Item label="Población">
+                  {poblacion}
+                </Descriptions.Item>
+                <Descriptions.Item label="Referencia">
+                  {referencia}
+                </Descriptions.Item>
+              </Descriptions>
+            </Row>
+          </Card>
         </Col>
       </Row>
     </div>

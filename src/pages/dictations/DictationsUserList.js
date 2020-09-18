@@ -144,6 +144,8 @@ const DictationsUserList = () => {
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
         scroll={{ y: 240 }}
+        title={() => "Header"}
+        footer={() => "Footer"}
       />
     </div>
   );

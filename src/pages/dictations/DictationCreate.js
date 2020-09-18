@@ -504,7 +504,7 @@ function DictationCreate() {
   return (
     <>
       <Button type="primary" onClick={showDrawer} icon={<FileAddOutlined />}>
-        Agregar
+        Agregar Dictamen
       </Button>
       <Drawer
         title="Crear nueva dictaminación"
