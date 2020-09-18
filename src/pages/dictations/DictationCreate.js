@@ -540,7 +540,6 @@ function DictationCreate() {
                   />
                 ) : null}
               </Col>
-
               <Col span={8}>
                 <Input
                   placeholder="Dígito"

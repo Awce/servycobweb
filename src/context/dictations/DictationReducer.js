@@ -1,4 +1,4 @@
-import { SELECCIONAR_CLIENTE, SELECCIONAR_DAMA } from "../../types";
+import { SELECCIONAR_DAMA } from "../../types";
 
 export default (state, action) => {
   switch (action.type) {
