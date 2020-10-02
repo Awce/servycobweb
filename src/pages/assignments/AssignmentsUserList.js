@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import Highlighter from "react-highlight-words";
 import { useQuery, gql } from "@apollo/client";
 import XLSX from "xlsx";
 import Loading from "../../components/Loading";
 import { saveAs } from "file-saver";
 import { Link } from "react-router-dom";
-import { PageHeader, Table, Button, Input, Space } from "antd";
-import { DownloadOutlined, SearchOutlined } from "@ant-design/icons";
+import { PageHeader, Table, Button } from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
 
 const OBTENER_MIS_ASIGNACIONES = gql`
   query obtenerAsignacionesUsuario {
@@ -150,7 +149,7 @@ const AssignmentsUserList = () => {
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
-        scroll={{ y: 240 }}
+        //scroll={{ y: 640 }}
         title={() => "Header"}
         footer={() => "Footer"}
       />

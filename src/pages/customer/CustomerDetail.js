@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Tabs, Card, PageHeader, Row, Col, Descriptions } from "antd";
 import Loading from "../../components/Loading";
 import CampaignsLists from "../campaigns/CampaignsLists";
+import AssignmentsList from "../assignments/AssignmentsList";
 import { EnvironmentOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
@@ -88,15 +89,6 @@ const CustomerDetail = (props) => {
                     {empresa}
                   </Descriptions.Item>
                   <Descriptions.Item label="RFC">{rfc}</Descriptions.Item>
-                  {/* <Descriptions.Item label="Teléfono">
-                    {phone}
-                  </Descriptions.Item> */}
-                  {/* <Descriptions.Item label="Celular">
-                    {cellphone}
-                  </Descriptions.Item> */}
-                  {/* <Descriptions.Item label="Mienbro desde">
-                    {customerform}
-                  </Descriptions.Item> */}
                   <Descriptions.Item label="Correo">{email}</Descriptions.Item>
                   <Descriptions.Item label="Web">{web}</Descriptions.Item>
                 </Descriptions>
@@ -104,7 +96,10 @@ const CustomerDetail = (props) => {
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="CAMPAÑAS" key="2">
+        <TabPane tab="ASIGNACIONES" key="2">
+          <AssignmentsList />
+        </TabPane>
+        <TabPane tab="CAMPAÑAS" key="3">
           <CampaignsLists />
         </TabPane>
         {/* <TabPane tab="FACTURACION Y COBRANZA" key="3">

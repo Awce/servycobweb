@@ -42,7 +42,6 @@ const CampaignsLists = () => {
           border: "1px solid rgb(235, 237, 240)",
         }}
         title="Campañas"
-        subTitle="Lista"
         extra={[<RegisterCampaignButton key="1" />]}
       />
       <Table
@@ -50,7 +49,7 @@ const CampaignsLists = () => {
         columns={columns}
         dataSource={campaigns}
         rowKey={(record) => record.id}
-        pagination={{ pageSize: 5 }}
+        pagination={{ pageSize: 25 }}
       />
     </div>
   );

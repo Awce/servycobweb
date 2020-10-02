@@ -21,7 +21,6 @@ import {
   PieChartOutlined,
   HistoryOutlined,
   ContainerOutlined,
-  DatabaseOutlined,
 } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
@@ -78,10 +77,10 @@ const LateralMenu = () => {
               </span>
             }
           >
-            <Menu.Item key="asignacion" onClick={() => link("/asignacion")}>
+            <Menu.Item key="asignaciones" onClick={() => link("/asignaciones")}>
               <PushpinOutlined
                 className={`${
-                  currentLocation === "asignacion" ? "menu-item-active" : ""
+                  currentLocation === "asignaciones" ? "menu-item-active" : ""
                 }`}
               />
               <span>Asignaciones</span>
@@ -193,7 +192,7 @@ const LateralMenu = () => {
                 />
                 <span>Clientes</span>
               </Menu.Item>
-              <Menu.Item
+              {/* <Menu.Item
                 key="asignaciones"
                 onClick={() => link("/asignaciones")}
               >
@@ -203,7 +202,7 @@ const LateralMenu = () => {
                   }`}
                 />
                 <span>Asignaciones</span>
-              </Menu.Item>
+              </Menu.Item> */}
             </SubMenu>
 
             <SubMenu

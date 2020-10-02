@@ -122,15 +122,12 @@ const AssignmentsList = () => {
   };
 
   return (
-    <div
-      style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
-    >
+    <div style={{ marginTop: "3px" }}>
       <PageHeader
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
         title="Asignaciones"
-        subTitle="Call Center"
         extra={[
           <Button
             key={2}
@@ -156,7 +153,6 @@ const AssignmentsList = () => {
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
-        scroll={{ y: 240 }}
       />
     </div>
   );
