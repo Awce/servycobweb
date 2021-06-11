@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import XLSX from "xlsx";
 import Loading from "../../components/Loading";
@@ -39,10 +39,6 @@ const OBTENER_MIS_ASIGNACIONES = gql`
 `;
 
 const AssignmentsUserList = () => {
-  const [findText, setFindText] = useState({
-    searchText: "",
-    searchedColumn: "",
-  });
   const { data, loading, error } = useQuery(OBTENER_MIS_ASIGNACIONES);
   console.log(data);
   console.log(error);
@@ -123,15 +119,13 @@ const AssignmentsUserList = () => {
   };
 
   return (
-    <div
-      style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
-    >
+    <>
       <PageHeader
+        ghost={false}
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
         title="Mis Asignaciones"
-        subTitle="Call Center"
         extra={[
           <Button
             key={1}
@@ -149,11 +143,9 @@ const AssignmentsUserList = () => {
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
-        //scroll={{ y: 640 }}
-        title={() => "Header"}
         footer={() => "Footer"}
       />
-    </div>
+    </>
   );
 };
 

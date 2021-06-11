@@ -34,12 +34,6 @@ const OBTENER_CLIENTES = gql`
   }
 `;
 
-const ELIMINIAR_CLIENTE = gql`
-  mutation eliminarCliente($id: ID!) {
-    eliminarCliente(id: $id)
-  }
-`;
-
 const CustomersList = () => {
   const { data, loading, error } = useQuery(OBTENER_CLIENTES);
   console.log(data);

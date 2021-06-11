@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Tabs, Card, PageHeader, Row, Col, Descriptions } from "antd";
 import Loading from "../../components/Loading";
 import CampaignsLists from "../campaigns/CampaignsLists";
-import AssignmentsList from "../assignments/AssignmentsList";
+import AssignmentsCustomerList from "../assignments/AssignmentsCustomerList";
 import { EnvironmentOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
@@ -97,7 +97,7 @@ const CustomerDetail = (props) => {
           </Row>
         </TabPane>
         <TabPane tab="ASIGNACIONES" key="2">
-          <AssignmentsList />
+          <AssignmentsCustomerList />
         </TabPane>
         <TabPane tab="CAMPAÑAS" key="3">
           <CampaignsLists />

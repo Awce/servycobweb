@@ -8,12 +8,8 @@ import {
   Button,
   Card,
   Calendar,
-  Cascader,
   Form,
   Input,
-  Col,
-  Row,
-  Select,
   message,
   notification,
 } from "antd";
@@ -29,8 +25,6 @@ const layout = {
 };
 
 const { TextArea } = Input;
-const { Option } = Select;
-const InputGroup = Input.Group;
 const key = "updatable";
 
 const NUEVO_EVENTO = gql`

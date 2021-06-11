@@ -3,7 +3,6 @@ import { useQuery, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { Tabs, Card, PageHeader, Row, Col, Descriptions, Tag } from "antd";
 import Loading from "../../components/Loading";
-import { EnvironmentOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 

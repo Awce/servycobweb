@@ -54,7 +54,7 @@ const LateralMenu = () => {
 
   if (loading) return null;
 
-  const { nombre, tipousuario } = data.obtenerUsuario;
+  const { tipousuario } = data.obtenerUsuario;
 
   return (
     <Affix offsetTop={10}>
@@ -68,35 +68,22 @@ const LateralMenu = () => {
           <span>Información general</span>
         </Menu.Item>
         <Menu.ItemGroup key="g1" title={`PERSONAL`}>
-          <SubMenu
-            key="sub0"
-            title={
-              <span>
-                <InteractionOutlined />
-                <span>Gestiones</span>
-              </span>
-            }
-          >
-            <Menu.Item key="asignaciones" onClick={() => link("/asignaciones")}>
-              <PushpinOutlined
-                className={`${
-                  currentLocation === "asignaciones" ? "menu-item-active" : ""
-                }`}
-              />
-              <span>Asignaciones</span>
-            </Menu.Item>
-            <Menu.Item
-              key="dictaminacion"
-              onClick={() => link("/dictaminacion")}
-            >
-              <HistoryOutlined
-                className={`${
-                  currentLocation === "dictaminacion" ? "menu-item-active" : ""
-                }`}
-              />
-              <span>Dictaminación</span>
-            </Menu.Item>
-          </SubMenu>
+          <Menu.Item key="asignaciones" onClick={() => link("/asignaciones")}>
+            <PushpinOutlined
+              className={`${
+                currentLocation === "asignaciones" ? "menu-item-active" : ""
+              }`}
+            />
+            <span>Asignaciones</span>
+          </Menu.Item>
+          <Menu.Item key="dictaminacion" onClick={() => link("/dictaminacion")}>
+            <InteractionOutlined
+              className={`${
+                currentLocation === "dictaminacion" ? "menu-item-active" : ""
+              }`}
+            />
+            <span>Gestiones</span>
+          </Menu.Item>
 
           <SubMenu
             key="sub1"
@@ -192,17 +179,6 @@ const LateralMenu = () => {
                 />
                 <span>Clientes</span>
               </Menu.Item>
-              {/* <Menu.Item
-                key="asignaciones"
-                onClick={() => link("/asignaciones")}
-              >
-                <PushpinOutlined
-                  className={`${
-                    currentLocation === "asignaciones" ? "menu-item-active" : ""
-                  }`}
-                />
-                <span>Asignaciones</span>
-              </Menu.Item> */}
             </SubMenu>
 
             <SubMenu

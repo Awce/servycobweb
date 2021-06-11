@@ -5,7 +5,7 @@ import Loading from "../../components/Loading";
 import { saveAs } from "file-saver";
 import { Link, useHistory } from "react-router-dom";
 import { PageHeader, Button, Table } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { DownloadOutlined, UploadOutlined } from "@ant-design/icons";
 
 const OBTENER_ASIGNACIONES = gql`
   query obtenerAsignaciones {
@@ -41,6 +41,7 @@ const AssignmentsList = () => {
   const { data, loading, error } = useQuery(OBTENER_ASIGNACIONES);
   console.log(data);
   console.log(error);
+  const history = useHistory();
 
   const columns = [
     {
@@ -95,6 +96,10 @@ const AssignmentsList = () => {
 
   if (loading) return <Loading />;
 
+  const onRegisterAssignmentButton = () => {
+    history.push("/asignaciones/nueva");
+  };
+
   const writeAssignmentFile = () => {
     let wb = XLSX.utils.table_to_book(document.getElementById("mytable"), {
       sheet: "Assignaciones",
@@ -117,20 +122,27 @@ const AssignmentsList = () => {
   };
 
   return (
-    <>
+    <div style={{ marginTop: "3px" }}>
       <PageHeader
-        ghost={false}
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
         title="Asignaciones"
         extra={[
           <Button
-            key={1}
+            key={2}
             onClick={writeAssignmentFile}
             icon={<DownloadOutlined />}
           >
             Exportar asignaciones
+          </Button>,
+          <Button
+            type="primary"
+            key={1}
+            onClick={onRegisterAssignmentButton}
+            icon={<UploadOutlined />}
+          >
+            Importar asignaciones
           </Button>,
         ]}
       />
@@ -144,7 +156,7 @@ const AssignmentsList = () => {
         pagination={{ pageSize: 25 }}
         footer={() => "Footer"}
       />
-    </>
+    </div>
   );
 };
 
