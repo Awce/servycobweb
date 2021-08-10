@@ -76,10 +76,10 @@ const LateralMenu = () => {
             />
             <span>Asignaciones</span>
           </Menu.Item>
-          <Menu.Item key="dictaminacion" onClick={() => link("/dictaminacion")}>
+          <Menu.Item key="gestiones" onClick={() => link("/gestiones")}>
             <InteractionOutlined
               className={`${
-                currentLocation === "dictaminacion" ? "menu-item-active" : ""
+                currentLocation === "gestiones" ? "menu-item-active" : ""
               }`}
             />
             <span>Gestiones</span>
@@ -238,14 +238,6 @@ const LateralMenu = () => {
                 />
                 <span>Pagos</span>
               </Menu.Item>
-              {/* <Menu.Item key="resumen" onClick={() => link("/resumen")}>
-                <DatabaseOutlined
-                  className={`${
-                    currentLocation === "resumen" ? "menu-item-active" : ""
-                  }`}
-                />
-                <span>Resumen</span>
-              </Menu.Item> */}
             </SubMenu>
           </Menu.ItemGroup>
         ) : null}
@@ -303,14 +295,6 @@ const LateralMenu = () => {
                 />
                 <span>Pagos</span>
               </Menu.Item>
-              {/* <Menu.Item key="resumen" onClick={() => link("/resumen")}>
-                <DatabaseOutlined
-                  className={`${
-                    currentLocation === "resumen" ? "menu-item-active" : ""
-                  }`}
-                />
-                <span>Resumen</span>
-              </Menu.Item> */}
             </SubMenu>
           </Menu.ItemGroup>
         ) : null}

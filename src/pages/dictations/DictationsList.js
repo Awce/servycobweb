@@ -119,7 +119,7 @@ const DictationsList = () => {
     };
     saveAs(
       new Blob([s2ab(wbout)], { type: "application/octet-stream" }),
-      "Historial de Dictaminación.xlsx"
+      "Dictaminacion.xlsx"
     );
   };
 
@@ -139,7 +139,7 @@ const DictationsList = () => {
             onClick={writeDictationFile}
             icon={<DownloadOutlined />}
           >
-            Exportar dictaminación
+            Exportar Dictaminación
           </Button>,
         ]}
       />

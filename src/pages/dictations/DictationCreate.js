@@ -7,7 +7,6 @@ import {
   Alert,
   Drawer,
   Button,
-  Cascader,
   Form,
   Input,
   Col,
@@ -563,13 +562,6 @@ function DictationCreate() {
 
           <Form.Item label="Dictamen / Subdictamen / Motivo">
             <Row gutter={16}>
-              {/* <Cascader
-              size="large"
-              options={DictationsOptions}
-              placeholder="Selecciona el árbol de dictamen"
-              //onChange={onChangeTree}
-              allowClear
-            /> */}
               <Col span={24}>
                 <Input
                   placeholder="Tipo de gestión"

@@ -3,7 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import XLSX from "xlsx";
 import Loading from "../../components/Loading";
 import { saveAs } from "file-saver";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PageHeader, Button, Table } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 
@@ -124,6 +124,7 @@ const AssignmentsList = () => {
           border: "1px solid rgb(235, 237, 240)",
         }}
         title="Asignaciones"
+        subTitle="Lista"
         extra={[
           <Button
             key={1}
@@ -142,7 +143,7 @@ const AssignmentsList = () => {
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
-        footer={() => "Footer"}
+        // footer={() => "Footer"}
       />
     </>
   );

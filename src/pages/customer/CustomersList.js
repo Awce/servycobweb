@@ -6,16 +6,16 @@ import {
   PageHeader,
   Button,
   Table,
-  Space,
+  //Space,
   Avatar,
-  Popconfirm,
-  message,
+  // Popconfirm,
+  // message,
 } from "antd";
 import {
   UserAddOutlined,
   UserOutlined,
-  DeleteTwoTone,
-  EditTwoTone,
+  // DeleteTwoTone,
+  // EditTwoTone,
 } from "@ant-design/icons";
 
 const OBTENER_CLIENTES = gql`
@@ -77,24 +77,24 @@ const CustomersList = () => {
       key: "email",
       align: "center",
     },
-    {
-      title: "Acciones",
-      key: "action",
-      render: (text, record) => (
-        <Space size="middle">
-          <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
-          <Popconfirm
-            title="¿Estás seguro de eliminar?"
-            onConfirm={confirmDelete}
-            onCancel={cancelDelete}
-            okText="Aceptar"
-            cancelText="Cancelar"
-          >
-            <DeleteTwoTone style={{ fontSize: "18px" }} />
-          </Popconfirm>
-        </Space>
-      ),
-    },
+    // {
+    //   title: "Acciones",
+    //   key: "action",
+    //   render: (text, record) => (
+    //     <Space size="middle">
+    //       <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
+    //       <Popconfirm
+    //         title="¿Estás seguro de eliminar?"
+    //         onConfirm={confirmDelete}
+    //         onCancel={cancelDelete}
+    //         okText="Aceptar"
+    //         cancelText="Cancelar"
+    //       >
+    //         <DeleteTwoTone style={{ fontSize: "18px" }} />
+    //       </Popconfirm>
+    //     </Space>
+    //   ),
+    // },
   ];
 
   if (loading) return <Loading />;
@@ -103,17 +103,17 @@ const CustomersList = () => {
     history.push("/clientes/alta");
   };
 
-  const editCustomer = () => {
-    message.success("Click en Editar");
-  };
+  // const editCustomer = () => {
+  //   message.success("Click en Editar");
+  // };
 
-  const confirmDelete = (e) => {
-    message.success("Click en Si");
-  };
+  // const confirmDelete = (e) => {
+  //   message.success("Click en Si");
+  // };
 
-  const cancelDelete = (e) => {
-    message.error("Click en No");
-  };
+  // const cancelDelete = (e) => {
+  //   message.error("Click en No");
+  // };
 
   return (
     <div

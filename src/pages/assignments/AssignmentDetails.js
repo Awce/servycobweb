@@ -86,8 +86,6 @@ const AssignmentDetails = (props) => {
     aniocampaniasaldo,
     diasmora,
     campanasvencidas,
-    saldofactura,
-    saldocobro,
     cargosmoratorios,
     totalacobrar,
     telefonocasa,
@@ -152,16 +150,30 @@ const AssignmentDetails = (props) => {
               <Descriptions.Item label="Fecha de vigencia">
                 {fechafinalvigencia}
               </Descriptions.Item>
-              <Descriptions.Item label="Saldo cobro">
-                ${saldocobro}
-              </Descriptions.Item>
-              <Descriptions.Item label="Saldo factura">
-                ${saldofactura}
-              </Descriptions.Item>
               <Descriptions.Item label="Cargos moratorios">
                 ${cargosmoratorios}
               </Descriptions.Item>
             </Descriptions>
+          </Card>
+          <Card>
+            <Row gutter={16}>
+              <Descriptions title="Direcciónes">
+                <Descriptions.Item label="Dirección completa">
+                  {direccion}
+                </Descriptions.Item>
+                <Descriptions.Item label="Colonia">{colonia}</Descriptions.Item>
+                <Descriptions.Item label="Código postal">
+                  {codigopostal}
+                </Descriptions.Item>
+                <Descriptions.Item label="Estado">{estado}</Descriptions.Item>
+                <Descriptions.Item label="Población">
+                  {poblacion}
+                </Descriptions.Item>
+                <Descriptions.Item label="Referencia">
+                  {referencia}
+                </Descriptions.Item>
+              </Descriptions>
+            </Row>
           </Card>
         </Col>
         <Col span={8}>
@@ -211,26 +223,6 @@ const AssignmentDetails = (props) => {
               groupSeparator="-"
             />
             <p> {count} intentos</p>
-          </Card>
-          <Card>
-            <Row gutter={16}>
-              <Descriptions title="Direcciónes">
-                <Descriptions.Item label="Dirección completa">
-                  {direccion}
-                </Descriptions.Item>
-                <Descriptions.Item label="Colonia">{colonia}</Descriptions.Item>
-                <Descriptions.Item label="Código postal">
-                  {codigopostal}
-                </Descriptions.Item>
-                <Descriptions.Item label="Estado">{estado}</Descriptions.Item>
-                <Descriptions.Item label="Población">
-                  {poblacion}
-                </Descriptions.Item>
-                <Descriptions.Item label="Referencia">
-                  {referencia}
-                </Descriptions.Item>
-              </Descriptions>
-            </Row>
           </Card>
         </Col>
       </Row>

@@ -2,12 +2,12 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import Loading from "../../components/Loading";
 import { Link, useHistory } from "react-router-dom";
-import { PageHeader, Button, Table, Space, Avatar, Tag } from "antd";
+import { PageHeader, Button, Table, Avatar, Tag } from "antd";
 import {
   UserAddOutlined,
   UserOutlined,
-  DeleteTwoTone,
-  EditTwoTone,
+  // DeleteTwoTone,
+  // EditTwoTone,
 } from "@ant-design/icons";
 
 const OBTENER_USUARIOS = gql`
@@ -84,16 +84,16 @@ const UsersList = () => {
         </>
       ),
     },
-    {
-      title: "Acciones",
-      key: "action",
-      render: (text, record) => (
-        <Space size="middle">
-          <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
-          <DeleteTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
-        </Space>
-      ),
-    },
+    // {
+    //   title: "Acciones",
+    //   key: "action",
+    //   render: (text, record) => (
+    //     <Space size="middle">
+    //       <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
+    //       <DeleteTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
+    //     </Space>
+    //   ),
+    // },
   ];
 
   if (loading) return <Loading />;
@@ -102,9 +102,9 @@ const UsersList = () => {
     history.push("/empelados/alta");
   };
 
-  const editCustomer = () => {
-    console.log("Test");
-  };
+  // const editCustomer = () => {
+  //   console.log("Test");
+  // };
 
   return (
     <div

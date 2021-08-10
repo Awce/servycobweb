@@ -36,11 +36,6 @@ const DictationsUserList = () => {
       dataIndex: "numdama",
       key: "numdama",
       align: "center",
-      // render: (text, contact) => (
-      //   <Link to={`/asignacion/damas/${contact.id}`}>
-      //     <span>{contact.numdama}</span>
-      //   </Link>
-      // ),
     },
     {
       title: "Dígito",
@@ -111,7 +106,7 @@ const DictationsUserList = () => {
     };
     saveAs(
       new Blob([s2ab(wbout)], { type: "application/octet-stream" }),
-      "Mi Historial de Dictaminación.xlsx"
+      "MisGestiones.xlsx"
     );
   };
 
@@ -124,7 +119,7 @@ const DictationsUserList = () => {
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
-        title="Mis Dictaminaciones"
+        title="Mis Gestiones"
         subTitle="Lista"
         extra={[
           <Button
@@ -132,7 +127,7 @@ const DictationsUserList = () => {
             onClick={writeDictationFile}
             icon={<DownloadOutlined />}
           >
-            Exportar mi dictaminación
+            Exportar mis gestiones
           </Button>,
         ]}
       />
@@ -144,8 +139,8 @@ const DictationsUserList = () => {
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
         scroll={{ y: 240 }}
-        title={() => "Header"}
-        footer={() => "Footer"}
+        // title={() => "Header"}
+        // footer={() => "Footer"}
       />
     </div>
   );

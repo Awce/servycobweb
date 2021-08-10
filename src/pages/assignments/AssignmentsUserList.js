@@ -126,6 +126,7 @@ const AssignmentsUserList = () => {
           border: "1px solid rgb(235, 237, 240)",
         }}
         title="Mis Asignaciones"
+        subTitle="Lista"
         extra={[
           <Button
             key={1}
@@ -143,7 +144,7 @@ const AssignmentsUserList = () => {
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
-        footer={() => "Footer"}
+        // footer={() => "Footer"}
       />
     </>
   );

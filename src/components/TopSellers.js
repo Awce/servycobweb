@@ -3,16 +3,16 @@ import { List, Card, Avatar } from "antd";
 
 const data = [
   {
-    title: "Ant Design Title 1",
+    title: "Raul Hernandez",
   },
   {
-    title: "Ant Design Title 2",
+    title: "Otro Gestor 1",
   },
   {
-    title: "Ant Design Title 3",
+    title: "Otro Gestor 2",
   },
   {
-    title: "Ant Design Title 4",
+    title: "Otro Gestor 3",
   },
 ];
 
@@ -26,10 +26,10 @@ const TopSellers = () => {
           <List.Item>
             <List.Item.Meta
               avatar={
-                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <Avatar src="https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/avatars%2Fyo.jpeg?alt=media&token=e44759d8-3a24-4edc-a873-f427bf5fa430" />
               }
-              title={<a href="https://ant.design">{item.title}</a>}
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+              title={item.title}
+              description="Preuba"
             />
           </List.Item>
         )}
