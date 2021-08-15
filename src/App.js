@@ -9,7 +9,6 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import fetch from "node-fetch";
-import DictationState from "./context/dictations/DictationState";
 import { setContext } from "apollo-link-context";
 
 const httpLink = createHttpLink({
@@ -38,9 +37,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <DictationState>
-        <AppRouter />
-      </DictationState>
+      <AppRouter />
     </ApolloProvider>
   );
 }

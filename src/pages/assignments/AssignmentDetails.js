@@ -12,8 +12,7 @@ import {
   Space,
 } from "antd";
 import Loading from "../../components/Loading";
-import DictationCreate from "../dictations/DictationCreate";
-import { PhoneOutlined } from "@ant-design/icons";
+import { PhoneOutlined, UserAddOutlined } from "@ant-design/icons";
 
 const OBTENER_ASIGNACION = gql`
   query obtenerAsignacion($id: ID!) {
@@ -75,6 +74,10 @@ const AssignmentDetails = (props) => {
     setCallStatus(false);
   };
 
+  const onRegisterDictationButton = () => {
+    history.push("/dictaminaciones/crear");
+  };
+
   if (loading) return <Loading />;
 
   const {
@@ -115,7 +118,14 @@ const AssignmentDetails = (props) => {
         extra={[
           <Space size="middle">
             <Statistic title="Total a Cobrar" prefix="$" value={totalacobrar} />
-            <DictationCreate key={1} />
+            <Button
+              type="primary"
+              key={1}
+              onClick={onRegisterDictationButton}
+              icon={<UserAddOutlined />}
+            >
+              Crear Dictamen
+            </Button>
           </Space>,
         ]}
       />
@@ -156,24 +166,22 @@ const AssignmentDetails = (props) => {
             </Descriptions>
           </Card>
           <Card>
-            <Row gutter={16}>
-              <Descriptions title="Direcciónes">
-                <Descriptions.Item label="Dirección completa">
-                  {direccion}
-                </Descriptions.Item>
-                <Descriptions.Item label="Colonia">{colonia}</Descriptions.Item>
-                <Descriptions.Item label="Código postal">
-                  {codigopostal}
-                </Descriptions.Item>
-                <Descriptions.Item label="Estado">{estado}</Descriptions.Item>
-                <Descriptions.Item label="Población">
-                  {poblacion}
-                </Descriptions.Item>
-                <Descriptions.Item label="Referencia">
-                  {referencia}
-                </Descriptions.Item>
-              </Descriptions>
-            </Row>
+            <Descriptions title="Direcciónes" layout="vertical">
+              <Descriptions.Item label="Dirección completa">
+                {direccion}
+              </Descriptions.Item>
+              <Descriptions.Item label="Colonia">{colonia}</Descriptions.Item>
+              <Descriptions.Item label="Código postal">
+                {codigopostal}
+              </Descriptions.Item>
+              <Descriptions.Item label="Estado">{estado}</Descriptions.Item>
+              <Descriptions.Item label="Población">
+                {poblacion}
+              </Descriptions.Item>
+              <Descriptions.Item label="Referencia">
+                {referencia}
+              </Descriptions.Item>
+            </Descriptions>
           </Card>
         </Col>
         <Col span={8}>

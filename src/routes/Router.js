@@ -19,6 +19,7 @@ import UsersList from "../pages/user/UsersList";
 import UserCreate from "../pages/user/UserCreate";
 import UserDetails from "../pages/user/UserDetails";
 import DictationsList from "../pages/dictations/DictationsList";
+import DictationCreate from "../pages/dictations/DictationCreateDetail";
 import DictationsUserList from "../pages/dictations/DictationsUserList";
 import PaysList from "../pages/pays/PaysList";
 import SummaryList from "../pages/summary/SummaryList";
@@ -75,6 +76,11 @@ const PrivateRouter = () => {
               <Route exact path="/empelados/alta" component={UserCreate} />
               <Route exact path="/empleados/:Id" component={UserDetails} />
               <Route exact path="/dictaminaciones" component={DictationsList} />
+              <Route
+                exact
+                path="/dictaminaciones/crear"
+                component={DictationCreate}
+              />
               <Route exact path="/gestiones" component={DictationsUserList} />
               <Route exact path="/pagos" component={PaysList} />
               <Route exact path="/resumen" component={SummaryList} />

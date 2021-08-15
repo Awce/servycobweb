@@ -5,20 +5,19 @@ import { List, Card, Row, Col, PageHeader, Progress } from "antd";
 
 const data = [
   {
-    title: "Hoy",
-    content: "10",
+    title: "Asignaciones",
+    content: "99",
+    percent: "90",
   },
   {
-    title: "Confirmadas",
-    content: "8",
-  },
-  {
-    title: "Realizadas",
-    content: "3",
+    title: "Gestiones",
+    content: "4",
+    percent: "10",
   },
   {
     title: "Recuperados",
-    content: "$15,000",
+    content: "$ 751.00",
+    percent: "0.5",
   },
 ];
 
@@ -35,7 +34,7 @@ const SummaryPage = () => {
         subTitle="Inicio"
       />
       <List
-        grid={{ gutter: 16, column: 4 }}
+        grid={{ gutter: 16, column: 3 }}
         dataSource={data}
         style={{ marginTop: "3px" }}
         renderItem={(item) => (
@@ -47,7 +46,15 @@ const SummaryPage = () => {
                   <h1>{item.content}</h1>
                 </Col>
                 <Col span={10}>
-                  <Progress type="circle" percent={30} width={80} />
+                  <Progress
+                    type="circle"
+                    percent={item.percent}
+                    width={80}
+                    strokeColor={{
+                      "0%": "#108ee9",
+                      "100%": "#87d068",
+                    }}
+                  />
                 </Col>
               </Row>
             </Card>

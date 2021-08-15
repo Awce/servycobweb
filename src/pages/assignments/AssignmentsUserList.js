@@ -95,8 +95,6 @@ const AssignmentsUserList = () => {
     },
   ];
 
-  if (loading) return <Loading />;
-
   const writeAssignmentFile = () => {
     let wb = XLSX.utils.table_to_book(document.getElementById("mytable"), {
       sheet: "Asignaciones",
@@ -117,6 +115,8 @@ const AssignmentsUserList = () => {
       "Mis Asignaciones.xlsx"
     );
   };
+
+  if (loading) return <Loading />;
 
   return (
     <>

@@ -143,7 +143,6 @@ const AssignmentsList = () => {
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
-        // footer={() => "Footer"}
       />
     </>
   );
