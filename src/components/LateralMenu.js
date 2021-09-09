@@ -21,6 +21,7 @@ import {
   PieChartOutlined,
   HistoryOutlined,
   ContainerOutlined,
+  OrderedListOutlined,
 } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
@@ -65,21 +66,21 @@ const LateralMenu = () => {
               currentLocation === "informacion" ? "menu-item-active" : ""
             }`}
           />
-          <span>Información general</span>
+          <span>Información</span>
         </Menu.Item>
         <Menu.ItemGroup key="g1" title={`PERSONAL`}>
           <Menu.Item key="asignaciones" onClick={() => link("/asignaciones")}>
-            <PushpinOutlined
+            <OrderedListOutlined
               className={`${
                 currentLocation === "asignaciones" ? "menu-item-active" : ""
               }`}
             />
             <span>Asignaciones</span>
           </Menu.Item>
-          <Menu.Item key="gestiones" onClick={() => link("/gestiones")}>
+          <Menu.Item key="gestion" onClick={() => link("/gestion")}>
             <InteractionOutlined
               className={`${
-                currentLocation === "gestiones" ? "menu-item-active" : ""
+                currentLocation === "gestion" ? "menu-item-active" : ""
               }`}
             />
             <span>Gestiones</span>
@@ -217,18 +218,13 @@ const LateralMenu = () => {
                 </span>
               }
             >
-              <Menu.Item
-                key="dictaminaciones"
-                onClick={() => link("/dictaminaciones")}
-              >
+              <Menu.Item key="gestiones" onClick={() => link("/gestiones")}>
                 <HistoryOutlined
                   className={`${
-                    currentLocation === "dictaminaciones"
-                      ? "menu-item-active"
-                      : ""
+                    currentLocation === "gestiones" ? "menu-item-active" : ""
                   }`}
                 />
-                <span>Dictaminación</span>
+                <span>Historial</span>
               </Menu.Item>
               <Menu.Item key="pagos" onClick={() => link("/pagos")}>
                 <ContainerOutlined

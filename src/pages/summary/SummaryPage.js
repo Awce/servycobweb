@@ -1,25 +1,12 @@
 import React from "react";
+import ChartsData from "../../components/ChartsData";
 import UserCalendar from "../../components/user/UserCalendar";
 import TopSellers from "../../components/TopSellers";
-import { List, Card, Row, Col, PageHeader, Progress } from "antd";
+import SummaryTrackMaps from "./SummaryTrackMaps";
+import { Row, Col, PageHeader, Tabs } from "antd";
+import { HomeOutlined, PushpinOutlined } from "@ant-design/icons";
 
-const data = [
-  {
-    title: "Asignaciones",
-    content: "99",
-    percent: "90",
-  },
-  {
-    title: "Gestiones",
-    content: "4",
-    percent: "10",
-  },
-  {
-    title: "Recuperados",
-    content: "$ 751.00",
-    percent: "0.5",
-  },
-];
+const { TabPane } = Tabs;
 
 const SummaryPage = () => {
   return (
@@ -33,42 +20,41 @@ const SummaryPage = () => {
         title="Bienvenido"
         subTitle="Inicio"
       />
-      <List
-        grid={{ gutter: 16, column: 3 }}
-        dataSource={data}
-        style={{ marginTop: "3px" }}
-        renderItem={(item) => (
-          <List.Item>
-            <Card>
-              <Row gutter={16}>
-                <Col span={14}>
-                  <h6>{item.title}</h6>
-                  <h1>{item.content}</h1>
-                </Col>
-                <Col span={10}>
-                  <Progress
-                    type="circle"
-                    percent={item.percent}
-                    width={80}
-                    strokeColor={{
-                      "0%": "#108ee9",
-                      "100%": "#87d068",
-                    }}
-                  />
-                </Col>
-              </Row>
-            </Card>
-          </List.Item>
-        )}
-      />
-      <Row gutter={16}>
-        <Col span={16}>
-          <UserCalendar />
-        </Col>
-        <Col span={8}>
-          <TopSellers />
-        </Col>
-      </Row>
+
+      <Tabs defaultActiveKey="1">
+        <TabPane
+          tab={
+            <span>
+              <HomeOutlined />
+              INFORMACION GENERAL
+            </span>
+          }
+          key="1"
+        >
+          <div style={{ marginTop: "3px" }}>
+            <ChartsData />
+            <Row gutter={16}>
+              <Col span={16}>
+                <UserCalendar />
+              </Col>
+              <Col span={8}>
+                <TopSellers />
+              </Col>
+            </Row>
+          </div>
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <PushpinOutlined />
+              UBICACIONES
+            </span>
+          }
+          key="2"
+        >
+          <SummaryTrackMaps />
+        </TabPane>
+      </Tabs>
     </div>
   );
 };

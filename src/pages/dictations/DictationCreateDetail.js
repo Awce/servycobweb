@@ -10,10 +10,12 @@ import {
   Form,
   Input,
   Col,
+  Card,
   Row,
   message,
   notification,
 } from "antd";
+import { UnorderedListOutlined } from "@ant-design/icons";
 
 const layout = {
   labelCol: {
@@ -504,188 +506,195 @@ const DictationCreate = () => {
         onBack={goBack}
       />
       <div style={{ marginTop: "3px" }}>
-        <Form
-          {...layout}
-          onFinish={formik.handleSubmit}
-          onFinishFailed={onFinishFailed}
-        >
-          <Form.Item label="Número y Dígito de Dama">
-            <Row gutter={16}>
-              <Col span={8}>
-                <Input
-                  placeholder="Número"
-                  className="input-form"
-                  name="numdama"
-                  allowClear
-                  value={formik.values.numdama}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.numdama && formik.errors.numdama ? (
-                  <Alert
-                    message={formik.errors.numdama}
-                    type="error"
-                    showIcon
-                  />
-                ) : null}
-              </Col>
-              <Col span={8}>
-                <Input
-                  placeholder="Dígito"
-                  className="input-form"
-                  name="digitodama"
-                  allowClear
-                  value={formik.values.digitodama}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.digitodama && formik.errors.digitodama ? (
-                  <Alert
-                    message={formik.errors.digitodama}
-                    type="error"
-                    showIcon
-                  />
-                ) : null}
-              </Col>
-            </Row>
-          </Form.Item>
-
-          <Form.Item label="Dictamen / Subdictamen / Motivo">
-            <Row gutter={16}>
-              <Col span={24}>
-                <Input
-                  placeholder="Tipo de gestión"
-                  className="input-form"
-                  name="dictamen"
-                  allowClear
-                  value={formik.values.dictamen}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.dictamen && formik.errors.dictamen ? (
-                  <Alert
-                    message={formik.errors.dictamen}
-                    type="error"
-                    showIcon
-                  />
-                ) : null}
-              </Col>
-
-              <Col span={24}>
-                <Input
-                  placeholder="Subdictamen"
-                  className="input-form"
-                  name="subdictamen"
-                  allowClear
-                  value={formik.values.subdictamen}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.subdictamen && formik.errors.subdictamen ? (
-                  <Alert
-                    message={formik.errors.subdictamen}
-                    type="error"
-                    showIcon
-                  />
-                ) : null}
-              </Col>
-
-              <Col span={24}>
-                <Input
-                  placeholder="Motivo"
-                  className="input-form"
-                  name="razon"
-                  allowClear
-                  value={formik.values.razon}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.razon && formik.errors.razon ? (
-                  <Alert message={formik.errors.razon} type="error" showIcon />
-                ) : null}
-              </Col>
-            </Row>
-          </Form.Item>
-          <Form.Item label="Fecha, Monto de pago y Folio de recibo">
-            <InputGroup size="large">
-              <Row gutter={8}>
+        <Card>
+          <Form
+            {...layout}
+            onFinish={formik.handleSubmit}
+            onFinishFailed={onFinishFailed}
+          >
+            <Form.Item label="Número y Dígito de Dama">
+              <Row gutter={16}>
                 <Col span={8}>
                   <Input
+                    placeholder="Número"
                     className="input-form"
-                    style={{ width: "100%" }}
-                    name="fechapago"
+                    name="numdama"
                     allowClear
-                    value={formik.values.fechapago}
+                    value={formik.values.numdama}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.numdama && formik.errors.numdama ? (
+                    <Alert
+                      message={formik.errors.numdama}
+                      type="error"
+                      showIcon
+                    />
+                  ) : null}
                 </Col>
                 <Col span={8}>
                   <Input
-                    type="number"
+                    placeholder="Dígito"
                     className="input-form"
-                    style={{ width: "100%" }}
-                    placeholder="Ingresa el Monto"
-                    name="monto"
+                    name="digitodama"
                     allowClear
-                    value={formik.values.monto}
+                    value={formik.values.digitodama}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
-                </Col>
-                <Col span={8}>
-                  <Input
-                    className="input-form"
-                    placeholder="Folio"
-                    name="folio"
-                    allowClear
-                    value={formik.values.folio}
-                    onChange={formik.handleChange}
-                  />
+                  {formik.touched.digitodama && formik.errors.digitodama ? (
+                    <Alert
+                      message={formik.errors.digitodama}
+                      type="error"
+                      showIcon
+                    />
+                  ) : null}
                 </Col>
               </Row>
-            </InputGroup>
-          </Form.Item>
-          <Form.Item label="Nota de seguimiento">
-            <TextArea
-              rows={4}
-              placeholder="Agrega un comentario"
-              name="comentarios"
-              allowClear
-              value={formik.values.comentarios}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.comentarios && formik.errors.comentarios ? (
-              <Alert
-                message={formik.errors.comentarios}
-                type="error"
-                showIcon
+            </Form.Item>
+
+            <Form.Item label="Dictamen / Subdictamen / Motivo">
+              <Row gutter={16}>
+                <Col span={24}>
+                  <Input
+                    placeholder="Tipo de gestión"
+                    className="input-form"
+                    name="dictamen"
+                    allowClear
+                    value={formik.values.dictamen}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.dictamen && formik.errors.dictamen ? (
+                    <Alert
+                      message={formik.errors.dictamen}
+                      type="error"
+                      showIcon
+                    />
+                  ) : null}
+                </Col>
+
+                <Col span={24}>
+                  <Input
+                    placeholder="Subdictamen"
+                    className="input-form"
+                    name="subdictamen"
+                    allowClear
+                    value={formik.values.subdictamen}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.subdictamen && formik.errors.subdictamen ? (
+                    <Alert
+                      message={formik.errors.subdictamen}
+                      type="error"
+                      showIcon
+                    />
+                  ) : null}
+                </Col>
+
+                <Col span={24}>
+                  <Input
+                    placeholder="Motivo"
+                    className="input-form"
+                    name="razon"
+                    allowClear
+                    value={formik.values.razon}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.razon && formik.errors.razon ? (
+                    <Alert
+                      message={formik.errors.razon}
+                      type="error"
+                      showIcon
+                    />
+                  ) : null}
+                </Col>
+              </Row>
+            </Form.Item>
+            <Form.Item label="Fecha, Monto de pago y Folio de recibo">
+              <InputGroup size="large">
+                <Row gutter={8}>
+                  <Col span={8}>
+                    <Input
+                      className="input-form"
+                      style={{ width: "100%" }}
+                      name="fechapago"
+                      allowClear
+                      value={formik.values.fechapago}
+                      onChange={formik.handleChange}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <Input
+                      type="number"
+                      className="input-form"
+                      style={{ width: "100%" }}
+                      placeholder="Ingresa el Monto"
+                      name="monto"
+                      allowClear
+                      value={formik.values.monto}
+                      onChange={formik.handleChange}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <Input
+                      className="input-form"
+                      placeholder="Folio"
+                      name="folio"
+                      allowClear
+                      value={formik.values.folio}
+                      onChange={formik.handleChange}
+                    />
+                  </Col>
+                </Row>
+              </InputGroup>
+            </Form.Item>
+            <Form.Item label="Nota de seguimiento">
+              <TextArea
+                rows={4}
+                placeholder="Agrega un comentario"
+                name="comentarios"
+                allowClear
+                value={formik.values.comentarios}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
-            ) : null}
-          </Form.Item>
-          <div
-            style={{
-              right: 0,
-              bottom: 0,
-              width: "100%",
-              borderTop: "1px solid #e9e9e9",
-              padding: "10px 16px",
-              background: "#fff",
-              textAlign: "right",
-            }}
-          >
-            <Button size="large" style={{ marginRight: 8 }} onClick={goBack}>
-              Cancelar
-            </Button>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              size="large"
+              {formik.touched.comentarios && formik.errors.comentarios ? (
+                <Alert
+                  message={formik.errors.comentarios}
+                  type="error"
+                  showIcon
+                />
+              ) : null}
+            </Form.Item>
+            <div
+              style={{
+                right: 0,
+                bottom: 0,
+                width: "100%",
+                borderTop: "1px solid #e9e9e9",
+                padding: "10px 16px",
+                background: "#fff",
+                textAlign: "right",
+              }}
             >
-              Dictaminar
-            </Button>
-          </div>
-        </Form>
+              <Button size="large" style={{ marginRight: 8 }} onClick={goBack}>
+                Cancelar
+              </Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                size="large"
+                icon={<UnorderedListOutlined />}
+              >
+                Dictaminar
+              </Button>
+            </div>
+          </Form>
+        </Card>
       </div>
     </div>
   );

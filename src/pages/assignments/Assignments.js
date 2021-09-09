@@ -2,6 +2,7 @@ import React from "react";
 import AssignmentsList from "./AssignmentsList";
 import AssignmentsUserList from "./AssignmentsUserList";
 import { Tabs } from "antd";
+import { OrderedListOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 
@@ -11,10 +12,26 @@ function Assignments() {
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
     >
       <Tabs defaultActiveKey="1">
-        <TabPane tab="MOSTRAR TODAS" key="1">
+        <TabPane
+          tab={
+            <span>
+              <OrderedListOutlined />
+              MOSTRAR TODAS
+            </span>
+          }
+          key="1"
+        >
           <AssignmentsList />
         </TabPane>
-        <TabPane tab="MOSTRAR MIS ASIGNACIONES" key="2">
+        <TabPane
+          tab={
+            <span>
+              <OrderedListOutlined />
+              MOSTRAR MIS ASIGNACIONES
+            </span>
+          }
+          key="2"
+        >
           <AssignmentsUserList />
         </TabPane>
       </Tabs>

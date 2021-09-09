@@ -75,13 +75,13 @@ const PrivateRouter = () => {
               <Route exact path="/empleados" component={UsersList} />
               <Route exact path="/empelados/alta" component={UserCreate} />
               <Route exact path="/empleados/:Id" component={UserDetails} />
-              <Route exact path="/dictaminaciones" component={DictationsList} />
+              <Route exact path="/gestion" component={DictationsUserList} />
+              <Route exact path="/gestiones" component={DictationsList} />
               <Route
                 exact
-                path="/dictaminaciones/crear"
+                path="/gestiones/crear"
                 component={DictationCreate}
               />
-              <Route exact path="/gestiones" component={DictationsUserList} />
               <Route exact path="/pagos" component={PaysList} />
               <Route exact path="/resumen" component={SummaryList} />
               <Route component={EmptyPage} />

@@ -16,11 +16,11 @@ const OBTENER_MIS_DICTAMENES = gql`
       subdictamen
       razon
       folio
-      monto
-      comentarios
+      total
       fechapago
-      gestor
       creado
+      comentarios
+      usuario
     }
   }
 `;
@@ -79,7 +79,7 @@ const DictationsUserList = () => {
       key: "monto",
       align: "center",
       render: (text, dictation) =>
-        dictation.monto ? <span>${dictation.monto}</span> : null,
+        dictation.total ? <span>${dictation.total}</span> : null,
     },
     {
       title: "Comentario",
@@ -139,8 +139,6 @@ const DictationsUserList = () => {
         style={{ marginTop: "3px" }}
         pagination={{ pageSize: 25 }}
         scroll={{ y: 240 }}
-        // title={() => "Header"}
-        // footer={() => "Footer"}
       />
     </div>
   );

@@ -56,7 +56,7 @@ const LoginForm = () => {
         });
         message.loading({ content: "Iniciando sesión...", key });
         const { token } = data.autenticarUsuario;
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", token); //Pasarlo a Context
         setTimeout(() => {
           history.push("/informacion");
           message.success({

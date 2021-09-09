@@ -2,21 +2,8 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import Loading from "../../components/Loading";
 import { Link, useHistory } from "react-router-dom";
-import {
-  PageHeader,
-  Button,
-  Table,
-  //Space,
-  Avatar,
-  // Popconfirm,
-  // message,
-} from "antd";
-import {
-  UserAddOutlined,
-  UserOutlined,
-  // DeleteTwoTone,
-  // EditTwoTone,
-} from "@ant-design/icons";
+import { PageHeader, Button, Table, Avatar } from "antd";
+import { UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const OBTENER_CLIENTES = gql`
   query obtenerClientes {
@@ -77,24 +64,6 @@ const CustomersList = () => {
       key: "email",
       align: "center",
     },
-    // {
-    //   title: "Acciones",
-    //   key: "action",
-    //   render: (text, record) => (
-    //     <Space size="middle">
-    //       <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
-    //       <Popconfirm
-    //         title="¿Estás seguro de eliminar?"
-    //         onConfirm={confirmDelete}
-    //         onCancel={cancelDelete}
-    //         okText="Aceptar"
-    //         cancelText="Cancelar"
-    //       >
-    //         <DeleteTwoTone style={{ fontSize: "18px" }} />
-    //       </Popconfirm>
-    //     </Space>
-    //   ),
-    // },
   ];
 
   if (loading) return <Loading />;
@@ -102,18 +71,6 @@ const CustomersList = () => {
   const onRegisterCustomerButton = () => {
     history.push("/clientes/alta");
   };
-
-  // const editCustomer = () => {
-  //   message.success("Click en Editar");
-  // };
-
-  // const confirmDelete = (e) => {
-  //   message.success("Click en Si");
-  // };
-
-  // const cancelDelete = (e) => {
-  //   message.error("Click en No");
-  // };
 
   return (
     <div

@@ -16,11 +16,11 @@ const OBTENER_DICTAMENES = gql`
       subdictamen
       razon
       folio
-      monto
+      total
       fechapago
       creado
       comentarios
-      gestor
+      usuario
     }
   }
 `;
@@ -36,11 +36,6 @@ const DictationsList = () => {
       dataIndex: "numdama",
       key: "numdama",
       align: "center",
-      // render: (text, contact) => (
-      //   <Link to={`/asignacion/damas/${contact.id}`}>
-      //     <span>{contact.numdama}</span>
-      //   </Link>
-      // ),
     },
     {
       title: "Dígito",
@@ -80,11 +75,11 @@ const DictationsList = () => {
     },
     {
       title: "Monto",
-      dataIndex: "monto",
-      key: "monto",
+      dataIndex: "total",
+      key: "total",
       align: "center",
       render: (text, dictation) =>
-        dictation.monto ? <span>${dictation.monto}</span> : null,
+        dictation.total ? <span>${dictation.total}</span> : null,
     },
     {
       title: "Comentario",
@@ -94,8 +89,8 @@ const DictationsList = () => {
     },
     {
       title: "Gestor",
-      dataIndex: "gestor",
-      key: "gestor",
+      dataIndex: "usuario",
+      key: "usuario",
       align: "center",
     },
   ];

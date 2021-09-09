@@ -17,7 +17,7 @@ const OBTENER_DICTAMENES_DAMA = gql`
       monto
       fechapago
       comentarios
-      gestor
+      usuario
       dama
     }
   }

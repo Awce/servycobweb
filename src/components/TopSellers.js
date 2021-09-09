@@ -1,35 +1,40 @@
 import React from "react";
+import { useQuery, gql } from "@apollo/client";
+import Loading from "./Loading";
 import { List, Card, Avatar } from "antd";
 
-const data = [
-  {
-    title: "Raul Hernandez",
-  },
-  {
-    title: "Otro Gestor 1",
-  },
-  {
-    title: "Otro Gestor 2",
-  },
-  {
-    title: "Otro Gestor 3",
-  },
-];
+const MEJORES_USUARIOS = gql`
+  query mejoresUsuarios {
+    mejoresUsuarios {
+      usuario {
+        nombre
+        apellido
+        email
+        avatar
+      }
+      total
+    }
+  }
+`;
 
 const TopSellers = () => {
+  const { data, loading, error } = useQuery(MEJORES_USUARIOS);
+  console.log(data);
+  console.log(error);
+
+  if (loading) return <Loading />;
+
   return (
     <Card title="Top Gestores">
       <List
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={data.mejoresUsuarios}
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              avatar={
-                <Avatar src="https://firebasestorage.googleapis.com/v0/b/servycob-app.appspot.com/o/avatars%2Fyo.jpeg?alt=media&token=e44759d8-3a24-4edc-a873-f427bf5fa430" />
-              }
-              title={item.title}
-              description="Preuba"
+              avatar={<Avatar src={item.usuario[0].avatar} />}
+              title={`${item.usuario[0].nombre} ${item.usuario[0].apellido}`}
+              description={`Ha recuperado: $${item.total}`}
             />
           </List.Item>
         )}

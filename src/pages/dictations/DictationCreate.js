@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { useMutation, gql } from "@apollo/client";
+import { useQuery, useMutation, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
   Alert,
@@ -14,6 +14,7 @@ import {
   message,
   notification,
 } from "antd";
+import Loading from "../../components/Loading";
 import { FileAddOutlined } from "@ant-design/icons";
 
 const layout = {
@@ -359,6 +360,19 @@ export const DictationsOptions = [
   },
 ];
 
+const OBTENER_ASIGNACION = gql`
+  query obtenerAsignacion($id: ID!) {
+    obtenerAsignacion(id: $id) {
+      id
+      tipocartera
+      numdama
+      digitodama
+      nombre
+      gestor
+    }
+  }
+`;
+
 const NUEVO_DICTAMEN = gql`
   mutation nuevoDictamen($input: DictamenInput) {
     nuevoDictamen(input: $input) {
@@ -394,7 +408,16 @@ const OBTENER_DICTAMENES = gql`
   }
 `;
 
-function DictationCreate() {
+function DictationCreate(props) {
+  const { data, loading, error } = useQuery(OBTENER_ASIGNACION, {
+    variables: {
+      id: props.match.params.Id,
+    },
+  });
+
+  console.log(data);
+  console.log(error);
+
   const [nuevoDictamen] = useMutation(NUEVO_DICTAMEN, {
     update(cache, { data: { nuevoDictamen } }) {
       const { obtenerDictamenes } = cache.readQuery({
@@ -499,6 +522,8 @@ function DictationCreate() {
   const goBack = () => {
     history.goBack();
   };
+
+  if (loading) return <Loading />;
 
   return (
     <>

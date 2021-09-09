@@ -11,29 +11,33 @@ const OBTENER_MIS_ASIGNACIONES = gql`
   query obtenerAsignacionesUsuario {
     obtenerAsignacionesUsuario {
       id
-      tipocartera
+      campanaventa
+      ruta
+      numerozonafacturacion
+      liquidacion
       numdama
       digitodama
       nombre
-      numerozonafacturacion
-      aniocampaniasaldo
-      diasmora
-      campanasvencidas
-      saldofactura
-      saldocobro
-      cargosmoratorios
-      totalacobrar
-      telefonocasa
-      telefonocelular
       direccion
       colonia
-      referencia
       poblacion
       estado
-      fechafacturacion
-      fechafinalvigencia
-      tipocuenta
-      gestor
+      codigopostal
+      referencia
+      telefonocasa
+      telefonocelular
+      totalacobrar
+      aniocampaniasaldo
+      campanasvencidas
+      cau
+      idsituacion
+      descsituacion
+      idsituacioncie
+      descsituacioncie
+      tipocartera
+      cierre
+      usuario
+      creado
     }
   }
 `;
@@ -50,7 +54,7 @@ const AssignmentsUserList = () => {
       key: "numdama",
       align: "center",
       render: (text, contact) => (
-        <Link to={`/asignacion/damas/${contact.id}`}>
+        <Link to={`/asignaciones/damas/${contact.id}`}>
           <span>{contact.numdama}</span>
         </Link>
       ),
@@ -87,7 +91,7 @@ const AssignmentsUserList = () => {
       align: "center",
     },
     {
-      title: "Saldo",
+      title: "Total a Cobrar",
       dataIndex: "totalacobrar",
       key: "totalacobrar",
       align: "center",
@@ -143,8 +147,7 @@ const AssignmentsUserList = () => {
         dataSource={data.obtenerAsignacionesUsuario}
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
-        pagination={{ pageSize: 25 }}
-        // footer={() => "Footer"}
+        pagination={{ pageSize: 15 }}
       />
     </>
   );

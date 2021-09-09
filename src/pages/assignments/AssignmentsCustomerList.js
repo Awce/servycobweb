@@ -11,28 +11,33 @@ const OBTENER_ASIGNACIONES = gql`
   query obtenerAsignaciones {
     obtenerAsignaciones {
       id
-      tipocartera
+      campanaventa
+      ruta
+      numerozonafacturacion
+      liquidacion
       numdama
       digitodama
       nombre
-      numerozonafacturacion
-      aniocampaniasaldo
-      diasmora
-      campanasvencidas
-      saldofactura
-      saldocobro
-      cargosmoratorios
-      totalacobrar
-      telefonocasa
-      telefonocelular
       direccion
       colonia
-      referencia
       poblacion
       estado
-      fechafacturacion
-      fechafinalvigencia
-      tipocuenta
+      codigopostal
+      referencia
+      telefonocasa
+      telefonocelular
+      totalacobrar
+      aniocampaniasaldo
+      campanasvencidas
+      cau
+      idsituacion
+      descsituacion
+      idsituacioncie
+      descsituacioncie
+      tipocartera
+      cierre
+      usuario
+      creado
     }
   }
 `;
@@ -154,8 +159,7 @@ const AssignmentsList = () => {
         dataSource={data.obtenerAsignaciones}
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
-        pagination={{ pageSize: 25 }}
-        // footer={() => "Footer"}
+        pagination={{ pageSize: 15 }}
       />
     </div>
   );
