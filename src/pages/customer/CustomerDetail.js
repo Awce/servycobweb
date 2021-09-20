@@ -42,15 +42,8 @@ const CustomerDetail = (props) => {
 
   if (loading) return <Loading />;
 
-  const {
-    empresa,
-    razonsocial,
-    email,
-    web,
-    logo,
-    direccion,
-    rfc,
-  } = data.obtenerCliente;
+  const { empresa, razonsocial, email, web, logo, direccion, rfc } =
+    data.obtenerCliente;
 
   return (
     <div
@@ -64,8 +57,8 @@ const CustomerDetail = (props) => {
         subTitle="Detalles"
         onBack={goBack}
       />
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="PERFIL" key="1">
+      <Tabs defaultActiveKey={1}>
+        <TabPane tab="PERFIL" key={1}>
           <Row gutter={16}>
             <Col span={6}>
               <Card
@@ -96,10 +89,10 @@ const CustomerDetail = (props) => {
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="ASIGNACIONES" key="2">
+        <TabPane tab="ASIGNACIONES" key={2}>
           <AssignmentsCustomerList />
         </TabPane>
-        <TabPane tab="CAMPAÑAS" key="3">
+        <TabPane tab="CAMPAÑAS" key={3}>
           <CampaignsLists />
         </TabPane>
         {/* <TabPane tab="FACTURACION Y COBRANZA" key="3">

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+//import DictationsAssignmentsList from ".././dictations/DictationsAssignmentsList";
 import { useQuery, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
+  Tabs,
   Card,
   PageHeader,
   Row,
@@ -12,7 +14,9 @@ import {
   Space,
 } from "antd";
 import Loading from "../../components/Loading";
-import { PhoneOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import { PhoneOutlined, ReconciliationOutlined } from "@ant-design/icons";
+
+const { TabPane } = Tabs;
 
 const OBTENER_ASIGNACION = gql`
   query obtenerAsignacion($id: ID!) {
@@ -76,7 +80,7 @@ const AssignmentDetails = (props) => {
   };
 
   const onRegisterDictationButton = () => {
-    history.push("/dictaminaciones/crear");
+    history.push(`/gestiones/crear/${data.obtenerAsignacion.id}`);
   };
 
   if (loading) return <Loading />;
@@ -125,132 +129,146 @@ const AssignmentDetails = (props) => {
             <Statistic title="Total a Cobrar" prefix="$" value={totalacobrar} />
             <Button
               type="primary"
-              size="large"
-              key={1}
+              key={2}
               onClick={onRegisterDictationButton}
-              icon={<UnorderedListOutlined />}
+              icon={<ReconciliationOutlined />}
             >
-              Crear Dictamen
+              Crear Gestión
             </Button>
           </Space>,
         ]}
       />
-      <div style={{ marginTop: "3px" }}>
-        <Row gutter={16}>
-          <Col span={16}>
-            <Card>
-              <Descriptions title="Datos de la dama" layout="vertical">
-                <Descriptions.Item label="Número">{numdama}</Descriptions.Item>
-                <Descriptions.Item label="Dígito">
-                  {digitodama}
-                </Descriptions.Item>
-                <Descriptions.Item label="Nombre">{nombre}</Descriptions.Item>
-                <Descriptions.Item label="Zona">
-                  {numerozonafacturacion}
-                </Descriptions.Item>
-                <Descriptions.Item label="Tipo cartera">
-                  {tipocartera}
-                </Descriptions.Item>
-                <Descriptions.Item label="Año campaña">
-                  {aniocampaniasaldo}
-                </Descriptions.Item>
-                <Descriptions.Item label="Campañas venciadas">
-                  {campanasvencidas}
-                </Descriptions.Item>
-                <Descriptions.Item label="Campaña venta">
-                  {campanaventa}
-                </Descriptions.Item>
-                <Descriptions.Item label="Ruta">{ruta}</Descriptions.Item>
-                <Descriptions.Item label="Liquidación">
-                  {liquidacion}
-                </Descriptions.Item>
-                <Descriptions.Item label="CAU">${cau}</Descriptions.Item>
-                <Descriptions.Item label="Id situación">
-                  {idsituacion}
-                </Descriptions.Item>
-                <Descriptions.Item label="Desc situación">
-                  {descsituacion}
-                </Descriptions.Item>
-                <Descriptions.Item label="Id situación Cie">
-                  {idsituacioncie}
-                </Descriptions.Item>
-                <Descriptions.Item label="Desc situación Cie">
-                  {descsituacioncie}
-                </Descriptions.Item>
-                <Descriptions.Item label="Cierre">{cierre}</Descriptions.Item>
-              </Descriptions>
-            </Card>
-            <div style={{ marginTop: "3px" }}>
-              <Card>
-                <Descriptions title="Direcciónes" layout="vertical">
-                  <Descriptions.Item label="Dirección completa">
-                    {direccion}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Colonia">
-                    {colonia}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Código postal">
-                    {codigopostal}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Estado">{estado}</Descriptions.Item>
-                  <Descriptions.Item label="Población">
-                    {poblacion}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Referencia">
-                    {referencia}
-                  </Descriptions.Item>
-                </Descriptions>
-              </Card>
-            </div>
-          </Col>
-          <Col span={8}>
-            <PageHeader
-              style={{
-                border: "1px solid rgb(235, 237, 240)",
-              }}
-              title="Llamada"
-              subTitle={callStatus ? "Iniciada" : "En espera"}
-              extra={
-                count === 0 ? (
-                  <Button
-                    type="primary"
-                    key={1}
-                    onClick={numberCounts}
-                    icon={<PhoneOutlined />}
-                  >
-                    Iniciar
-                  </Button>
-                ) : (
-                  <Button
-                    type="danger"
-                    key={1}
-                    onClick={stopCall}
-                    icon={<PhoneOutlined />}
-                  >
-                    Terminar
-                  </Button>
-                )
-              }
-            />
-            <div style={{ marginTop: "3px" }}>
-              <Card>
-                <p>{callStatus ? "Llamando al:" : "Llamar al:"}</p>
-                <Row gutter={16}>
-                  <Col span={12}>
-                    <b>Teléfono casa</b>
-                    <p>{telefonocasa}</p>
-                  </Col>
-                  <Col span={12}>
-                    <b>Teléfono celular</b>
-                    <p>{telefonocelular}</p>
-                  </Col>
-                </Row>
-                <p> {count} intentos</p>
-              </Card>
-            </div>
-          </Col>
-        </Row>
-      </div>
+      <Tabs defaultActiveKey={1}>
+        <TabPane tab="PERFIL" key={1}>
+          <div style={{ marginTop: "3px" }}>
+            <Row gutter={16}>
+              <Col span={16}>
+                <Card>
+                  <Descriptions title="Datos de la dama" layout="vertical">
+                    <Descriptions.Item label="Número">
+                      {numdama}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Dígito">
+                      {digitodama}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Nombre">
+                      {nombre}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Zona">
+                      {numerozonafacturacion}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Tipo cartera">
+                      {tipocartera}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Año campaña">
+                      {aniocampaniasaldo}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Campañas venciadas">
+                      {campanasvencidas}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Campaña venta">
+                      {campanaventa}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Ruta">{ruta}</Descriptions.Item>
+                    <Descriptions.Item label="Liquidación">
+                      {liquidacion}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="CAU">${cau}</Descriptions.Item>
+                    <Descriptions.Item label="Id situación">
+                      {idsituacion}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Desc situación">
+                      {descsituacion}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Id situación Cie">
+                      {idsituacioncie}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Desc situación Cie">
+                      {descsituacioncie}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Cierre">
+                      {cierre}
+                    </Descriptions.Item>
+                  </Descriptions>
+                </Card>
+                <div style={{ marginTop: "3px" }}>
+                  <Card>
+                    <Descriptions title="Direcciónes" layout="vertical">
+                      <Descriptions.Item label="Dirección completa">
+                        {direccion}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Colonia">
+                        {colonia}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Código postal">
+                        {codigopostal}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Estado">
+                        {estado}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Población">
+                        {poblacion}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Referencia">
+                        {referencia}
+                      </Descriptions.Item>
+                    </Descriptions>
+                  </Card>
+                </div>
+              </Col>
+              <Col span={8}>
+                <PageHeader
+                  style={{
+                    border: "1px solid rgb(235, 237, 240)",
+                  }}
+                  title="Llamada"
+                  subTitle={callStatus ? "Iniciada" : "En espera"}
+                  extra={
+                    count === 0 ? (
+                      <Button
+                        type="primary"
+                        key={1}
+                        onClick={numberCounts}
+                        icon={<PhoneOutlined />}
+                      >
+                        Iniciar
+                      </Button>
+                    ) : (
+                      <Button
+                        type="danger"
+                        key={1}
+                        onClick={stopCall}
+                        icon={<PhoneOutlined />}
+                      >
+                        Terminar
+                      </Button>
+                    )
+                  }
+                />
+                <div style={{ marginTop: "3px" }}>
+                  <Card>
+                    <p>{callStatus ? "Llamando al:" : "Llamar al:"}</p>
+                    <Row gutter={16}>
+                      <Col span={12}>
+                        <b>Teléfono casa</b>
+                        <p>{telefonocasa}</p>
+                      </Col>
+                      <Col span={12}>
+                        <b>Teléfono celular</b>
+                        <p>{telefonocelular}</p>
+                      </Col>
+                    </Row>
+                    <p> {count} intentos</p>
+                  </Card>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </TabPane>
+        {/* <TabPane tab="GESTIONES" key={2}>
+          <DictationsAssignmentsList />
+        </TabPane> */}
+      </Tabs>
     </div>
   );
 };

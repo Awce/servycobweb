@@ -13,14 +13,6 @@ const SummaryPage = () => {
     <div
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
     >
-      <PageHeader
-        style={{
-          border: "1px solid rgb(235, 237, 240)",
-        }}
-        title="Bienvenido"
-        subTitle="Inicio"
-      />
-
       <Tabs defaultActiveKey="1">
         <TabPane
           tab={
@@ -32,6 +24,13 @@ const SummaryPage = () => {
           key="1"
         >
           <div style={{ marginTop: "3px" }}>
+            <PageHeader
+              style={{
+                border: "1px solid rgb(235, 237, 240)",
+              }}
+              title="Bienvenido"
+              subTitle="Inicio"
+            />
             <ChartsData />
             <Row gutter={16}>
               <Col span={16}>

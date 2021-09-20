@@ -3,12 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import Loading from "../../components/Loading";
 import { Link, useHistory } from "react-router-dom";
 import { PageHeader, Button, Table, Avatar, Tag } from "antd";
-import {
-  UserAddOutlined,
-  UserOutlined,
-  // DeleteTwoTone,
-  // EditTwoTone,
-} from "@ant-design/icons";
+import { UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
 const OBTENER_USUARIOS = gql`
   query obtenerUsuarios {
@@ -84,16 +79,6 @@ const UsersList = () => {
         </>
       ),
     },
-    // {
-    //   title: "Acciones",
-    //   key: "action",
-    //   render: (text, record) => (
-    //     <Space size="middle">
-    //       <EditTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
-    //       <DeleteTwoTone style={{ fontSize: "18px" }} onClick={editCustomer} />
-    //     </Space>
-    //   ),
-    // },
   ];
 
   if (loading) return <Loading />;
@@ -101,10 +86,6 @@ const UsersList = () => {
   const onRegisterUserButton = () => {
     history.push("/empelados/alta");
   };
-
-  // const editCustomer = () => {
-  //   console.log("Test");
-  // };
 
   return (
     <div
@@ -134,7 +115,7 @@ const UsersList = () => {
           rowKey={(record) => record.id}
           style={{ marginTop: "3px" }}
           pagination={{ pageSize: 25 }}
-          // scroll={{ y: 240 }}
+          scroll={{ y: 240 }}
         />
       </div>
     </div>

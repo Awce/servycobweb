@@ -160,6 +160,7 @@ const AssignmentsList = () => {
         style={{ marginTop: "3px" }}
         rowKey={(record) => record.id}
         pagination={{ pageSize: 15 }}
+        scroll={{ y: 240 }}
       />
     </div>
   );

@@ -50,6 +50,7 @@ const CampaignsLists = () => {
         dataSource={campaigns}
         rowKey={(record) => record.id}
         pagination={{ pageSize: 25 }}
+        scroll={{ y: 240 }}
       />
     </div>
   );

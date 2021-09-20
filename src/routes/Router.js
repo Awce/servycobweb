@@ -79,7 +79,7 @@ const PrivateRouter = () => {
               <Route exact path="/gestiones" component={DictationsList} />
               <Route
                 exact
-                path="/gestiones/crear"
+                path="/gestiones/crear/:Id"
                 component={DictationCreate}
               />
               <Route exact path="/pagos" component={PaysList} />

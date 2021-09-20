@@ -4,7 +4,7 @@ import { Affix, Menu } from "antd";
 import { useHistory, withRouter } from "react-router-dom";
 import {
   HomeOutlined,
-  InteractionOutlined,
+  ReconciliationOutlined,
   SelectOutlined,
   MessageOutlined,
   MailOutlined,
@@ -78,7 +78,7 @@ const LateralMenu = () => {
             <span>Asignaciones</span>
           </Menu.Item>
           <Menu.Item key="gestion" onClick={() => link("/gestion")}>
-            <InteractionOutlined
+            <ReconciliationOutlined
               className={`${
                 currentLocation === "gestion" ? "menu-item-active" : ""
               }`}

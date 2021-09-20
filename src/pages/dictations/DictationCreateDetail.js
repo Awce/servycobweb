@@ -363,68 +363,43 @@ export const DictationsOptions = [
 const NUEVO_DICTAMEN = gql`
   mutation nuevoDictamen($input: DictamenInput) {
     nuevoDictamen(input: $input) {
-      numdama
-      digitodama
-      dictamen
-      subdictamen
-      razon
-      folio
-      monto
-      fechapago
-      comentarios
-      gestor
-    }
-  }
-`;
-
-const OBTENER_DICTAMENES = gql`
-  query obtenerDictamenes {
-    obtenerDictamenes {
       id
+      asignacion
       numdama
       digitodama
       dictamen
       subdictamen
       razon
       folio
-      monto
+      total
       fechapago
-      creado
       comentarios
+      usuario
     }
   }
 `;
 
-const DictationCreate = () => {
-  const [nuevoDictamen] = useMutation(NUEVO_DICTAMEN, {
-    update(cache, { data: { nuevoDictamen } }) {
-      const { obtenerDictamenes } = cache.readQuery({
-        query: OBTENER_DICTAMENES,
-      });
-      cache.writeQuery({
-        query: OBTENER_DICTAMENES,
-        data: { obtenerDictamenes: [...obtenerDictamenes, nuevoDictamen] },
-      });
-    },
-  });
+const DictationCreate = (props) => {
+  const [nuevoDictamen] = useMutation(NUEVO_DICTAMEN);
+
   const formik = useFormik({
     initialValues: {
+      asignacion: props.match.params.Id,
       numdama: "",
       digitodama: "",
       dictamen: "",
       subdictamen: "",
       razon: "",
       folio: "",
-      monto: 0,
+      total: 0,
       fechapago: "",
       comentarios: "",
-      gestor: "",
     },
     validationSchema: Yup.object({
       numdama: Yup.string().required(
         "El número de dama es obligatorio y no puede ir vacio."
       ),
-      digitodama: Yup.string(
+      digitodama: Yup.string().required(
         "El dígito de dama es obligatorio y no puede ir vacio."
       ),
       dictamen: Yup.string().required(
@@ -436,13 +411,14 @@ const DictationCreate = () => {
     }),
     onSubmit: async (valores) => {
       const {
+        asignacion,
         numdama,
         digitodama,
         dictamen,
         subdictamen,
         razon,
         folio,
-        monto,
+        total,
         fechapago,
         comentarios,
       } = valores;
@@ -450,13 +426,14 @@ const DictationCreate = () => {
         const { data } = await nuevoDictamen({
           variables: {
             input: {
+              asignacion,
               numdama,
               digitodama,
               dictamen,
               subdictamen,
               razon,
               folio,
-              monto,
+              total,
               fechapago,
               comentarios,
             },
@@ -632,9 +609,9 @@ const DictationCreate = () => {
                       className="input-form"
                       style={{ width: "100%" }}
                       placeholder="Ingresa el Monto"
-                      name="monto"
+                      name="total"
                       allowClear
-                      value={formik.values.monto}
+                      value={formik.values.total}
                       onChange={formik.handleChange}
                     />
                   </Col>

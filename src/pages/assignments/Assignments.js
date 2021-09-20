@@ -11,7 +11,18 @@ function Assignments() {
     <div
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}
     >
-      <Tabs defaultActiveKey="1">
+      <Tabs defaultActiveKey={1}>
+        <TabPane
+          tab={
+            <span>
+              <OrderedListOutlined />
+              MIS ASIGNACIONES
+            </span>
+          }
+          key={1}
+        >
+          <AssignmentsUserList />
+        </TabPane>
         <TabPane
           tab={
             <span>
@@ -19,20 +30,9 @@ function Assignments() {
               MOSTRAR TODAS
             </span>
           }
-          key="1"
+          key={2}
         >
           <AssignmentsList />
-        </TabPane>
-        <TabPane
-          tab={
-            <span>
-              <OrderedListOutlined />
-              MOSTRAR MIS ASIGNACIONES
-            </span>
-          }
-          key="2"
-        >
-          <AssignmentsUserList />
         </TabPane>
       </Tabs>
     </div>
