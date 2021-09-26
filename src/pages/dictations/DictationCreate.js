@@ -376,6 +376,7 @@ const OBTENER_ASIGNACION = gql`
 const NUEVO_DICTAMEN = gql`
   mutation nuevoDictamen($input: DictamenInput) {
     nuevoDictamen(input: $input) {
+      asignacion
       numdama
       digitodama
       dictamen
@@ -439,6 +440,7 @@ function DictationCreate(props) {
 
   const formik = useFormik({
     initialValues: {
+      asignacion: "",
       numdama: "",
       digitodama: "",
       dictamen: "",

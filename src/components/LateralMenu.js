@@ -70,7 +70,7 @@ const LateralMenu = () => {
         </Menu.Item>
         <Menu.ItemGroup key="g1" title={`PERSONAL`}>
           <Menu.Item key="asignaciones" onClick={() => link("/asignaciones")}>
-            <OrderedListOutlined
+            <ReconciliationOutlined
               className={`${
                 currentLocation === "asignaciones" ? "menu-item-active" : ""
               }`}
@@ -78,7 +78,7 @@ const LateralMenu = () => {
             <span>Asignaciones</span>
           </Menu.Item>
           <Menu.Item key="gestion" onClick={() => link("/gestion")}>
-            <ReconciliationOutlined
+            <OrderedListOutlined
               className={`${
                 currentLocation === "gestion" ? "menu-item-active" : ""
               }`}
