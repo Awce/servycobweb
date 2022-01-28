@@ -21,6 +21,7 @@ import {
   PieChartOutlined,
   HistoryOutlined,
   ContainerOutlined,
+  CustomerServiceOutlined,
   OrderedListOutlined,
 } from "@ant-design/icons";
 
@@ -69,6 +70,15 @@ const LateralMenu = () => {
           <span>Información</span>
         </Menu.Item>
         <Menu.ItemGroup key="g1" title={`PERSONAL`}>
+          <Menu.Item key="soporte" onClick={() => link("/soporte")}>
+            <CustomerServiceOutlined
+              className={`${
+                currentLocation === "soporte" ? "menu-item-active" : ""
+              }`}
+            />
+            <span>Soporte</span>
+          </Menu.Item>
+
           <Menu.Item key="asignaciones" onClick={() => link("/asignaciones")}>
             <ReconciliationOutlined
               className={`${
@@ -218,6 +228,14 @@ const LateralMenu = () => {
                 </span>
               }
             >
+              <Menu.Item key="soportes" onClick={() => link("/soportes")}>
+                <CustomerServiceOutlined
+                  className={`${
+                    currentLocation === "soportes" ? "menu-item-active" : ""
+                  }`}
+                />
+                <span>Soportes</span>
+              </Menu.Item>
               <Menu.Item key="gestiones" onClick={() => link("/gestiones")}>
                 <HistoryOutlined
                   className={`${

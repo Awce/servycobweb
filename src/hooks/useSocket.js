@@ -8,6 +8,8 @@ export const useSocket = (serverPath) => {
     () =>
       io.connect(serverPath, {
         transports: ["websocket"],
+        autoConnect: true,
+        forceNew: true,
       }),
     [serverPath]
   );

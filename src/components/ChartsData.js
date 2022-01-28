@@ -4,18 +4,18 @@ import { List, Card, Row, Col, Progress } from "antd";
 const data = [
   {
     title: "Asignaciones",
-    content: "25",
-    percent: "75",
+    content: "0",
+    percent: "0",
   },
   {
     title: "Gestiones",
-    content: "6",
-    percent: "10",
+    content: "0",
+    percent: "0",
   },
   {
     title: "Recuperados",
-    content: "$ 751.00",
-    percent: "0.5",
+    content: "$ 0.00",
+    percent: "0",
   },
 ];
 

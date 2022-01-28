@@ -2,9 +2,9 @@ import React from "react";
 import ChartsData from "../../components/ChartsData";
 import UserCalendar from "../../components/user/UserCalendar";
 import TopSellers from "../../components/TopSellers";
-import SummaryTrackMaps from "./SummaryTrackMaps";
+//import SummaryTrackMaps from "./SummaryTrackMaps";
 import { Row, Col, PageHeader, Tabs } from "antd";
-import { HomeOutlined, PushpinOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 
@@ -42,7 +42,7 @@ const SummaryPage = () => {
             </Row>
           </div>
         </TabPane>
-        <TabPane
+        {/* <TabPane
           tab={
             <span>
               <PushpinOutlined />
@@ -52,7 +52,7 @@ const SummaryPage = () => {
           key="2"
         >
           <SummaryTrackMaps />
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </div>
   );

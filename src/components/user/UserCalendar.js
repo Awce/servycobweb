@@ -13,7 +13,7 @@ import {
   message,
   notification,
 } from "antd";
-import { CalendarOutlined } from "@ant-design/icons";
+//import { CalendarOutlined } from "@ant-design/icons";
 
 const layout = {
   labelCol: {
@@ -118,11 +118,11 @@ const UserCalendar = () => {
     visible: false,
   });
 
-  const showDrawer = () => {
-    setShow({
-      visible: true,
-    });
-  };
+  // const showDrawer = () => {
+  //   setShow({
+  //     visible: true,
+  //   });
+  // };
 
   const onClose = () => {
     setShow({
@@ -143,16 +143,16 @@ const UserCalendar = () => {
   return (
     <Card
       title="Mi Calendario"
-      extra={[
-        <Button
-          key={1}
-          type="primary"
-          icon={<CalendarOutlined />}
-          onClick={showDrawer}
-        >
-          Crear Evento
-        </Button>,
-      ]}
+      // extra={[
+      //   <Button
+      //     key={1}
+      //     type="primary"
+      //     icon={<CalendarOutlined />}
+      //     onClick={showDrawer}
+      //   >
+      //     Crear Evento
+      //   </Button>,
+      // ]}
     >
       <Calendar onPanelChange={onPanelChange} />
       <Drawer

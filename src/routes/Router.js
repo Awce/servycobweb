@@ -23,6 +23,10 @@ import DictationCreate from "../pages/dictations/DictationCreateDetail";
 import DictationsUserList from "../pages/dictations/DictationsUserList";
 import PaysList from "../pages/pays/PaysList";
 import SummaryList from "../pages/summary/SummaryList";
+import SupportsList from "../pages/support/SupportsList";
+import SupportCreate from "../pages/support/SupportCreate";
+import SupportDetails from "../pages/support/SupportDetails";
+import SupportsUserList from "../pages/support/SupportsUserList";
 
 const { Header, Sider, Content } = Layout;
 
@@ -75,6 +79,10 @@ const PrivateRouter = () => {
               <Route exact path="/empleados" component={UsersList} />
               <Route exact path="/empelados/alta" component={UserCreate} />
               <Route exact path="/empleados/:Id" component={UserDetails} />
+              <Route exact path="/soporte" component={SupportsUserList} />
+              <Route exact path="/soporte/nuevo" component={SupportCreate} />
+              <Route exact path="/soporte/:Id" component={SupportDetails} />
+              <Route exact path="/soportes" component={SupportsList} />
               <Route exact path="/gestion" component={DictationsUserList} />
               <Route exact path="/gestiones" component={DictationsList} />
               <Route

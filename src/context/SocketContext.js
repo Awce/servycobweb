@@ -3,11 +3,10 @@ import { useSocket } from "../hooks/useSocket";
 
 export const SocketContext = createContext();
 
-//URL
-const { socket, online } = useSocket("http://localhost:8080");
-
 //provider
 export const SocketProvider = ({ children }) => {
+  const { socket, online } = useSocket("http://localhost:9990");
+
   return (
     <SocketProvider.Provider value={{ socket, online }}>
       {children}
