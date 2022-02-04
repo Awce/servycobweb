@@ -7,9 +7,9 @@ import { Link, useHistory } from "react-router-dom";
 import { PageHeader, Button, Table } from "antd";
 import { CustomerServiceOutlined, DownloadOutlined } from "@ant-design/icons";
 
-const OBTENER_SOPORTES = gql`
-  query obtenerSoportes {
-    obtenerSoportes {
+const OBTENER_MIS_SOPORTES = gql`
+  query obtenerSoportesUsuario {
+    obtenerSoportesUsuario {
       id
       nombre
       email
@@ -17,19 +17,22 @@ const OBTENER_SOPORTES = gql`
       modelo
       ubicacion
       motivollamada
-      otro
+      otromotivo
       producto
       categoria
       motivo
       causa
       comentarios
       dictamen
+      otrodictamen
+      usuario
+      creado
     }
   }
 `;
 
 const SupportsUserList = () => {
-  const { data, loading, error } = useQuery(OBTENER_SOPORTES);
+  const { data, loading, error } = useQuery(OBTENER_MIS_SOPORTES);
   console.log(data);
   console.log(error);
   const history = useHistory();
@@ -78,8 +81,14 @@ const SupportsUserList = () => {
     },
     {
       title: "Fecha",
-      dataIndex: "creado",
-      key: "creado",
+      dataIndex: "",
+      key: "",
+      align: "center",
+    },
+    {
+      title: "Hora",
+      dataIndex: "",
+      key: "",
       align: "center",
     },
     {
@@ -90,8 +99,8 @@ const SupportsUserList = () => {
     },
     {
       title: "Otro",
-      dataIndex: "otro",
-      key: "otro",
+      dataIndex: "otromotivo",
+      key: "otromotivo",
       align: "center",
     },
     {
@@ -128,6 +137,12 @@ const SupportsUserList = () => {
       title: "Dictamen",
       dataIndex: "dictamen",
       key: "dictamen",
+      align: "center",
+    },
+    {
+      title: "Otro",
+      dataIndex: "otrodictamen",
+      key: "otrodictamen",
       align: "center",
     },
   ];

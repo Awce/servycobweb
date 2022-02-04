@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import DictationsAssignmentsList from ".././dictations/DictationsAssignmentsList";
 import { useQuery, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import {
@@ -265,9 +264,6 @@ const AssignmentDetails = (props) => {
             </Row>
           </div>
         </TabPane>
-        {/* <TabPane tab="GESTIONES" key={2}>
-          <DictationsAssignmentsList />
-        </TabPane> */}
       </Tabs>
     </div>
   );
