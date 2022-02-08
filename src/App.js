@@ -13,8 +13,8 @@ import fetch from "node-fetch";
 import { setContext } from "apollo-link-context";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/",
-  //uri: "https://powerful-springs-44042.herokuapp.com/",
+  //uri: "http://localhost:4000/",
+  uri: "https://servycobbackend.herokuapp.com/",
   fetch,
 });
 
