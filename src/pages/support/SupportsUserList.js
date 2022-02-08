@@ -43,6 +43,7 @@ const SupportsUserList = () => {
       dataIndex: "id",
       key: "id",
       align: "center",
+      ellipsis: true,
     },
     {
       title: "Nombre",
@@ -54,6 +55,7 @@ const SupportsUserList = () => {
           <span>{support.nombre}</span>
         </Link>
       ),
+      ellipsis: true,
     },
     {
       title: "Correo",
@@ -72,23 +74,19 @@ const SupportsUserList = () => {
       dataIndex: "modelo",
       key: "modelo",
       align: "center",
+      ellipsis: true,
     },
     {
       title: "Ubicación",
       dataIndex: "ubicacion",
       key: "ubicacion",
       align: "center",
+      ellipsis: true,
     },
     {
-      title: "Fecha",
-      dataIndex: "",
-      key: "",
-      align: "center",
-    },
-    {
-      title: "Hora",
-      dataIndex: "",
-      key: "",
+      title: "Fecha y Hora",
+      dataIndex: "creado",
+      key: "creado",
       align: "center",
     },
     {
@@ -96,12 +94,14 @@ const SupportsUserList = () => {
       dataIndex: "motivollamada",
       key: "motivollamada",
       align: "center",
+      ellipsis: true,
     },
     {
       title: "Otro",
       dataIndex: "otromotivo",
       key: "otromotivo",
       align: "center",
+      ellipsis: true,
     },
     {
       title: "Producto",
@@ -120,18 +120,21 @@ const SupportsUserList = () => {
       dataIndex: "motivo",
       key: "motivo",
       align: "center",
+      ellipsis: true,
     },
     {
       title: "Causa",
       dataIndex: "causa",
       key: "causa",
       align: "center",
+      ellipsis: true,
     },
     {
       title: "Comentarios",
       dataIndex: "comentarios",
       key: "comentarios",
       align: "center",
+      ellipsis: true,
     },
     {
       title: "Dictamen",
@@ -144,6 +147,7 @@ const SupportsUserList = () => {
       dataIndex: "otrodictamen",
       key: "otrodictamen",
       align: "center",
+      ellipsis: true,
     },
   ];
 
@@ -194,7 +198,7 @@ const SupportsUserList = () => {
           </Button>,
           <Button
             type="primary"
-            key={1}
+            key={2}
             onClick={onRegisterSupportButton}
             icon={<CustomerServiceOutlined />}
           >
@@ -205,13 +209,15 @@ const SupportsUserList = () => {
       <div style={{ marginTop: "3px" }}>
         <Table
           id="mytable"
+          title={() => "Texto"}
           columns={columns}
-          dataSource={data.obtenerSoportes}
+          dataSource={data.obtenerSoportesUsuario}
           rowKey={(record) => record.id}
           style={{ marginTop: "3px" }}
-          pagination={{ pageSize: 25 }}
+          pagination={{ pageSize: 50 }}
           scroll={{ y: 240 }}
           size="small"
+          bordered
         />
       </div>
     </div>

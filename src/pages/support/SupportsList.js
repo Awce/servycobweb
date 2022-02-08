@@ -216,6 +216,7 @@ const SupportsList = () => {
       <div style={{ marginTop: "3px" }}>
         <Table
           id="mytable"
+          title={() => "Header"}
           columns={columns}
           dataSource={data.obtenerSoportes}
           rowKey={(record) => record.id}

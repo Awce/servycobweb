@@ -268,6 +268,7 @@ const SupportCreate = () => {
       causa: "",
       comentarios: "",
       dictamen: "",
+      otrodictamen: "",
     },
     validationSchema: Yup.object({
       nombre: Yup.string().required("El Nombre es obligatorio."),
@@ -287,6 +288,7 @@ const SupportCreate = () => {
       causa: Yup.string().required("la Causa es obligatoria."),
       comentarios: Yup.string().required("Los Comentarios son obligatorios."),
       dictamen: Yup.string().required("El Dictamen es obligatorio."),
+      otrodictamen: Yup.string(),
     }),
     onSubmit: async (valores) => {
       const {
@@ -296,13 +298,14 @@ const SupportCreate = () => {
         modelo,
         ubicacion,
         motivollamada,
-        otro,
+        otromotivo,
         producto,
         categoria,
         motivo,
         causa,
         comentarios,
         dictamen,
+        otrodictamen,
       } = valores;
       try {
         const { data } = await nuevoSoporte({
@@ -314,13 +317,14 @@ const SupportCreate = () => {
               modelo,
               ubicacion,
               motivollamada,
-              otro,
+              otromotivo,
               producto,
               categoria,
               motivo,
               causa,
               comentarios,
               dictamen,
+              otrodictamen,
             },
           },
         });
@@ -499,18 +503,28 @@ const SupportCreate = () => {
                       />
                     ) : null}
                   </Col>
-                  <Col span={6}>
-                    <Input
-                      placeholder="Otro"
-                      className="input-form"
-                      name="otromotivo"
-                      allowClear
-                      disabled
-                      value={formik.values.otromotivo}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                  </Col>
+                  {formik.values.motivollamada === "Otro" ? (
+                    <Col span={6}>
+                      <Input
+                        placeholder="Otro"
+                        className="input-form"
+                        name="otromotivo"
+                        allowClear
+                        value={formik.values.otromotivo}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </Col>
+                  ) : (
+                    <Col span={6}>
+                      <Input
+                        placeholder="Otro"
+                        className="input-form"
+                        name="otromotivo"
+                        disabled
+                      />
+                    </Col>
+                  )}
                   <Col span={6}>
                     <SelectForm
                       placeholder="Producto"
@@ -612,18 +626,29 @@ const SupportCreate = () => {
                       />
                     ) : null}
                   </Col>
-                  <Col span={12}>
-                    <Input
-                      placeholder="Otro"
-                      className="input-form"
-                      name="otrodictamen"
-                      allowClear
-                      disabled
-                      value={formik.values.otrodictamen}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                  </Col>
+                  {formik.values.dictamen === "Otro" ? (
+                    <Col span={12}>
+                      <Input
+                        placeholder="Otro"
+                        className="input-form"
+                        name="otrodictamen"
+                        allowClear
+                        value={formik.values.otrodictamen}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </Col>
+                  ) : (
+                    <Col span={12}>
+                      <Input
+                        placeholder="Otro"
+                        className="input-form"
+                        name="otrodictamen"
+                        disabled
+                      />
+                    </Col>
+                  )}
+
                   <Col span={24}>
                     <TextArea
                       placeholder="Comentarios"
