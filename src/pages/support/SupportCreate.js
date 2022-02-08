@@ -122,7 +122,7 @@ const selectTypereason = [
   { value: "Otro", label: "Otro" },
 ];
 
-const selectCause = [
+const selectCauseadvisory = [
   { value: "Asesoría de funcionamiento", label: "Asesoría de funcionamiento" },
   { value: "No se conecta al programa", label: "No se conecta al programa" },
   {
@@ -130,16 +130,25 @@ const selectCause = [
     label: "No puede descargar Firmware",
   },
   { value: "Actualizaciones firmware", label: "Actualizaciones firmware" },
+];
+
+const selectCausePurchase = [
   {
     value: "Compra de partes o accesorios",
     label: "Compra de partes o accesorios",
   },
+];
+
+const selectCauseSetting = [
   { value: "No conecta Bluetooth", label: "No conecta Bluetooth" },
   { value: "No hay audio", label: "No hay audio" },
   {
     value: "No hay audio en los audífonos",
     label: "No hay audio en los audífonos",
   },
+];
+
+const selectCauseError = [
   { value: "Protegido", label: "Protegido" },
   { value: "Olor a quemado", label: "Olor a quemado" },
   { value: "Distorsiona", label: "Distorsiona" },
@@ -154,16 +163,28 @@ const selectCause = [
     value: "Equipo Dañado o roto al sacarlo del empaque",
     label: "Equipo Dañado o roto al sacarlo del empaque",
   },
+];
+
+const selectCuaseFail = [
   { value: "No se conecta a Wifi", label: "No se conecta a Wifi" },
+];
+
+const selectCuaseTurn = [
   { value: "Se apago pero tiene audio", label: "Se apago pero tiene audio" },
   {
     value: "Se apago pero ya no encendió",
     label: "Se apago pero ya no encendió",
   },
+];
+
+const selectCauseProblem = [
   {
     value: "No funciona el control remoto",
     label: "No funciona el control remoto",
   },
+];
+
+const selectCuaseProblemHard = [
   { value: "No enciende", label: "No enciende" },
   { value: "No se escucha", label: "No se escucha" },
   { value: "Sin audio", label: "Sin audio" },
@@ -195,6 +216,9 @@ const selectCause = [
     value: "No responde correctamente a comandos",
     label: "No responde correctamente a comandos",
   },
+];
+
+const selectCuaseProblemApp = [
   {
     value: "Falla aplicación Pioneer Smart Sync",
     label: "Falla aplicación Pioneer Smart Sync",
@@ -212,6 +236,9 @@ const selectCause = [
     value: "No se pueden instalar aplicaciones",
     label: "No se pueden instalar aplicaciones",
   },
+];
+
+const selectCauseProblemAudio = [
   { value: "Audio intermitente", label: "Audio intermitente" },
   { value: "Se corta el audio", label: "Se corta el audio" },
   { value: "No tiene audio", label: "No tiene audio" },
@@ -219,6 +246,9 @@ const selectCause = [
   { value: "Audio distorsionado", label: "Audio distorsionado" },
   { value: "Distorsiona o cartonea", label: "Distorsiona o cartonea" },
   { value: "No tiene audio", label: "No tiene audio" },
+];
+
+const selectCauseProblemDisplay = [
   { value: "Aparecieron rayas", label: "Aparecieron rayas" },
   { value: "Apareció mancha o manchas", label: "Apareció mancha o manchas" },
   { value: "Se ve la mitad de imagen", label: "Se ve la mitad de imagen" },
@@ -585,26 +615,274 @@ const SupportCreate = () => {
                       />
                     ) : null}
                   </Col>
-                  <Col span={8}>
-                    <SelectForm
-                      placeholder="Causa"
-                      className="input-form"
-                      options={selectCause}
-                      isClearable
-                      value={formik.values.causa}
-                      onChange={(value) =>
-                        formik.setFieldValue("causa", value.value)
-                      }
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.causa && formik.errors.causa ? (
-                      <Alert
-                        message={formik.errors.causa}
-                        type="error"
-                        showIcon
+
+                  {formik.values.motivo === "Asesoría de funcionamiento" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCauseadvisory}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
                       />
-                    ) : null}
-                  </Col>
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Compra de partes o accesorios" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCausePurchase}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Configuración" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCauseSetting}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Error de usuario" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCauseError}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Falla Wifi" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCuaseFail}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "No enciende" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCuaseTurn}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Problemas de accesorios" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCauseProblem}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Problemas de Hardware" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCuaseProblemHard}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Problemas en aplicaciones" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCuaseProblemApp}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Problemas en audio" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCauseProblemAudio}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Problemas en display" ? (
+                    <Col span={8}>
+                      <SelectForm
+                        placeholder="Causa"
+                        className="input-form"
+                        options={selectCauseProblemDisplay}
+                        isClearable
+                        value={formik.values.causa}
+                        onChange={(value) =>
+                          formik.setFieldValue("causa", value.value)
+                        }
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.causa && formik.errors.causa ? (
+                        <Alert
+                          message={formik.errors.causa}
+                          type="error"
+                          showIcon
+                        />
+                      ) : null}
+                    </Col>
+                  ) : null}
+
+                  {formik.values.motivo === "Otro" ? (
+                    <Col span={8}>
+                      <Input
+                        placeholder="Otro"
+                        className="input-form"
+                        name="causa"
+                        allowClear
+                        value={formik.values.causa}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </Col>
+                  ) : null}
+
                   <Col span={12}>
                     <SelectForm
                       placeholder="Dictamen llamada"
