@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Space } from "antd";
 import UserAvatar from "./user/UserAvatar";
-//import LogoCompany from "./LogoCompany";
+import LogoCompany from "./LogoCompany";
 import UserNotifications from "./user/UserNotifications";
 import UserEmails from "./user/UserEmails";
 import UserMessages from "./user/UserMessages";
@@ -20,7 +20,9 @@ const NavbarMenu = () => {
         </Row>
       </Col>
       <Col span={4} pull={18}>
-        <Row justify="center">{/* <LogoCompany /> */}</Row>
+        <Row justify="center">
+          <LogoCompany />
+        </Row>
       </Col>
     </Row>
   );
