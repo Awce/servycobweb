@@ -102,6 +102,7 @@ const selectCategory = [
   { value: "CAR", label: "CAR" },
   { value: "Bocinas", label: "Bocinas" },
   { value: "Dj", label: "Dj" },
+  { value: "TV", label: "TV" },
 ];
 
 const selectTypereason = [
