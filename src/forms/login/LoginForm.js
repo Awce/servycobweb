@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 import { Alert, Form, Input, Button, Card, Tooltip, message } from "antd";
-import Logo from "../../components/LogoWhite";
+//import Logo from "../../components/LogoWhite";
 import {
   MailOutlined,
   UnlockOutlined,
@@ -56,7 +56,7 @@ const LoginForm = () => {
         });
         message.loading({ content: "Iniciando sesión...", key });
         const { token } = data.autenticarUsuario;
-        localStorage.setItem("token", token); //Pasarlo a Context
+        localStorage.setItem("token", token);
         setTimeout(() => {
           history.push("/informacion");
           message.success({
@@ -91,7 +91,7 @@ const LoginForm = () => {
           className="level-item has-text-centered"
           style={{ marginBottom: "10px" }}
         >
-          <Logo />
+          {/* <Logo /> */}
         </div>
       </div>
 
