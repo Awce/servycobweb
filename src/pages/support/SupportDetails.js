@@ -63,6 +63,8 @@ const SupportDetails = (props) => {
     creado,
   } = data.obtenerSoporte;
 
+  console.log(Date.parse(creado));
+
   return (
     <div
       style={{ paddingLeft: "10px", marginTop: "10px", marginRight: "10px" }}

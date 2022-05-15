@@ -33,28 +33,25 @@ const OBTENER_SOPORTES = gql`
 
 const SupportsList = () => {
   const { data, loading, error } = useQuery(OBTENER_SOPORTES);
-  console.log(data);
+
   console.log(error);
 
+  if (loading) return <Loading />;
+
   const columns = [
-    {
-      title: "Id",
-      dataIndex: "id",
-      key: "id",
-      align: "center",
-      ellipsis: true,
-    },
     {
       title: "Nombre",
       dataIndex: "nombre",
       key: "nombre",
       align: "center",
-      ellipsis: true,
       render: (text, support) => (
         <Link to={`/soporte/${support.id}`}>
           <span>{support.nombre}</span>
         </Link>
       ),
+      onCell: (_, index) => ({
+        colSpan: index < 4 ? 1 : 5,
+      }),
     },
     {
       title: "Correo",
@@ -86,17 +83,15 @@ const SupportsList = () => {
     },
     {
       title: "Fecha",
-      dataIndex: "creado",
-      key: "creado",
+      dataIndex: "fecha",
+      key: "fecha",
       align: "center",
-      ellipsis: true,
     },
     {
       title: "Hora",
-      dataIndex: "creado",
-      key: "creado",
+      dataIndex: "hora",
+      key: "fecha",
       align: "center",
-      ellipsis: true,
     },
     {
       title: "Motivo Llamada",
@@ -170,8 +165,6 @@ const SupportsList = () => {
     },
   ];
 
-  if (loading) return <Loading />;
-
   const writeSupportFile = () => {
     let wb = XLSX.utils.table_to_book(document.getElementById("mytable"), {
       sheet: "Soporte",
@@ -216,14 +209,12 @@ const SupportsList = () => {
       <div style={{ marginTop: "3px" }}>
         <Table
           id="mytable"
-          title={() => "Header"}
           columns={columns}
           dataSource={data.obtenerSoportes}
           rowKey={(record) => record.id}
           style={{ marginTop: "3px" }}
-          pagination={{ pageSize: 50 }}
-          scroll={{ y: 240 }}
-          size="small"
+          pagination={{ pageSize: 100 }}
+          scroll={{ y: 640 }}
           bordered
         />
       </div>
