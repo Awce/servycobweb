@@ -6,6 +6,7 @@ import XLSX from "xlsx";
 import { Link, useHistory } from "react-router-dom";
 import { PageHeader, Button, Table } from "antd";
 import { CustomerServiceOutlined, DownloadOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 const OBTENER_MIS_SOPORTES = gql`
   query obtenerSoportesUsuario {
@@ -33,8 +34,9 @@ const OBTENER_MIS_SOPORTES = gql`
 
 const SupportsUserList = () => {
   const { data, loading, error } = useQuery(OBTENER_MIS_SOPORTES);
-  console.log(data);
+
   console.log(error);
+
   const history = useHistory();
 
   const columns = [
@@ -88,6 +90,8 @@ const SupportsUserList = () => {
       dataIndex: "creado",
       key: "creado",
       align: "center",
+      render: (text, support) =>
+        moment(Number(support.creado)).format("DD MM YYYY h:mm A"),
     },
     {
       title: "Motivo Llamada",
@@ -209,14 +213,12 @@ const SupportsUserList = () => {
       <div style={{ marginTop: "3px" }}>
         <Table
           id="mytable"
-          title={() => "Texto"}
           columns={columns}
           dataSource={data.obtenerSoportesUsuario}
           rowKey={(record) => record.id}
           style={{ marginTop: "3px" }}
-          pagination={{ pageSize: 50 }}
-          scroll={{ y: 240 }}
-          size="small"
+          pagination={{ pageSize: 100 }}
+          scroll={{ y: 640 }}
           bordered
         />
       </div>

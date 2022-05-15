@@ -6,6 +6,7 @@ import XLSX from "xlsx";
 import { Link } from "react-router-dom";
 import { PageHeader, Button, Table } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 const OBTENER_SOPORTES = gql`
   query obtenerSoportes {
@@ -40,6 +41,13 @@ const SupportsList = () => {
 
   const columns = [
     {
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+      align: "center",
+      ellipsis: true,
+    },
+    {
       title: "Nombre",
       dataIndex: "nombre",
       key: "nombre",
@@ -49,9 +57,7 @@ const SupportsList = () => {
           <span>{support.nombre}</span>
         </Link>
       ),
-      onCell: (_, index) => ({
-        colSpan: index < 4 ? 1 : 5,
-      }),
+      ellipsis: true,
     },
     {
       title: "Correo",
@@ -82,16 +88,12 @@ const SupportsList = () => {
       ellipsis: true,
     },
     {
-      title: "Fecha",
-      dataIndex: "fecha",
-      key: "fecha",
+      title: "Fecha y Hora",
+      dataIndex: "creado",
+      key: "creado",
       align: "center",
-    },
-    {
-      title: "Hora",
-      dataIndex: "hora",
-      key: "fecha",
-      align: "center",
+      render: (text, support) =>
+        moment(Number(support.creado)).format("DD MM YYYY h:mm A"),
     },
     {
       title: "Motivo Llamada",
@@ -182,7 +184,7 @@ const SupportsList = () => {
     };
     saveAs(
       new Blob([s2ab(wbout)], { type: "application/octet-stream" }),
-      "Soporte.xlsx"
+      "HistorialSoportes.xlsx"
     );
   };
 
@@ -194,7 +196,7 @@ const SupportsList = () => {
         style={{
           border: "1px solid rgb(235, 237, 240)",
         }}
-        title="Soporte"
+        title="Todos los Soportes"
         subTitle="Lista"
         extra={[
           <Button

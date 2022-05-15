@@ -3,6 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { Card, PageHeader, Descriptions } from "antd";
 import Loading from "../../components/Loading";
+import moment from "moment";
 
 const OBTENER_SOPORTE = gql`
   query obtenerSoporte($id: ID!) {
@@ -63,7 +64,7 @@ const SupportDetails = (props) => {
     creado,
   } = data.obtenerSoporte;
 
-  console.log(Date.parse(creado));
+  const myDate = moment(Number(creado)).format("DD MMM YYYY h:mm A");
 
   return (
     <div
@@ -89,7 +90,7 @@ const SupportDetails = (props) => {
             <Descriptions.Item label="Teléfono">{telefono}</Descriptions.Item>
             <Descriptions.Item label="Modelo">{modelo}</Descriptions.Item>
             <Descriptions.Item label="Ubicación">{ubicacion}</Descriptions.Item>
-            <Descriptions.Item label="Fecha y Hora">{creado}</Descriptions.Item>
+            <Descriptions.Item label="Fecha y Hora">{myDate}</Descriptions.Item>
           </Descriptions>
         </Card>
       </div>
