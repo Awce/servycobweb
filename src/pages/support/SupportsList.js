@@ -92,6 +92,8 @@ const SupportsList = () => {
       dataIndex: "creado",
       key: "creado",
       align: "center",
+      sorter: (a, b) => a.creado - b.creado,
+      defaultSortOrder: "ascend",
       render: (text, support) =>
         moment(Number(support.creado)).format("DD MM YYYY h:mm A"),
     },
