@@ -583,25 +583,6 @@ const SupportCreate = () => {
           <Form.Item label="Datos de la Llamada">
             <Row gutter={24}>
               <Col span={12}>
-                <DatePicker
-                  placeholder="Fecha"
-                  onChange={onChangeDate}
-                  defaultValue={moment("01/01/2022", "DD/MM/YYYY")}
-                  format="DD/MM/YYYY"
-                  size="large"
-                />
-              </Col>
-              <Col span={12}>
-                <TimePicker
-                  placeholder="Hora"
-                  onChange={onChangeTime}
-                  defaultOpenValue={moment("00:00:00", "HH:mm:ss")}
-                  size="large"
-                />
-              </Col>
-            </Row>
-            <Row gutter={24}>
-              <Col span={12}>
                 <SelectForm
                   placeholder="Motivo de la llamada"
                   className="input-form"
